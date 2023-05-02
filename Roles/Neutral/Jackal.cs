@@ -13,6 +13,7 @@ public static class Jackal
     public static OptionItem CanVent;
     public static OptionItem CanUseSabotage;
     private static OptionItem HasImpostorVision;
+    public static OptionItem HasSidekick;
 
     public static void SetupCustomOption()
     {
@@ -23,6 +24,7 @@ public static class Jackal
         CanVent = BooleanOptionItem.Create(Id + 11, "CanVent", true, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Jackal]);
         CanUseSabotage = BooleanOptionItem.Create(Id + 12, "CanUseSabotage", false, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Jackal]);
         HasImpostorVision = BooleanOptionItem.Create(Id + 13, "ImpostorVision", true, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Jackal]);
+        HasSidekick = BooleanOptionItem.Create(Id + 14, "HasSidekick", true, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Jackal]);
     }
     public static void Init()
     {

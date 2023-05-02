@@ -103,6 +103,7 @@ internal static class CustomRolesHelper
             CustomRoles.Sheriff => RoleTypes.Impostor,
             CustomRoles.Arsonist => RoleTypes.Impostor,
             CustomRoles.Jackal => RoleTypes.Impostor,
+            CustomRoles.Sidekick => RoleTypes.Impostor,
             CustomRoles.SwordsMan => RoleTypes.Impostor,
             CustomRoles.Innocent => RoleTypes.Impostor,
             CustomRoles.Pelican => RoleTypes.Impostor,
@@ -146,6 +147,7 @@ internal static class CustomRolesHelper
     {
         return role is
             CustomRoles.Jackal or
+            CustomRoles.Sidekick or
             CustomRoles.Pelican or
             CustomRoles.FFF or
             CustomRoles.Gamer or
@@ -159,6 +161,7 @@ internal static class CustomRolesHelper
             CustomRoles.Terrorist or
             CustomRoles.Arsonist or
             CustomRoles.Jackal or
+            CustomRoles.Sidekick or
             CustomRoles.God or
             CustomRoles.Mario or
             CustomRoles.Innocent or
@@ -236,6 +239,7 @@ internal static class CustomRolesHelper
             CustomRoles.Executioner or
             CustomRoles.Arsonist or
             CustomRoles.Jackal or
+            CustomRoles.Sidekick or
             CustomRoles.God or
             CustomRoles.Innocent or
             CustomRoles.Pelican or
@@ -360,6 +364,7 @@ internal static class CustomRolesHelper
        {
            CustomRoles.GM => CountTypes.OutOfGame,
            CustomRoles.Jackal => CountTypes.Jackal,
+           CustomRoles.Sidekick => CountTypes.Jackal,
            CustomRoles.Pelican => CountTypes.Pelican,
            CustomRoles.Gamer => CountTypes.Gamer,
            CustomRoles.BloodKnight => CountTypes.BloodKnight,
