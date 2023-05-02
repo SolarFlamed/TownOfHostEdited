@@ -58,3 +58,13 @@
 > 
 > - Reference: Modify settings menu
 > 
+
+### :star: Changes made in this branch
+> 
+> - Added Shapeshifter
+> - Added Engineer
+> - Added Scientist
+> - Added Marshall from Town of Host Plus
+> - Bait is now an add-on
+> - Beartrap is now an add-on and renamed to Sticky for a better fitting add-on name
+> - Sheriff shot limit can now be set to 0 (hides the counter and allows infinite shots)
