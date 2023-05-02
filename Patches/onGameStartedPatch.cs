@@ -244,7 +244,6 @@ internal class SelectRolesPatch
             SelectCustomRoles();
             SelectAddonRoles();
             CalculateVanillaRoleCount();
-            bool sidekickSpawn = false;
 
             //指定原版特殊职业数量
             var roleOpt = Main.NormalOptions.roleOptions;
@@ -260,9 +259,6 @@ internal class SelectRolesPatch
             // 注册反职业
             foreach (var kv in RoleResult.Where(x => x.Value.IsDesyncRole()))
                 AssignDesyncRole(kv.Value, kv.Key, senders, rolesMap, BaseRole: kv.Value.GetDYRole());
-
-            foreach (var cp in RoleResult.Where(x => x.Value == CustomRoles.Crewpostor))
-                AssignDesyncRole(cp.Value, cp.Key, senders, rolesMap, BaseRole: RoleTypes.Crewmate, hostBaseRole: RoleTypes.Impostor);
 
             foreach (var cp in RoleResult.Where(x => x.Value == CustomRoles.Crewpostor))
                 AssignDesyncRole(cp.Value, cp.Key, senders, rolesMap, BaseRole: RoleTypes.Crewmate, hostBaseRole: RoleTypes.Impostor);
@@ -424,10 +420,6 @@ internal class SelectRolesPatch
                         Executioner.Add(pc.PlayerId);
                         break;
                     case CustomRoles.Jackal:
-                        Jackal.Add(pc.PlayerId);
-                        break;
-                    case CustomRoles.Sidekick:
-                    if (Jackal.HasSidekick.GetBool())
                         Jackal.Add(pc.PlayerId);
                         break;
                     case CustomRoles.Sheriff:

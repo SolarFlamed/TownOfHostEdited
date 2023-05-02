@@ -655,7 +655,17 @@ class MeetingHudStartPatch
 
             if (seer.KnowDeathReason(target))
                 sb.Append($"({Utils.ColorString(Utils.GetRoleColor(CustomRoles.Doctor), Utils.GetVitalText(target.PlayerId))})");
+            if (seer.KnowDeadTeam(target))
+            {
+                if (target.Is(CustomRoleTypes.Crewmate) && !target.Is(CustomRoles.Madmate) && target.Data.IsDead)
+                        sb.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.SpeedBooster), "★")); //Necroview
+                if (target.Is(CustomRoleTypes.Impostor)  && target.Data.IsDead || target.Is(CustomRoles.Madmate) && target.Data.IsDead)
+                        sb.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Impostor), "★")); //Necroview
+                if (target.Is(CustomRoleTypes.Neutral) && target.Data.IsDead)
+                        sb.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.EngineerTOHE), "★")); //Necroview
 
+
+            }
             //インポスター表示
             switch (seer.GetCustomRole().GetCustomRoleTypes())
             {
@@ -680,7 +690,6 @@ class MeetingHudStartPatch
                     sb.Append(Executioner.TargetMark(seer, target));
                     break;
                 case CustomRoles.Jackal:
-                case CustomRoles.Sidekick:
                 case CustomRoles.Pelican:
                 case CustomRoles.DarkHide:
                 case CustomRoles.BloodKnight:

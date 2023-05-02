@@ -341,7 +341,6 @@ class GameEndChecker
                 reason = GameOverReason.ImpostorByKill;
                 CustomWinnerHolder.ResetAndSetWinner(CustomWinner.Jackal);
                 CustomWinnerHolder.WinnerRoles.Add(CustomRoles.Jackal);
-                CustomWinnerHolder.WinnerRoles.Add(CustomRoles.Sidekick);
             }
             else if (Imp == 0 && Jackal == 0 && Gam == 0 && BK == 0 && Crew <= Pel) //鹈鹕胜利
             {
