@@ -517,7 +517,36 @@ class MurderPlayerPatch
 
         switch (target.GetCustomRole())
         {
-            //When Bait is killed
+            
+            //Terrorist
+            case CustomRoles.Terrorist:
+                Logger.Info(target?.Data?.PlayerName + "はTerroristだった", "MurderPlayer");
+                Utils.CheckTerroristWin(target.Data);
+                break;
+            
+            case CustomRoles.Executioner:
+                if (Executioner.Target.ContainsKey(target.PlayerId))
+                {
+                    Executioner.Target.Remove(target.PlayerId);
+                    Executioner.SendRPC(target.PlayerId);
+                }
+                break;
+            case CustomRoles.CyberStar:
+                if (!Main.CyberStarDead.Contains(target.PlayerId))
+                    Main.CyberStarDead.Add(target.PlayerId);
+                break;
+            case CustomRoles.Pelican:
+                Pelican.OnPelicanDied(target.PlayerId);
+                break;
+            case CustomRoles.BallLightning:
+                if (killer != target)
+                    BallLightning.MurderPlayer(killer, target);
+                break;
+        }
+                    foreach (var subRole in target.GetCustomSubRoles())
+                switch (subRole)
+                {
+                    //When Bait is killed
             case CustomRoles.Bait:
                 if (killer.PlayerId != target.PlayerId || target.GetRealKiller()?.GetCustomRole() is CustomRoles.Swooper)
                 {
@@ -550,34 +579,12 @@ class MurderPlayerPatch
                     }
                 }
                 break;
-            //Terrorist
-            case CustomRoles.Terrorist:
-                Logger.Info(target?.Data?.PlayerName + "はTerroristだった", "MurderPlayer");
-                Utils.CheckTerroristWin(target.Data);
-                break;
-            case CustomRoles.Trapper:
+                case CustomRoles.Trapper:
                 if (killer != target)
                     killer.TrapperKilled(target);
                 break;
-            case CustomRoles.Executioner:
-                if (Executioner.Target.ContainsKey(target.PlayerId))
-                {
-                    Executioner.Target.Remove(target.PlayerId);
-                    Executioner.SendRPC(target.PlayerId);
                 }
-                break;
-            case CustomRoles.CyberStar:
-                if (!Main.CyberStarDead.Contains(target.PlayerId))
-                    Main.CyberStarDead.Add(target.PlayerId);
-                break;
-            case CustomRoles.Pelican:
-                Pelican.OnPelicanDied(target.PlayerId);
-                break;
-            case CustomRoles.BallLightning:
-                if (killer != target)
-                    BallLightning.MurderPlayer(killer, target);
-                break;
-        }
+
 
         switch (killer.GetCustomRole())
         {
