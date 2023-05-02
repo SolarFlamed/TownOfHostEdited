@@ -264,7 +264,8 @@ public enum TabGroup
     CrewmateRoles,
     NeutralRoles,
     Addons,
-    OtherRoles
+    OtherRoles,
+    VanillaRoles
 }
 public enum OptionFormat
 {

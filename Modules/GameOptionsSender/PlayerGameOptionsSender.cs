@@ -90,6 +90,7 @@ public class PlayerGameOptionsSender : GameOptionsSender
             case CustomRoles.Terrorist:
             case CustomRoles.SabotageMaster:
             case CustomRoles.Mario:
+            case CustomRoles.EngineerTOHE:
                 AURoleOptions.EngineerCooldown = 0f;
                 AURoleOptions.EngineerInVentMaxTime = 0f;
                 break;
@@ -198,7 +199,7 @@ public class PlayerGameOptionsSender : GameOptionsSender
                 break;
         }
 
-        // ÎªÃÔ»óÕßµÄÐ×ÊÖ
+        // Îªï¿½Ô»ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½
         if (Main.AllPlayerControls.Where(x => x.Is(CustomRoles.Bewilder) && !x.IsAlive() && x.GetRealKiller()?.PlayerId == player.PlayerId && !x.Is(CustomRoles.Hangman)).Count() > 0)
         {
             opt.SetVision(false);
@@ -206,7 +207,7 @@ public class PlayerGameOptionsSender : GameOptionsSender
             opt.SetFloat(FloatOptionNames.ImpostorLightMod, Options.BewilderVision.GetFloat());
         }
 
-        // Í¶ÖÀÉµ¹Ïµ°À²£¡£¡£¡£¡£¡
+        // Í¶ï¿½ï¿½Éµï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (
             (Main.GrenadierBlinding.Count >= 1 &&
             (player.GetCustomRole().IsImpostor() ||
@@ -244,7 +245,7 @@ public class PlayerGameOptionsSender : GameOptionsSender
             }
         }
 
-        // µ±¹¤³ÌÌø¹ÜÀäÈ´Îª0Ê±ÎÞ·¨Õý³£ÏÔÊ¾Í¼±ê
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´Îª0Ê±ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾Í¼ï¿½ï¿½
         AURoleOptions.EngineerCooldown = Mathf.Max(0.01f, AURoleOptions.EngineerCooldown);
 
         if (Main.AllPlayerKillCooldown.TryGetValue(player.PlayerId, out var killCooldown))

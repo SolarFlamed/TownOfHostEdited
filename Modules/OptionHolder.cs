@@ -749,7 +749,7 @@ public static class Options
             .SetValueFormat(OptionFormat.Times);
         SetupRoleOptions(8023487, TabGroup.OtherRoles, CustomRoles.Glitch);
         GlitchCanVote = BooleanOptionItem.Create(8023489, "GlitchCanVote", true, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Glitch]);
-
+        Marshall.SetupCustomOption();
         // 中立
         TextOptionItem.Create(909094, "OtherRoles.NeutralRoles", TabGroup.OtherRoles)
             .SetGameMode(CustomGameMode.Standard)
@@ -786,6 +786,17 @@ public static class Options
         SetupAdtRoleOptions(6050490, CustomRoles.Egoist, canSetNum: true, tab: TabGroup.OtherRoles);
         ImpCanBeEgoist = BooleanOptionItem.Create(6050495, "ImpCanBeEgoist", true, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Egoist]);
         CrewCanBeEgoist = BooleanOptionItem.Create(6050497, "CrewCanBeEgoist", true, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Egoist]);
+
+        // Vanilla
+        TextOptionItem.Create(120015, "OtherRoles.ImpostorRoles", TabGroup.VanillaRoles)
+            .SetGameMode(CustomGameMode.Standard)
+            .SetColor(new Color32(247, 70, 49, byte.MaxValue));
+        SetupRoleOptions(120000, TabGroup.VanillaRoles, CustomRoles.ShapeshifterTOHE);
+        TextOptionItem.Create(120020, "OtherRoles.CrewmateRoles", TabGroup.VanillaRoles)
+            .SetGameMode(CustomGameMode.Standard)
+            .SetColor(new Color32(140, 255, 255, byte.MaxValue));
+        SetupRoleOptions(120005, TabGroup.VanillaRoles, CustomRoles.EngineerTOHE);
+        SetupRoleOptions(120010, TabGroup.VanillaRoles, CustomRoles.ScientistTOHE);
 
         #endregion
 
