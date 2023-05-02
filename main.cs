@@ -259,12 +259,16 @@ public class Main : BasePlugin
                 {CustomRoles.Engineer, "#8cffff"},
                 {CustomRoles.Scientist, "#8cffff"},
                 {CustomRoles.GuardianAngel, "#ffffff"},
+                // Vanilla Remakes
+                {CustomRoles.EngineerTOHE, "#FF6A00"},
+                {CustomRoles.ScientistTOHE, "#8ee98e"},
                 //特殊クルー役職
                 {CustomRoles.Bait, "#00f7ff"},
                 {CustomRoles.Luckey, "#b8d7a3" },
                 {CustomRoles.Needy, "#a4dffe"},
                 {CustomRoles.SabotageMaster, "#3333ff"},
                 {CustomRoles.Snitch, "#b8fb4f"},
+                {CustomRoles.Marshall, "#1E90FF"},
                 {CustomRoles.Mayor, "#204d42"},
                 {CustomRoles.Paranoia, "#c993f5"},
                 {CustomRoles.Psychic, "#6F698C"},
@@ -384,6 +388,10 @@ public enum CustomRoles
     //Impostor(Vanilla)
     Impostor,
     Shapeshifter,
+    // Vanilla Remakes
+    EngineerTOHE,
+    ScientistTOHE,
+    ShapeshifterTOHE,
     //Impostor
     BountyHunter,
     FireWorks,
@@ -441,6 +449,7 @@ public enum CustomRoles
     SabotageMaster,
     Sheriff,
     Snitch,
+    Marshall,
     SpeedBooster,
     Trapper,
     Dictator,
