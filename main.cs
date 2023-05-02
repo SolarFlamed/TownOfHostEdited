@@ -303,7 +303,6 @@ public class Main : BasePlugin
                 {CustomRoles.Opportunist, "#4dff4d"},
                 {CustomRoles.Mario, "#ff6201"},
                 {CustomRoles.Jackal, "#00b4eb"},
-                {CustomRoles.Sidekick, "#00b4eb"},
                 {CustomRoles.Innocent, "#8f815e"},
                 {CustomRoles.Pelican, "#34c84b"},
                 {CustomRoles.Revolutionist, "#ba4d06"},
@@ -339,6 +338,8 @@ public class Main : BasePlugin
                 {CustomRoles.TicketsStealer, "#ff1919"},
                 {CustomRoles.DualPersonality, "#3a648f"},
                 {CustomRoles.Mimic, "#ff1919"},
+                {CustomRoles.Guesser, "#FFFF00"},
+                {CustomRoles.Necroview, "#663399"},
                 //SoloKombat
                 {CustomRoles.KB_Normal, "#f55252"}
             };
@@ -477,7 +478,6 @@ public enum CustomRoles
     Terrorist,
     Executioner,
     Jackal,
-    Sidekick,
     Innocent,
     Pelican,
     Revolutionist,
@@ -520,6 +520,8 @@ public enum CustomRoles
     TicketsStealer,
     DualPersonality,
     Mimic,
+    Guesser,
+    Necroview
 }
 //WinData
 public enum CustomWinner
