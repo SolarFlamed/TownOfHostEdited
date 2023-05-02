@@ -103,7 +103,6 @@ internal static class CustomRolesHelper
             CustomRoles.Sheriff => RoleTypes.Impostor,
             CustomRoles.Arsonist => RoleTypes.Impostor,
             CustomRoles.Jackal => RoleTypes.Impostor,
-            CustomRoles.Sidekick => RoleTypes.Impostor,
             CustomRoles.SwordsMan => RoleTypes.Impostor,
             CustomRoles.Innocent => RoleTypes.Impostor,
             CustomRoles.Pelican => RoleTypes.Impostor,
@@ -133,9 +132,11 @@ internal static class CustomRolesHelper
             CustomRoles.Trapper or
             CustomRoles.Brakar or
             CustomRoles.Oblivious or
+            CustomRoles.Guesser or
             CustomRoles.Bewilder or
             CustomRoles.Workhorse or
             CustomRoles.Fool or
+            CustomRoles.Necroview or
             CustomRoles.Avanger or
             CustomRoles.Youtuber or
             CustomRoles.Egoist or
@@ -147,7 +148,6 @@ internal static class CustomRolesHelper
     {
         return role is
             CustomRoles.Jackal or
-            CustomRoles.Sidekick or
             CustomRoles.Pelican or
             CustomRoles.FFF or
             CustomRoles.Gamer or
@@ -161,7 +161,6 @@ internal static class CustomRolesHelper
             CustomRoles.Terrorist or
             CustomRoles.Arsonist or
             CustomRoles.Jackal or
-            CustomRoles.Sidekick or
             CustomRoles.God or
             CustomRoles.Mario or
             CustomRoles.Innocent or
@@ -239,7 +238,6 @@ internal static class CustomRolesHelper
             CustomRoles.Executioner or
             CustomRoles.Arsonist or
             CustomRoles.Jackal or
-            CustomRoles.Sidekick or
             CustomRoles.God or
             CustomRoles.Innocent or
             CustomRoles.Pelican or
@@ -262,6 +260,7 @@ internal static class CustomRolesHelper
         if (role is CustomRoles.Lighter && (!pc.GetCustomRole().IsCrewmate() || pc.Is(CustomRoles.Bewilder))) return false;
         if (role is CustomRoles.Bewilder && (pc.GetCustomRole().IsImpostor() || pc.Is(CustomRoles.Lighter))) return false;
         if (role is CustomRoles.Ntr && (pc.Is(CustomRoles.Lovers) || pc.Is(CustomRoles.FFF))) return false;
+        if (role is CustomRoles.Guesser && (pc.Is(CustomRoles.EvilGuesser) || pc.Is(CustomRoles.NiceGuesser))) return false;
         if (role is CustomRoles.Madmate && !Utils.CanBeMadmate(pc)) return false;
         if (role is CustomRoles.Oblivious && (pc.Is(CustomRoles.Detective) || pc.Is(CustomRoles.Cleaner) || pc.Is(CustomRoles.Mortician) || pc.Is(CustomRoles.Mediumshiper))) return false;
         if (role is CustomRoles.Fool && (pc.GetCustomRole().IsImpostor() || pc.Is(CustomRoles.SabotageMaster))) return false;
@@ -274,6 +273,7 @@ internal static class CustomRolesHelper
         if (role is CustomRoles.TicketsStealer or CustomRoles.Mimic && !pc.GetCustomRole().IsImpostor()) return false;
         if (role is CustomRoles.TicketsStealer && (pc.Is(CustomRoles.Bomber) || pc.Is(CustomRoles.BoobyTrap))) return false;
         if (role is CustomRoles.Mimic && pc.Is(CustomRoles.Mafia)) return false;
+        if (role is CustomRoles.Necroview && pc.Is(CustomRoles.Doctor) || pc.Is(CustomRoles.God)) return false;
     //    if (role is CustomRoles.Bait && !pc.GetCustomRole().IsCrewmate() && pc.Is(CustomRoles.Trapper)) return false;
     //    if (role is CustomRoles.Trapper && !pc.GetCustomRole().IsCrewmate() && pc.Is(CustomRoles.Bait)) return false;
         if (role is CustomRoles.DualPersonality && ((!pc.GetCustomRole().IsImpostor() && !pc.GetCustomRole().IsCrewmate()) || pc.Is(CustomRoles.Madmate))) return false;
@@ -364,7 +364,6 @@ internal static class CustomRolesHelper
        {
            CustomRoles.GM => CountTypes.OutOfGame,
            CustomRoles.Jackal => CountTypes.Jackal,
-           CustomRoles.Sidekick => CountTypes.Jackal,
            CustomRoles.Pelican => CountTypes.Pelican,
            CustomRoles.Gamer => CountTypes.Gamer,
            CustomRoles.BloodKnight => CountTypes.BloodKnight,

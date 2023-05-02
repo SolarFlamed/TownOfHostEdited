@@ -147,7 +147,6 @@ public class PlayerGameOptionsSender : GameOptionsSender
                 EvilTracker.ApplyGameOptions(player.PlayerId);
                 break;
             case CustomRoles.Jackal:
-            case CustomRoles.Sidekick:
                 Jackal.ApplyGameOptions(opt);
                 break;
             case CustomRoles.Veteran:

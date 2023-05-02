@@ -615,10 +615,6 @@ internal static class RPC
             case CustomRoles.Jackal:
                 Jackal.Add(targetId);
                 break;
-            case CustomRoles.Sidekick:
-            if (Jackal.HasSidekick.GetBool())
-            Jackal.Add(targetId);
-                break;
             case CustomRoles.Sheriff:
                 Sheriff.Add(targetId);
                 break;

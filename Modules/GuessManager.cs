@@ -87,7 +87,7 @@ public static class GuessManager
 
         if (!AmongUsClient.Instance.AmHost) return false;
         if (!GameStates.IsInGame || pc == null) return false;
-        if (!pc.Is(CustomRoles.NiceGuesser) && !pc.Is(CustomRoles.EvilGuesser)) return false;
+        if (!pc.Is(CustomRoles.NiceGuesser) && !pc.Is(CustomRoles.EvilGuesser) && !pc.Is(CustomRoles.Guesser)) return false;
 
         int operate = 0; // 1:ID 2:猜测
         msg = msg.ToLower().TrimStart().TrimEnd();

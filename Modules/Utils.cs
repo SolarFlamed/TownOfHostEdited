@@ -346,7 +346,6 @@ public static class Utils
             case CustomRoles.Sheriff:
             case CustomRoles.Arsonist:
             case CustomRoles.Jackal:
-            case CustomRoles.Sidekick:
             case CustomRoles.Jester:
             case CustomRoles.Opportunist:
             case CustomRoles.Mario:
@@ -1082,6 +1081,17 @@ public static class Utils
                     //如果是大明星
                     if (target.Is(CustomRoles.SuperStar) && Options.EveryOneKnowSuperStar.GetBool())
                         TargetMark.Append(ColorString(GetRoleColor(CustomRoles.SuperStar), "★"));
+
+                    // Necroview
+                    if (seer.Is(CustomRoles.Necroview))
+                    {
+                        if (target.Is(CustomRoleTypes.Crewmate) && !target.Is(CustomRoles.Madmate) && target.Data.IsDead)
+                        TargetMark.Append(ColorString(GetRoleColor(CustomRoles.SpeedBooster), "★"));
+                        if (target.Is(CustomRoleTypes.Impostor)  && target.Data.IsDead || target.Is(CustomRoles.Madmate)  && target.Data.IsDead)
+                        TargetMark.Append(ColorString(GetRoleColor(CustomRoles.Impostor), "★"));
+                        if (target.Is(CustomRoleTypes.Neutral) && target.Data.IsDead)
+                        TargetMark.Append(ColorString(GetRoleColor(CustomRoles.EngineerTOHE), "★"));
+        }
 
                     //球状闪电提示
                     if (BallLightning.IsGhost(target))
