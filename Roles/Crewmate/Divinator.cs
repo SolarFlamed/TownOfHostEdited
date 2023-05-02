@@ -66,6 +66,7 @@ public static class Divinator
                 CustomRoles.SuperStar or
                 CustomRoles.Mayor or
                 CustomRoles.Snitch or
+                CustomRoles.Marshall or
                 CustomRoles.Counterfeiter or
                 CustomRoles.God or
                 CustomRoles.Judge
@@ -77,6 +78,7 @@ public static class Divinator
                 CustomRoles.Luckey or
                 CustomRoles.Needy or
                 CustomRoles.SabotageMaster or
+                CustomRoles.EngineerTOHE or
                 CustomRoles.Jackal or
                 CustomRoles.Mario or
                 CustomRoles.Cleaner or
@@ -122,6 +124,7 @@ public static class Divinator
                 CustomRoles.Hacker or
                 CustomRoles.Mafia or
                 CustomRoles.Doctor or
+                CustomRoles.ScientistTOHE or
                 CustomRoles.Transporter or
                 CustomRoles.Veteran or
                 CustomRoles.Divinator or
@@ -134,6 +137,7 @@ public static class Divinator
                 CustomRoles.Witch or
                 CustomRoles.Puppeteer or
                 CustomRoles.ShapeMaster or
+                CustomRoles.ShapeshifterTOHE or
                 CustomRoles.Paranoia or
                 CustomRoles.Psychic or
                 CustomRoles.Executioner or
