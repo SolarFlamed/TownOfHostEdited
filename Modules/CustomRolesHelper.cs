@@ -13,7 +13,7 @@ internal static class CustomRolesHelper
             {
                 CustomRoles.Sniper => CustomRoles.Shapeshifter,
                 CustomRoles.Jester => CustomRoles.Crewmate,
-                CustomRoles.Bait => CustomRoles.Crewmate,
+           //     CustomRoles.Bait => CustomRoles.Crewmate,
                 CustomRoles.Mayor => Options.MayorHasPortableButton.GetBool() ? CustomRoles.Engineer : CustomRoles.Crewmate,
                 CustomRoles.Opportunist => CustomRoles.Crewmate,
                 CustomRoles.Snitch => CustomRoles.Crewmate,
@@ -31,7 +31,7 @@ internal static class CustomRolesHelper
                 CustomRoles.SerialKiller => CustomRoles.Shapeshifter,
                 CustomRoles.FireWorks => CustomRoles.Shapeshifter,
                 CustomRoles.SpeedBooster => CustomRoles.Crewmate,
-                CustomRoles.Trapper => CustomRoles.Crewmate,
+           //     CustomRoles.Trapper => CustomRoles.Crewmate,
                 CustomRoles.Dictator => CustomRoles.Crewmate,
                 CustomRoles.Mare => CustomRoles.Impostor,
                 CustomRoles.Doctor => CustomRoles.Scientist,
@@ -128,6 +128,8 @@ internal static class CustomRolesHelper
             CustomRoles.Flashman or
             CustomRoles.Lighter or
             CustomRoles.Seer or
+            CustomRoles.Bait or
+            CustomRoles.Trapper or
             CustomRoles.Brakar or
             CustomRoles.Oblivious or
             CustomRoles.Bewilder or
@@ -268,6 +270,8 @@ internal static class CustomRolesHelper
         if (role is CustomRoles.TicketsStealer or CustomRoles.Mimic && !pc.GetCustomRole().IsImpostor()) return false;
         if (role is CustomRoles.TicketsStealer && (pc.Is(CustomRoles.Bomber) || pc.Is(CustomRoles.BoobyTrap))) return false;
         if (role is CustomRoles.Mimic && pc.Is(CustomRoles.Mafia)) return false;
+    //    if (role is CustomRoles.Bait && !pc.GetCustomRole().IsCrewmate() && pc.Is(CustomRoles.Trapper)) return false;
+    //    if (role is CustomRoles.Trapper && !pc.GetCustomRole().IsCrewmate() && pc.Is(CustomRoles.Bait)) return false;
         if (role is CustomRoles.DualPersonality && ((!pc.GetCustomRole().IsImpostor() && !pc.GetCustomRole().IsCrewmate()) || pc.Is(CustomRoles.Madmate))) return false;
         if (role is CustomRoles.DualPersonality && pc.GetCustomRole().IsImpostor() && !Options.ImpCanBeDualPersonality.GetBool()) return false;
         if (role is CustomRoles.DualPersonality && pc.GetCustomRole().IsCrewmate() && !Options.CrewCanBeDualPersonality.GetBool()) return false;

@@ -584,7 +584,6 @@ public static class Options
         GGCanGuessAdt = BooleanOptionItem.Create(102263, "GGCanGuessAdt", false, TabGroup.CrewmateRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.NiceGuesser]);
         GGTryHideMsg = BooleanOptionItem.Create(102261, "GuesserTryHideMsg", true, TabGroup.CrewmateRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.NiceGuesser])
             .SetColor(Color.green);
-        SetupRoleOptions(20000, TabGroup.CrewmateRoles, CustomRoles.Bait);
         SetupRoleOptions(1020195, TabGroup.CrewmateRoles, CustomRoles.Luckey);
         LuckeyProbability = IntegerOptionItem.Create(1020197, "LuckeyProbability", new(0, 100, 5), 50, TabGroup.CrewmateRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Luckey])
             .SetValueFormat(OptionFormat.Percent);
@@ -612,9 +611,6 @@ public static class Options
         Snitch.SetupCustomOption();
         SetupRoleOptions(20700, TabGroup.CrewmateRoles, CustomRoles.Doctor);
         DoctorTaskCompletedBatteryCharge = FloatOptionItem.Create(20710, "DoctorTaskCompletedBatteryCharge", new(0f, 10f, 1f), 5f, TabGroup.CrewmateRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Doctor])
-            .SetValueFormat(OptionFormat.Seconds);
-        SetupRoleOptions(20800, TabGroup.CrewmateRoles, CustomRoles.Trapper);
-        TrapperBlockMoveTime = FloatOptionItem.Create(20810, "TrapperBlockMoveTime", new(1f, 180f, 1f), 5f, TabGroup.CrewmateRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Trapper])
             .SetValueFormat(OptionFormat.Seconds);
         SetupRoleOptions(20900, TabGroup.CrewmateRoles, CustomRoles.Dictator);
         SetupRoleOptions(8021015, TabGroup.CrewmateRoles, CustomRoles.Detective);
@@ -685,6 +681,10 @@ public static class Options
         SetupAdtRoleOptions(6050320, CustomRoles.Watcher, canSetNum: true);
         SetupAdtRoleOptions(6050340, CustomRoles.Lighter, canSetNum: true);
         SetupAdtRoleOptions(6050350, CustomRoles.Seer, canSetNum: true);
+        SetupAdtRoleOptions(20000, CustomRoles.Bait, canSetNum: true);
+        SetupAdtRoleOptions(20800, CustomRoles.Trapper, canSetNum: true);
+        TrapperBlockMoveTime = FloatOptionItem.Create(20810, "TrapperBlockMoveTime", new(1f, 180f, 1f), 5f, TabGroup.CrewmateRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Trapper])
+            .SetValueFormat(OptionFormat.Seconds);
         ImpCanBeSeer = BooleanOptionItem.Create(6050353, "ImpCanBeSeer", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Seer]);
         CrewCanBeSeer = BooleanOptionItem.Create(6050354, "CrewCanBeSeer", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Seer]);
         NeutralCanBeSeer = BooleanOptionItem.Create(6050355, "NeutralCanBeSeer", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Seer]);
