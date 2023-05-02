@@ -1471,8 +1471,20 @@ class FixedUpdatePatch
                     if (target.Is(CustomRoles.Snitch) && target.Is(CustomRoles.Madmate) && target.GetPlayerTaskState().IsTaskFinished) //targetがタスクを終わらせたマッドスニッチ
                         Mark.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Impostor), "★")); //targetにマーク付与
                 }
+                if (seer.GetCustomRole().IsCrewmate()) //seerがインポスター
+                {  
+                    if (target.Is(CustomRoles.Marshall) && target.GetPlayerTaskState().IsTaskFinished) //targetがタスクを終わらせたマッドスニッチ
+                        Mark.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Marshall), "★")); //targetにマーク付与
+                }
+                if (seer.GetCustomRole().IsCrewmate() && seer.Is(CustomRoles.Madmate) && Marshall.OptionMadmateCanFindMarshall.GetBool()) //seerがインポスター
+                {  
+                    if (target.Is(CustomRoles.Marshall) && target.GetPlayerTaskState().IsTaskFinished) //targetがタスクを終わらせたマッドスニッチ
+                        Mark.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Marshall), "★")); //targetにマーク付与
+                }
+                
                 //インポスター/キル可能なニュートラルがタスクが終わりそうなSnitchを確認できる
                 Mark.Append(Snitch.GetWarningMark(seer, target));
+                Mark.Append(Marshall.GetWarningMark(seer, target));
 
                 if (seer.Is(CustomRoles.Arsonist))
                 {
