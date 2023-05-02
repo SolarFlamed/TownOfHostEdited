@@ -56,6 +56,11 @@
 "Impostor","内鬼","Impostor","Предатель","偽裝者","Impostor"
 "Shapeshifter","变形者","Shapeshifter","Оборотень","變形者","Cambiaformas"
 
+"# Vanilla Remakes"
+"EngineerTOHE","工程师","Engineer","Инженер","工程師","Ingeniero"
+"ScientistTOHE","科学家","Scientist","Ученый","科學家","Cientifico"
+"ShapeshifterTOHE","变形者","Shapeshifter","Оборотень","變形者","Cambiaformas"
+
 "# 内鬼阵营 / Impostors"
 "BountyHunter","赏金猎人","Bounty Hunter","Охотник за Головами","賞金獵人","Cazador de Premios"
 "Mare","梦魇","Mare","Ночной","獵夢者","Mare"
@@ -110,6 +115,7 @@
 "SabotageMaster","修理工","Repairman","Ремонтник","修理工","修理工"
 "Sheriff","警长","Sheriff","Шериф","警長","警长"
 "Snitch","告密者","Snitch","Стукач","告密者","告密者"
+"Marshall","Marshall","Marshall","Marshall","Marshall","Marshall"
 "SpeedBooster","增速者","Speed Booster","Ускоритель","增速師","增速者"
 "Doctor","法医","Doctor","Доктор","法醫","法医"
 "Trapper","陷阱师","Beartrap","Капкан","設陷者","陷阱师"
@@ -191,6 +197,10 @@
 "Prefix.Mimic","宝箱怪","Mimic ","Мимикующий ","保險箱","宝箱怪"
 
 "## 以下是职业简介（显示在开局以及任务栏的文本）/ Shows at Impostor/Crewmate screen"
+"# Vanilla Remake Descriptions"
+"EngineerTOHEInfo","Use the vents to catch the <color=#ff1919>Impostors</color>","Use the vents to catch the <color=#ff1919>Impostors</color>","Use the vents to catch the <color=#ff1919>Impostors</color>","Use the vents to catch the <color=#ff1919>Impostors</color>","Use the vents to catch the <color=#ff1919>Impostors</color>"
+"ScientistTOHEInfo","Access portable vitals from anywhere","Access portable vitals from anywhere","Access portable vitals from anywhere","Access portable vitals from anywhere","Access portable vitals from anywhere"
+"ShapeshifterTOHEInfo","Disguise as crewmates to frame them","Disguise as crewmates to frame them","Disguise as crewmates to frame them","Disguise as crewmates to frame them","Disguise as crewmates to frame them"
 
 "# 内鬼阵营 / Impostor descriptions"
 "BountyHunterInfo","走，去拿下你的目标！","Eliminate your target","Охотьтесь за своей целью","拿下你的目標","走，去拿下你的目标！"
@@ -247,6 +257,7 @@
 "SabotageMasterInfo","你是一个修理匠，修理本领强","Fix Sabotages Faster & Vent","Чините саботажи быстрее и используйте вентиляции","更快的修理破壞","你是一个修理匠，修理本领强"
 "SheriffInfo","你明明可以当狼玩的","Kill Impostors & Evil Neutrals","Убивай предателей и злых нейтралов","槍斃<color=#FF1919>偽裝者</color>們","你明明可以当狼玩的"
 "SnitchInfo","总之就是难逃一死","Finish your tasks to find the Impostors","Заверши свои задания, чтобы узнать кто предатели","完成你的任務來找出<color=#FF1919>偽裝者</color>","总之就是难逃一死"
+"MarshallInfo","Info not provided","Finish your tasks to prove your innocence","Info not provided","Info not provided","Info not provided"
 "SpeedBoosterInfo","随风奔跑自由是方向","Boost your speed","Ускоряйтесь","我要跑越過傷悲一種接近光的感覺","随风奔跑自由是方向"
 "DoctorInfo","信我，学医救不了太空人~","Know how each player died","Вы знаете причины смерти игроков","查看他們的死因","信我，学医救不了太空人~"
 "TrapperInfo","大奖小奖，能记住就是好奖","Freeze your killer for a few seconds","Замораживаете своего убийцу на несколько секунд","誘捕你的敵人","大奖小奖，能记住就是好奖"
@@ -320,6 +331,11 @@
 
 "## 以下是职业描述（使用/m或/r指令后得到的文本）"
 
+"# Long Vanilla Remake Descriptions"
+"EngineerTOHEInfoLong","(Crewmate):\nAs the Engineer, you may access the vents while comms are not sabotaged.\nVents are disabled when they are sabotaged.","(Crewmate):\nAs the Engineer, you may access the vents while comms are not sabotaged.\nVents are disabled when they are sabotaged.","(Crewmate):\nAs the Engineer, you may access the vents while comms are not sabotaged.\nVents are disabled when they are sabotaged.","(Crewmate):\nAs the Engineer, you may access the vents while comms are not sabotaged.\nVents are disabled when they are sabotaged.","(Crewmate):\nAs the Engineer, you may access the vents while comms are not sabotaged.\nVents are disabled when they are sabotaged."
+"ScientistTOHEInfoLong","(Crewmate):\nAs the Scientist, you have a portable tablet with the crew's vitals on it.\nUse this any way you'd like.\nCatching self reports, extra intel on body age, etc.","(Crewmate):\nAs the Scientist, you have a portable tablet with the crew's vitals on it.\nUse this any way you'd like.\nCatching self reports, extra intel on body age, etc.","(Crewmate):\nAs the Scientist, you have a portable tablet with the crew's vitals on it.\nUse this any way you'd like.\nCatching self reports, extra intel on body age, etc.","(Crewmate):\nAs the Scientist, you have a portable tablet with the crew's vitals on it.\nUse this any way you'd like.\nCatching self reports, extra intel on body age, etc.","(Crewmate):\nAs the Scientist, you have a portable tablet with the crew's vitals on it.\nUse this any way you'd like.\nCatching self reports, extra intel on body age, etc."
+"ShapeshifterTOHEInfoLong","(Impostors):\nAs the Shapeshifter, you have a shapeshift ability which you may use to frame other crewmates.\nJust be aware that there is an egg while shifting and the disguise is temporary.","(Impostors):\nAs the Shapeshifter, you have a shapeshift ability which you may use to frame other crewmates.\nJust be aware that there is an egg while shifting and the disguise is temporary.","(Impostors):\nAs the Shapeshifter, you have a shapeshift ability which you may use to frame other crewmates.\nJust be aware that there is an egg while shifting and the disguise is temporary.","(Impostors):\nAs the Shapeshifter, you have a shapeshift ability which you may use to frame other crewmates.\nJust be aware that there is an egg while shifting and the disguise is temporary.","(Impostors):\nAs the Shapeshifter, you have a shapeshift ability which you may use to frame other crewmates.\nJust be aware that there is an egg while shifting and the disguise is temporary."
+
 "# 内鬼阵营 / Long Impostors descriptions"
 "BountyHunterInfoLong","(内鬼阵营):\n赏金猎人会被随机分配一个悬赏目标，若在规定时间内击杀了悬赏目标，则击杀CD会变得很短，能立刻进行下一次击杀。若赏金猎人击杀的人不是赏金目标，则击杀CD会被延长。若赏金猎人在规定时间内没有完成任何击杀，则目标会被随机切换为另一个人。","(Impostors):\nIf you kill your assigned target, your next kill cooldown will be shortened.\nIf you kill anyone other than your target, your next kill cooldown will be increased.\nThe target swaps after a certain amount of time."," (Предатель):\nЕсли Охотник за головами убьет назначенную ему цель, время отката убийства будет намного меньше чем обычно. \n При убийстве игрока который не является его целью, время отката убийства будет обычным. \nЦели меняются спустя какое-то время.","(偽裝者陣營):\n如果賞金獵人擊殺了賞金目標，下一次的殺人冷卻會變得非常的短\n反之，如果賞金獵人擊殺了非賞金目標，那麼他的冷卻將會被延長\n賞金目標將會重置在殺死賞金目標後或切換目標時間結束。","(内鬼阵营):\n赏金猎人会被随机分配一个悬赏目标，若在规定时间内击杀了悬赏目标，则击杀CD会变得很短，能立刻进行下一次击杀。若赏金猎人击杀的人不是赏金目标，则击杀CD会被延长。若赏金猎人在规定时间内没有完成任何击杀，则目标会被随机切换为另一个人。"
 "FireWorksInfoLong","(内鬼阵营):\n烟花商人可以安放烟花炸弹，造成范围性杀伤。烟花商人使用变形可以安放至多三个烟花炸弹。当存活的内鬼阵营玩家仅剩烟花商人且烟花炸弹安置完毕时，烟花商人可以使用变形下引爆炸弹。烟花炸弹可以同样炸死烟花商人自己。但如果烟花炸弹炸死所有存活玩家，那也算内鬼阵营胜利。","(Impostors):\nFireworker can place firework bombs to cause area damage. The Fireworker can plant up to three firework bombs using shapeshift. When only the Fireworker is left among the imporstor team players and the firework bombs is placed, the Fireworker can use shapeshift to detonate the bomb. The firework bombs can also kill the Fireworker himself. But if the firework bombs kills all surviving players, it is also considered a victory for the imporstors."," (Предатель):\nФейерверк может поставить несколько фейерверков с помощью Морфлинга. \nПосле установки всех фейерверков он может поджечь их все сразу с помощью использования Морфлинга, когда он является последним Предателем. \nТолько после этого он сможет убивать.","(偽裝者陣營):\n煙火工匠可以放置煙火來造成範圍性傷害，煙火工匠可以以變形來放置煙火，最多可以放置三個煙火，但是在煙火工匠放置完所有煙火前無法殺人\n如果他的隊友都已經死亡的話，煙火工匠便可以引爆煙火。\n如果煙火工匠也在爆炸中被炸死，偽裝者陣營同樣獲勝。","(内鬼阵营):\n烟花商人可以安放烟花炸弹，造成范围性杀伤。烟花商人使用变形可以安放至多三个烟花炸弹。当存活的内鬼阵营玩家仅剩烟花商人且烟花炸弹安置完毕时，烟花商人可以使用变形下引爆炸弹。烟花炸弹可以同样炸死烟花商人自己。但如果烟花炸弹炸死所有存活玩家，那也算内鬼阵营胜利。"
@@ -373,6 +389,7 @@
 "SabotageMasterInfoLong","(船员阵营):\n修理工可以随意使用通风管道，你甚至可以把通风管当成自己的家永远不出来。氧气泄露、核反应堆熔毁以及米拉总部的通讯破坏修理工只需要修复一边则另一边即可同时被修复。修理工只需要按一个开关便可以修复照明破坏。修理工打开波鲁斯与飞艇地图的门时修理工所在房间的所有门同时打开。","(Crewmates):\nThe Repairman can use the vent at any time. They can also fix Reactors, O2, Communications by using only one side. Lights can be fixed by flicking only one switch. Opening a door will open all doors in the map.","(Член Экипажа):\nРемонтник может использовать вентиляцию в любое время, и он может даже относиться к нему как к собственному дому и никогда не выходить из нее. \nТакже он может в одиночку починить саботажи такие, как: Саботаж Реактора, Саботаж O2 и Саботаж Связи. \nТак же он может починить Саботаж Света коснувшись лишь одного рычага. \nОткрытие одной двери позволяет открыть все двери в этой комнате.","船員陣營):\n修理工可以隨意使用通風管，而且因為沒有像原版工程師的時間限制，而修理工對於需要兩邊修復的破壞只需修理一側的緊急任務點便可以瞬間解決另一側的任務點，對於修理電燈來講，修理工只需按下一根開關便可以修復整個電燈，當修理工打開Polus或Airship的門時修理工所在房間的所有門將被同時打開。","(船员阵营):\n修理工可以随意使用通风管道，你甚至可以把通风管当成自己的家永远不出来。氧气泄露、核反应堆熔毁以及米拉总部的通讯破坏修理工只需要修复一边则另一边即可同时被修复。修理工只需要按一个开关便可以修复照明破坏。修理工打开波鲁斯与飞艇地图的门时修理工所在房间的所有门同时打开。"
 "SheriffInfoLong","(船员阵营):\n警长没有船员任务。警长可以击杀内鬼（根据房间设置，警长也可以击杀中立阵营玩家）。警长若尝试击杀船员阵营的玩家，警长将会走火自杀。警长成为叛徒时可以击杀任何人。","(Crewmates):\nSheriff has no task. The sheriff can kill the Impostor (according to the host settings, the sheriff can also kill neutrals). If the Sheriff tries to kill a crewmate, the Sheriff will kill himself. The sheriff can kill anyone when he becomes a madmate (also according to the host settings).","(Член Экипажа):\nШериф может убивать Предателей. \nЕсть настройка, позволяющая убить даже Нейтралов. \nОднако если Шериф попытается убить Члена Экипажа, то это приведёт к его смерти. У него нет заданий.","(船員陣營):\n警長可以執法偽裝者，根據房主設定，警長或許也能執法中立陣營的玩家，如果警長嘗試執法船員陣營的玩家，那麼警長將走火自殺。警長成為叛徒時將可以殺死任何人。\n請注意: 由於技術限制，警長無法像正常船員一樣做任務。","(船员阵营):\n警长没有船员任务。警长可以击杀内鬼（根据房间设置，警长也可以击杀中立阵营玩家）。警长若尝试击杀船员阵营的玩家，警长将会走火自杀。警长成为叛徒时可以击杀任何人。"
 "SnitchInfoLong","(船员阵营):\n告密者完成所有任务后，将可以看到以红色昵称表示的所有内鬼。当告密者仅剩一个任务的时候，内鬼将会看到自己以及告密者的昵称旁边有「★」作为提示。告密者成为叛徒时，「★」标记变为红色。","(Crewmates):\nAfter the Snitch completes all tasks, they can see Impostors names being displayed in red on meeting. When the Snitch has only one task left, the Impostors will see a 「★」 mark next to the name of themselves and the Snitch. When a Snitch becomes a Madmate, the 「★」 mark turns red.","(Член Экипажа):\nКак только Стукач выполнит все задания, то никнейм у всех Предателей будет отображаться \nкрасным цветом, и наоборот, если количество ваших заданий будет близка к завершению, \nто рядом с никнеймом Стукача появится звёздочка★, которая будет видна Предателям.","(船員陣營):\n當告密者完成所有任務後，告密者將可以看到偽裝者名字顯示為紅色(根據房主設定，告密者或許也可以跟帶刀中立互認)，當告密者只剩下一個任務時，偽裝者將會看到自己和告密者的名字旁有「★」符號作為提示，如果告密者成為叛徒，那麼「★」符號將轉為紅色。","(船员阵营):\n告密者完成所有任务后，将可以看到以红色昵称表示的所有内鬼。当告密者仅剩一个任务的时候，内鬼将会看到自己以及告密者的昵称旁边有「★」作为提示。告密者成为叛徒时，「★」标记变为红色。"
+"MarshallInfoLong","(Crewmates):\nInfo not provided.","(Crewmates):\nAs the Marshall, complete your tasks to reveal yourself to the rest of the crew.\nOther teams will not be able to see you.\nHowever, madmates CAN see you.","(Crewmates):\nInfo not provided.","(Crewmates):\nInfo not provided.","(Crewmates):\nInfo not provided."
 "SpeedBoosterInfoLong","(船员阵营):\n增速者每次完成任务都会增加自己的移动速度。请注意：由于技术限制，增速者在其他人眼中为正常速度，所以会以闪现的方式移动。","(Crewmates):\nSpeed Booster increase their movement speed every time they complete a task. Note: due to technical limitations, the Speed Booster appears to be at a normal speed to others, so they look like glitch.","(Член Экипажа):\nУскоритель будет увеличивать свою скорость передвижения каждый раз, когда он выполняет задание. Пожалуйста, обратите внимание: Из-за технических ограничений у других игроков его скорость будет прежней, поэтому он иногда будет пинговать.","(船員陣營):\n增速師每次完成任務後都會增加自己的移動速度。\n請注意: 由於技術限制，增速者在其他人眼裡為正常速度，所以會以閃現的方式移動。","(船员阵营):\n增速者每次完成任务都会增加自己的移动速度。请注意：由于技术限制，增速者在其他人眼中为正常速度，所以会以闪现的方式移动。"
 "DoctorInfoLong","(船员阵营):\n法医可以查看生命监测装置并确认死亡玩家的死因。查看的时间长短与设备的充能数挂钩。","(Crewmates):\nDoctor can see the cause of death for all players. In addition, Doctor can access vitals wherever you are while he still have battery.","(Член Экипажа):\nДоктор может узнать причину смерти игрока. \nКроме того, он имеет портативные пульсы как у учёного, которые он может использовать в любом месте, пока у него не закончится зарядка.","(船員陣營):\n法醫可以在會議上看到玩家的死因，此外，如果法醫的心電圖還有電量，那麼它將可以隨時隨地觀看心電圖。","(船员阵营):\n法医可以查看生命监测装置并确认死亡玩家的死因。查看的时间长短与设备的充能数挂钩。"
 "TrapperInfoLong","(船员阵营):\n陷阱师被击杀时，凶手一段时间内将不能移动。","(Crewmates):\nWhen Beartrap is killed, Beartrap immobilize killer for a configurable amount of time.","(Член Экипажа):\nПосле того как Капкан убьют, то его убийца будет обездвижен на несколько секунд. (время зависит от настроек)","(船員陣營):\n當設陷者被殺時，那麼殺他的兇手將會一段時間內無法移動。","(船员阵营):\n陷阱师被击杀时，凶手一段时间内将不能移动。"
@@ -1064,6 +1081,7 @@
 "TabGroup.ImpostorRoles","内鬼阵营职业","Impostor Roles","Роли Предателей","内鬼阵营职业","内鬼阵营职业"
 "TabGroup.Addons","附加职业","Add-Ons","Атрибуты","附加职业","附加职业"
 "TabGroup.OtherRoles","试验性职业（不建议开）","Experimental Roles (Not recommended)","Эксперементальные Роли (Не рекомендуется)","试验性职业（不建议开）","试验性职业（不建议开）"
+"TabGroup.VanillaRoles","试验性职业（不建议开）","Vanilla Roles","Эксперементальные Роли (Не рекомендуется)","试验性职业（不建议开）","试验性职业（不建议开）"
 "OtherRoles.CrewmateRoles","★ 船员阵营职业","★ Crewmate Roles","★ Роли Членов Экипажа","★ 船员阵营职业","★ 船员阵营职业"
 "OtherRoles.NeutralRoles","★ 中立阵营职业","★ Neutral Roles","★ Нейтральные Роли","★ 中立阵营职业","★ 中立阵营职业"
 "OtherRoles.ImpostorRoles","★ 内鬼阵营职业","★ Impostor Roles","★ Роли Предателей","★ 内鬼阵营职业","★ 内鬼阵营职业"
