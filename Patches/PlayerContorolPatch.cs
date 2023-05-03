@@ -140,6 +140,9 @@ class CheckMurderPatch
                 case CustomRoles.Vampire:
                     if (!Vampire.OnCheckMurder(killer, target)) return false;
                     break;
+                case CustomRoles.Poisoner:
+                    if (!Poisoner.OnCheckMurder(killer, target)) return false;
+                    break;
                 case CustomRoles.Warlock:
                     if (!Main.CheckShapeshift[killer.PlayerId] && !Main.isCurseAndKill[killer.PlayerId])
                     { //Warlockが変身時以外にキルしたら、呪われる処理
@@ -993,6 +996,7 @@ class ReportDeadBodyPatch
         SerialKiller.OnReportDeadBody();
         Sniper.OnReportDeadBody();
         Vampire.OnStartMeeting();
+        Poisoner.OnStartMeeting();
         Pelican.OnReportDeadBody();
         Mortician.OnReportDeadBody(player, target);
         Mediumshiper.OnReportDeadBody(player, target);
@@ -1101,6 +1105,7 @@ class FixedUpdatePatch
 
             DoubleTrigger.OnFixedUpdate(player);
             Vampire.OnFixedUpdate(player);
+            Poisoner.OnFixedUpdate(player);
             BountyHunter.FixedUpdate(player);
             SerialKiller.FixedUpdate(player);
 
@@ -1375,6 +1380,8 @@ class FixedUpdatePatch
                     foreach (var pc in Main.AllPlayerControls)
                     {
                         if (pc.Is(CustomRoles.Vampire) || pc.Is(CustomRoles.Warlock) || pc.Is(CustomRoles.Assassin))
+                            Main.AllPlayerKillCooldown[pc.PlayerId] = Options.DefaultKillCooldown * 2;
+                        if (pc.Is(CustomRoles.Poisoner))
                             Main.AllPlayerKillCooldown[pc.PlayerId] = Options.DefaultKillCooldown * 2;
                     }
 

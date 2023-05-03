@@ -367,6 +367,7 @@ class SetHudActivePatch
             case CustomRoles.Jackal:
                 Jackal.SetHudActive(__instance, isActive);
                 break;
+            
             case CustomRoles.Bomber:
                 __instance.KillButton.ToggleVisible(false);
                 break;

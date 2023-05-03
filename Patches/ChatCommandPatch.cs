@@ -495,7 +495,7 @@ internal class ChatCommands
             "吟游詩人" or "诗人" => GetString("Bard"),
             "隱匿者" or "隐匿" or "隐身" or "隐身人" or "印尼" => GetString("Swooper"),
             "船鬼" => GetString("Crewpostor"),
-            "嗜血騎士" or "血骑" or "骑士" => GetString("BloodKnight"),
+            "嗜血騎士" or "血骑" or "骑士" or "bloodknight" => GetString("BloodKnight"),
             _ => text,
         };
     }

@@ -690,6 +690,7 @@ class MeetingHudStartPatch
                     sb.Append(Executioner.TargetMark(seer, target));
                     break;
                 case CustomRoles.Jackal:
+                case CustomRoles.Poisoner:
                 case CustomRoles.Pelican:
                 case CustomRoles.DarkHide:
                 case CustomRoles.BloodKnight:

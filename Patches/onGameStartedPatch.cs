@@ -168,6 +168,7 @@ internal class ChangeRoleSettings
             EvilTracker.Init();
             Snitch.Init();
             Vampire.Init();
+            Poisoner.Init();
             AntiAdminer.Init();
             TimeManager.Init();
             LastImpostor.Init();
@@ -421,6 +422,9 @@ internal class SelectRolesPatch
                         break;
                     case CustomRoles.Jackal:
                         Jackal.Add(pc.PlayerId);
+                        break;
+                    case CustomRoles.Poisoner:
+                        Poisoner.Add(pc.PlayerId);
                         break;
                     case CustomRoles.Sheriff:
                         Sheriff.Add(pc.PlayerId);
