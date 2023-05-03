@@ -149,6 +149,9 @@ public class PlayerGameOptionsSender : GameOptionsSender
             case CustomRoles.Jackal:
                 Jackal.ApplyGameOptions(opt);
                 break;
+            case CustomRoles.Poisoner:
+                Poisoner.ApplyGameOptions(opt);
+                break;
             case CustomRoles.Veteran:
                 AURoleOptions.EngineerCooldown = Options.VeteranSkillCooldown.GetFloat();
                 AURoleOptions.EngineerInVentMaxTime = 1;

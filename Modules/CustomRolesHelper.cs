@@ -23,6 +23,7 @@ internal static class CustomRolesHelper
                 CustomRoles.Terrorist => CustomRoles.Engineer,
                 CustomRoles.Executioner => CustomRoles.Crewmate,
                 CustomRoles.Vampire => CustomRoles.Impostor,
+                CustomRoles.Poisoner => CustomRoles.Impostor,
                 CustomRoles.BountyHunter => CustomRoles.Shapeshifter,
                 CustomRoles.Witch => CustomRoles.Impostor,
                 CustomRoles.ShapeMaster => CustomRoles.Shapeshifter,
@@ -114,6 +115,7 @@ internal static class CustomRolesHelper
             CustomRoles.DarkHide => RoleTypes.Impostor,
             CustomRoles.Provocateur => RoleTypes.Impostor,
             CustomRoles.BloodKnight => RoleTypes.Impostor,
+            CustomRoles.Poisoner => RoleTypes.Impostor,
             _ => RoleTypes.GuardianAngel
         };
     }
@@ -152,6 +154,7 @@ internal static class CustomRolesHelper
             CustomRoles.FFF or
             CustomRoles.Gamer or
             CustomRoles.DarkHide or
+            CustomRoles.Poisoner or
             CustomRoles.Provocateur or
             CustomRoles.BloodKnight;
     }
@@ -170,6 +173,7 @@ internal static class CustomRolesHelper
             CustomRoles.DarkHide or
             CustomRoles.Workaholic or
             CustomRoles.Collector or
+            CustomRoles.Poisoner or
             CustomRoles.BloodKnight;
     }
     public static bool IsCK(this CustomRoles role) // �Ƿ������Ա
@@ -240,6 +244,7 @@ internal static class CustomRolesHelper
             CustomRoles.Jackal or
             CustomRoles.God or
             CustomRoles.Innocent or
+            CustomRoles.Poisoner or
             CustomRoles.Pelican or
             CustomRoles.Revolutionist or
             CustomRoles.FFF or
@@ -364,6 +369,7 @@ internal static class CustomRolesHelper
        {
            CustomRoles.GM => CountTypes.OutOfGame,
            CustomRoles.Jackal => CountTypes.Jackal,
+           CustomRoles.Poisoner => CountTypes.Poisoner,
            CustomRoles.Pelican => CountTypes.Pelican,
            CustomRoles.Gamer => CountTypes.Gamer,
            CustomRoles.BloodKnight => CountTypes.BloodKnight,
@@ -389,4 +395,5 @@ public enum CountTypes
     Pelican,
     Gamer,
     BloodKnight,
+    Poisoner,
 }

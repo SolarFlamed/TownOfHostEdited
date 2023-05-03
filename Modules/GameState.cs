@@ -97,6 +97,7 @@ public class PlayerState
         Spell,
         FollowingSuicide,
         Bite,
+        Poison,
         Bombed,
         Misfire,
         Torched,

@@ -346,6 +346,7 @@ public static class Utils
             case CustomRoles.Sheriff:
             case CustomRoles.Arsonist:
             case CustomRoles.Jackal:
+            case CustomRoles.Poisoner:
             case CustomRoles.Jester:
             case CustomRoles.Opportunist:
             case CustomRoles.Mario:

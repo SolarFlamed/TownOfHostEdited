@@ -661,6 +661,7 @@ public static class Options
         TerroristTasks = OverrideTasksData.Create(50220, TabGroup.NeutralRoles, CustomRoles.Terrorist);
         Executioner.SetupCustomOption();
         Jackal.SetupCustomOption();
+        Poisoner.SetupCustomOption();
         SetupRoleOptions(5050233, TabGroup.NeutralRoles, CustomRoles.Innocent);
         InnocentCanWinByImp = BooleanOptionItem.Create(5050266, "InnocentCanWinByImp", false, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Innocent]);
         SetupRoleOptions(5050850, TabGroup.NeutralRoles, CustomRoles.FFF);

@@ -615,6 +615,9 @@ internal static class RPC
             case CustomRoles.Jackal:
                 Jackal.Add(targetId);
                 break;
+            case CustomRoles.Poisoner:
+                Poisoner.Add(targetId);
+                break;
             case CustomRoles.Sheriff:
                 Sheriff.Add(targetId);
                 break;
