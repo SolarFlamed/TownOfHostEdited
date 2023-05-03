@@ -81,7 +81,7 @@ public class Main : BasePlugin
     public static Dictionary<byte, Color32> PlayerColors = new();
     public static Dictionary<byte, PlayerState.DeathReason> AfterMeetingDeathPlayers = new();
     public static Dictionary<CustomRoles, string> roleColors;
-    public static bool IsFixedCooldown => CustomRoles.Vampire.IsEnable();
+    public static bool IsFixedCooldown => CustomRoles.Vampire.IsEnable() || CustomRoles.Poisoner.IsEnable();
     public static float RefixCooldownDelay = 0f;
     public static GameData.PlayerInfo LastVotedPlayerInfo;
     public static string LastVotedPlayer;
@@ -315,6 +315,7 @@ public class Main : BasePlugin
                 {CustomRoles.Provocateur, "#74ba43"},
                 {CustomRoles.Sunnyboy, "#ff9902"},
                 {CustomRoles.BloodKnight, "#630000"},
+                {CustomRoles.Poisoner, "#ed2f91"},
                 // GM
                 {CustomRoles.GM, "#ff5b70"},
                 //サブ役職
@@ -478,6 +479,7 @@ public enum CustomRoles
     Terrorist,
     Executioner,
     Jackal,
+    Poisoner,
     Innocent,
     Pelican,
     Revolutionist,
@@ -550,6 +552,7 @@ public enum CustomWinner
     Workaholic = CustomRoles.Workaholic,
     Collector = CustomRoles.Collector,
     BloodKnight = CustomRoles.BloodKnight,
+    Poisoner = CustomRoles.Poisoner,
 }
 public enum AdditionalWinners
 {

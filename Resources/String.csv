@@ -155,6 +155,7 @@
 "Collector","集票者","Collector","Коллектор","集票者","集票者"
 "Provocateur","自爆卡车","Provocateur","Провокатор","神風特攻隊","自爆卡车"
 "BloodKnight","嗜血骑士","Blood Knight","Кровный Рыцарь","嗜血騎士",""
+"Poisoner","Poisoner","Poisoner","Poisoner","Poisoner","Poisoner"
 
 "# 附加职业 / Add-ons"
 "LastImpostor","绝境者","Last Impostor","Последний Предатель","絕境者","绝境者"
@@ -305,6 +306,7 @@
 "CollectorInfo","是收集癖的胜利！","Collect votes from Players","Соберите достаточное количество голосов","收集票數來獲勝","是收集癖的胜利！"
 "ProvocateurInfo","你急了，你寄了","Victory with help target","Победите с помощью цели","急了嗎，你沒了","你急了，你寄了"
 "BloodKnightInfo","这一杯，敬给彼岸的你","Killing gives you a temporary shield","Используй трупы как щит","先下手為強也是個不錯的選擇",""
+"PoisonerInfo","Info not provided","Kill everyone with delayed kills","Info not provided","Info not provided","Info not provided"
 
 "# 附加职业 / Add-ons descriptions"
 "LoversInfo","最重要的是，记得照顾好你的另一半","Stay Alive and win together","Выживите со своим Любовником","你墜入了愛河","最重要的是，记得照顾好你的另一半"
@@ -438,6 +440,7 @@
 "CollectorInfoLong","(中立阵营):\n集票者投票给一名玩家后，可以收集到本次会议该玩家被投的所有票数。当集票者收集到指定数量的票后，则集票者单独胜利。请注意：集票者的胜利优先于驱逐玩家。","(Neutrals):\nAfter vote Collector vote for a target, they can collect all the votes cast by that target in this meeting. When the Collector collects the specified number of votes, the Collector alone wins. Note: Collector wins take precedence over exile players.","(Злой - Нейтрал):\nПосле того, как Коллектор проголосует за игрока, он может собрать все голоса, поданные игроком на этой встрече. Когда Коллектор собирает указанное количество голосов, Коллектор выигрывает отдельно. Пожалуйста, обратите внимание: победа Коллектора имеет приоритет перед исключением игрока.","(中立陣營):\n當集票者在會議上投票給一名玩家時，他將會收集到本次會議該玩家被投的所有票數。當集票者收集到指定票數之後，集票者將獨立獲勝。\n請注意: 集票者的勝利優先於被逐出玩家的勝利。","(中立阵营):\n集票者投票给一名玩家后，可以收集到本次会议该玩家被投的所有票数。当集票者收集到指定数量的票后，则集票者单独胜利。请注意：集票者的胜利优先于驱逐玩家。"
 "ProvocateurInfoLong","(中立阵营):\n自爆卡车可以用击杀键与任意目标同归于尽。若游戏结束时目标输了，则自爆卡车与胜利阵营一起胜利。","(Neutrals):\nThe Provocateur can kill any target with the kill button. If the target loses at the end of the game, the Provocateur wins with the winning team.","(Злой -Нейтрал)\nПровокатор может использовать кнопку уничтожения, чтобы погибнуть вместе с любой целью. Если цель проиграет в конце игры, Провокатор выиграет вместе с победной командой.","(中立陣營):\n神風特攻隊可以使用殺人鍵與任何玩家同歸於盡。若遊戲結束時目標輸了，那麼神風特攻隊與獲勝方一同獲勝。","(中立阵营):\n自爆卡车可以用击杀键与任意目标同归于尽。若游戏结束时目标输了，则自爆卡车与胜利阵营一起胜利。"
 "BloodKnightInfoLong","(中立阵营):\n仅剩嗜血骑士阵营与船员阵营且嗜血骑士阵营人数大于船员人数，嗜血骑士获得胜利。嗜血骑士每次击杀后都可以获得一定时间的护盾，护盾可以抵消所有常规击杀，直到护盾超时失效。","(Neutral Killer):\nThe Blood Knight wins when they're the last killing role alive and the amount of crewmates is lower or equal to the amount of Blood Knights.\nThe Blood Knight gains a temporary shield after every kill that makes them immortal for a few seconds.","(Злой - Нейтрал):\n Кровный рыцарь получает щит после убийства, который игнорирует обычные атаки. Если Кровных рыцарей больше или ровняется количеству Членов экипажа, то Кровные рыцари побеждают.","(中立阵营):\n仅剩嗜血骑士阵营与船员阵营且嗜血骑士阵营人数大于船员人数，嗜血骑士获得胜利。嗜血骑士每次击杀后都可以获得一定时间的护盾，护盾可以抵消所有常规击杀，直到护盾超时失效。",""
+"PoisonerInfoLong","(Neutrals):\nInfo not provided.","(Neutrals):\nAs the Poisoner, your kills are delayed.\nKill everyone to win.","(Neutrals):\nInfo not provided.","(Neutrals):\nInfo not provided.","(Neutrals):\nInfo not provided."
 
 "# 附加职业 / Add-ons descriptions"
 "LastImpostorInfoLong","(附加职业):\n这个效果在内鬼仅剩一人时赋予该内鬼。使其击杀冷却缩短。","(Add-ons):\nThis effect is given to the last surviving Impostor. Reduces their kill cooldown.","(Атрибут):\nАтрибут, присваивается последнему Предателю. \nВремя отката убийства становится меньше, чем обычно. \nНе назначается Охотнику за головами, Серийному убийце или Вампиру.","(附加職業):\n這個效果只在偽裝者陣營只剩下一人時賦予該玩家，被賦予效果的玩家殺人冷卻將會縮短。","(附加职业):\n这个效果在内鬼仅剩一人时赋予该内鬼。使其击杀冷却缩短。"
@@ -632,6 +635,8 @@
 "Cooldown","冷却时间","Cooldown","Откат","冷卻時間","冷却时间"
 "KillCooldown","击杀冷却时间","Kill Cooldown","Откат убийства","殺人冷卻時間","击杀冷却时间"
 "VentCooldown","使用通风管道冷却时间","Vent Cooldown","Откат Вентиляции","使用通風管冷卻時間","使用通风管道冷却时间"
+"PoisonCooldown","PoisonCooldown","Poison Cooldown","PoisonCooldown","PoisonCooldown","PoisonCooldown"
+"PoisonerKillDelay","PoisonerKillDelay","Poison Kill Delay","PoisonerKillDelay","PoisonerKillDelay","PoisonerKillDelay"
 "CanVent","可以使用通风管道","Can Vent","Может использовать Вентиляцию","可以使用通風管","可以使用通风管道"
 "ImpostorVision","拥有<color=#ff1919>内鬼</color>视野","Has <color=#ff1919>Impostor</color> Vision","Имеет дальность Обзора <color=#ff1919>Предателя</color>","擁有<color=#ff1919>偽裝者</color>視野","拥有<color=#ff1919>内鬼</color>视野"
 "CanUseSabotage","可以破坏","Can Sabotage","Может использовать Саботаж","可以破壞","可以破坏"
@@ -859,6 +864,7 @@
 "DeathReason.Suicide","自杀","Suicide","Суицид","自杀","自杀"
 "DeathReason.Spell","咒杀","Spelled","Заколдован","咒杀","咒杀"
 "DeathReason.Bite","吸血","Bitten","Укушен","吸血","吸血"
+"DeathReason.Poison","Poisoned","Poisoned","Poisoned","Poisoned","Poisoned"
 "DeathReason.Gambled","赌博","Guessed","Угадан","赌博","赌博"
 "DeathReason.FollowingSuicide","殉情","♡Suicide♡","♡Суицид♡","殉情","殉情"
 "DeathReason.Bombed","炸死","Exploded","Взорван","炸死","炸死"
