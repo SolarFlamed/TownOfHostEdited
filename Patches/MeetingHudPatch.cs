@@ -602,6 +602,8 @@ class MeetingHudStartPatch
                 (pc.Is(CustomRoleTypes.Impostor) && PlayerControl.LocalPlayer.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosImp.GetBool()) ||
                 (pc.Is(CustomRoles.Madmate) && PlayerControl.LocalPlayer.Is(CustomRoleTypes.Impostor) && Options.ImpKnowWhosMadmate.GetBool()) ||
                 (pc.Is(CustomRoles.Madmate) && PlayerControl.LocalPlayer.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosMadmate.GetBool()) ||
+                (pc.Is(CustomRoles.Jackal) && PlayerControl.LocalPlayer.Is(CustomRoles.Sidekick)) ||
+                (pc.Is(CustomRoles.Sidekick) && PlayerControl.LocalPlayer.Is(CustomRoles.Jackal)) ||
                 (pc.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool()) ||
                 PlayerControl.LocalPlayer.Is(CustomRoles.God) ||
                 PlayerControl.LocalPlayer.Is(CustomRoles.GM) ||
@@ -689,13 +691,20 @@ class MeetingHudStartPatch
                 case CustomRoles.Executioner:
                     sb.Append(Executioner.TargetMark(seer, target));
                     break;
-                case CustomRoles.Jackal:
+             //   case CustomRoles.Jackal:
+             //   case CustomRoles.Sidekick:
                 case CustomRoles.Poisoner:
                 case CustomRoles.Pelican:
                 case CustomRoles.DarkHide:
                 case CustomRoles.BloodKnight:
                     sb.Append(Snitch.GetWarningMark(seer, target));
                     break;
+                case CustomRoles.Jackal:
+                    if (target.Is(CustomRoles.Sidekick))
+                    sb.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥")); //変更対象にSnitchマークをつける
+                    sb.Append(Snitch.GetWarningMark(seer, target));
+                    break;
+
                 case CustomRoles.EvilTracker:
                     sb.Append(EvilTracker.GetTargetMark(seer, target));
                     break;

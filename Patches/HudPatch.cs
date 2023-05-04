@@ -86,6 +86,9 @@ class HudManagerPatch
                     case CustomRoles.Vampire:
                         Vampire.SetKillButtonText();
                         break;
+                    case CustomRoles.Poisoner:
+                        Poisoner.SetKillButtonText();
+                        break;
                     case CustomRoles.Arsonist:
                         __instance.KillButton.OverrideText($"{GetString("ArsonistDouseButtonText")}");
                         __instance.AbilityButton.buttonLabelText.text = GetString("ArsonistVetnButtonText");
@@ -365,6 +368,7 @@ class SetHudActivePatch
                 __instance.ReportButton.ToggleVisible(false);
                 break;
             case CustomRoles.Jackal:
+      //      case CustomRoles.Sidekick:
                 Jackal.SetHudActive(__instance, isActive);
                 break;
             

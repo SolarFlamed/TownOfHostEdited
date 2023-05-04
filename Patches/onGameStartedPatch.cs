@@ -36,6 +36,7 @@ internal class ChangeRoleSettings
 
             Main.AllPlayerKillCooldown = new();
             Main.AllPlayerSpeed = new();
+            Main.AllPlayerCustomRoles = new Dictionary<byte, CustomRoles>();
             Main.WarlockTimer = new();
             Main.AssassinTimer = new();
             Main.isDoused = new();
@@ -241,6 +242,7 @@ internal class SelectRolesPatch
                 PlayerControl.LocalPlayer.Data.IsDead = true;
                 Main.PlayerStates[PlayerControl.LocalPlayer.PlayerId].SetDead();
             }
+                   
 
             SelectCustomRoles();
             SelectAddonRoles();
@@ -421,6 +423,7 @@ internal class SelectRolesPatch
                         Executioner.Add(pc.PlayerId);
                         break;
                     case CustomRoles.Jackal:
+                 //   case CustomRoles.Sidekick:
                         Jackal.Add(pc.PlayerId);
                         break;
                     case CustomRoles.Poisoner:
@@ -543,7 +546,9 @@ internal class SelectRolesPatch
         EndOfSelectRolePatch:
 
             HudManager.Instance.SetHudActive(true);
-
+            bool sidekickSpawn = false;
+            List<PlayerControl> AllPlayers = new();
+            CustomRpcSender sender = CustomRpcSender.Create("SelectRoles Sender", SendOption.Reliable);
             foreach (var pc in Main.AllPlayerControls)
                 pc.ResetKillCooldown();
 
@@ -640,6 +645,48 @@ internal class SelectRolesPatch
 
         SetColorPatch.IsAntiGlitchDisabled = false;
     }
+    private static void ForceAssignRole(CustomRoles role, List<PlayerControl> AllPlayers, CustomRpcSender sender, RoleTypes BaseRole, RoleTypes hostBaseRole = RoleTypes.Crewmate, bool skip = false, int Count = -1)
+        {
+            var count = 1;
+
+            if (Count != -1)
+                count = Count;
+            for (var i = 0; i < count; i++)
+            {
+                if (AllPlayers.Count <= 0) break;
+                var rand = new System.Random();
+                var player = AllPlayers[rand.Next(0, AllPlayers.Count)];
+                AllPlayers.Remove(player);
+                Main.AllPlayerCustomRoles[player.PlayerId] = role;
+                if (!skip)
+                {
+                    if (!player.IsModClient())
+                    {
+                        int playerCID = player.GetClientId();
+                        sender.RpcSetRole(player, BaseRole, playerCID);
+                        //Desyncする人視点で他プレイヤーを科学者にするループ
+                        foreach (var pc in PlayerControl.AllPlayerControls)
+                        {
+                            if (pc == player) continue;
+                            sender.RpcSetRole(pc, RoleTypes.Scientist, playerCID);
+                        }
+                        //他視点でDesyncする人の役職を科学者にするループ
+                        foreach (var pc in PlayerControl.AllPlayerControls)
+                        {
+                            if (pc == player) continue;
+                            if (pc.PlayerId == 0) player.SetRole(RoleTypes.Scientist); //ホスト視点用
+                            else sender.RpcSetRole(player, RoleTypes.Scientist, pc.GetClientId());
+                        }
+                    }
+                    else
+                    {
+                        //ホストは別の役職にする
+                        player.SetRole(hostBaseRole); //ホスト視点用
+                        sender.RpcSetRole(player, hostBaseRole);
+                    }
+                }
+            }
+        }
 
     private static void AssignLoversRolesFromList()
     {
