@@ -80,6 +80,7 @@ public static class Divinator
                 CustomRoles.SabotageMaster or
                 CustomRoles.EngineerTOHE or
                 CustomRoles.Jackal or
+            //    CustomRoles.Sidekick or
                 CustomRoles.Mario or
                 CustomRoles.Cleaner or
                 CustomRoles.Crewpostor
@@ -98,6 +99,7 @@ public static class Divinator
                 => "Impulse",
 
                 CustomRoles.Vampire or
+                CustomRoles.Poisoner or
                 CustomRoles.Assassin or
                 CustomRoles.Escapee or
                 CustomRoles.Sniper or

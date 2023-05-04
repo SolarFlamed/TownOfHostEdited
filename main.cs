@@ -77,6 +77,7 @@ public class Main : BasePlugin
     public static OptionBackupData RealOptionsData;
     public static Dictionary<byte, PlayerState> PlayerStates = new();
     public static Dictionary<byte, string> AllPlayerNames = new();
+    public static Dictionary<byte, CustomRoles> AllPlayerCustomRoles;
     public static Dictionary<(byte, byte), string> LastNotifyNames;
     public static Dictionary<byte, Color32> PlayerColors = new();
     public static Dictionary<byte, PlayerState.DeathReason> AfterMeetingDeathPlayers = new();
@@ -303,6 +304,7 @@ public class Main : BasePlugin
                 {CustomRoles.Opportunist, "#4dff4d"},
                 {CustomRoles.Mario, "#ff6201"},
                 {CustomRoles.Jackal, "#00b4eb"},
+                {CustomRoles.Sidekick, "#00b4eb"},
                 {CustomRoles.Innocent, "#8f815e"},
                 {CustomRoles.Pelican, "#34c84b"},
                 {CustomRoles.Revolutionist, "#ba4d06"},
@@ -517,6 +519,7 @@ public enum CustomRoles
     Workhorse,
     Fool,
     Avanger,
+    Sidekick,
     Youtuber,
     Egoist,
     TicketsStealer,

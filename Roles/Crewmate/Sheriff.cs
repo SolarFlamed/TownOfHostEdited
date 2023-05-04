@@ -35,7 +35,7 @@ public static class Sheriff
         KillCooldown = FloatOptionItem.Create(Id + 10, "KillCooldown", new(0f, 999f, 1f), 15f, TabGroup.CrewmateRoles, false).SetParent(Options.CustomRoleSpawnChances[CustomRoles.Sheriff])
             .SetValueFormat(OptionFormat.Seconds);
         MisfireKillsTarget = BooleanOptionItem.Create(Id + 11, "SheriffMisfireKillsTarget", false, TabGroup.CrewmateRoles, false).SetParent(Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
-        ShotLimitOpt = IntegerOptionItem.Create(Id + 12, "SheriffShotLimit", new(0, 15, 1), 6, TabGroup.CrewmateRoles, false).SetParent(Options.CustomRoleSpawnChances[CustomRoles.Sheriff])
+        ShotLimitOpt = IntegerOptionItem.Create(Id + 12, "SheriffShotLimit", new(1, 15, 1), 6, TabGroup.CrewmateRoles, false).SetParent(Options.CustomRoleSpawnChances[CustomRoles.Sheriff])
             .SetValueFormat(OptionFormat.Times);
         CanKillAllAlive = BooleanOptionItem.Create(Id + 15, "SheriffCanKillAllAlive", true, TabGroup.CrewmateRoles, false).SetParent(Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
         CanKillMadmate = BooleanOptionItem.Create(Id + 17, "SheriffCanKillMadmate", true, TabGroup.CrewmateRoles, false).SetParent(Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
@@ -100,10 +100,9 @@ public static class Sheriff
     }
     public static void SetKillCooldown(byte id) => Main.AllPlayerKillCooldown[id] = CanUseKillButton(id) ? CurrentKillCooldown[id] : 0f;
     public static bool CanUseKillButton(byte playerId)
-        
         => !Main.PlayerStates[playerId].IsDead
         && (CanKillAllAlive.GetBool() || GameStates.AlreadyDied)
-        && (!ShotLimit.TryGetValue(playerId, out var x) || x == 0 || ShotLimitOpt.GetFloat() == 0);
+        && (!ShotLimit.TryGetValue(playerId, out var x) || x > 0);
 
     public static bool OnCheckMurder(PlayerControl killer, PlayerControl target)
     {
@@ -125,12 +124,7 @@ public static class Sheriff
         killer.RpcMurderPlayerV3(killer);
         return MisfireKillsTarget.GetBool();
     }
-public static string GetShotLimit(byte playerId)
-        {
-            if (ShotLimitOpt.GetInt() == 0) return "";
-            else if (ShotLimitOpt.GetInt() == -1) return "";
-            return Utils.ColorString(Color.yellow, ShotLimit.TryGetValue(playerId, out var shotLimit) ? $"({shotLimit})" : "Invalid");
-        }    
+    public static string GetShotLimit(byte playerId) => Utils.ColorString(CanUseKillButton(playerId) ? Color.yellow : Color.gray, ShotLimit.TryGetValue(playerId, out var shotLimit) ? $"({shotLimit})" : "Invalid");
     public static bool CanBeKilledBySheriff(this PlayerControl player)
     {
         var cRole = player.GetCustomRole();
