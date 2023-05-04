@@ -204,6 +204,8 @@ public static class Options
     public static OptionItem ImpCanBeSeer;
     public static OptionItem CrewCanBeSeer;
     public static OptionItem NeutralCanBeSeer;
+    public static OptionItem CrewmateCanBeSidekick;
+    public static OptionItem NeutralCanBeSidekick;
 
     // タスク無効化
     public static OptionItem DisableTasks;
@@ -661,7 +663,6 @@ public static class Options
         TerroristTasks = OverrideTasksData.Create(50220, TabGroup.NeutralRoles, CustomRoles.Terrorist);
         Executioner.SetupCustomOption();
         Jackal.SetupCustomOption();
-        Poisoner.SetupCustomOption();
         SetupRoleOptions(5050233, TabGroup.NeutralRoles, CustomRoles.Innocent);
         InnocentCanWinByImp = BooleanOptionItem.Create(5050266, "InnocentCanWinByImp", false, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Innocent]);
         SetupRoleOptions(5050850, TabGroup.NeutralRoles, CustomRoles.FFF);
@@ -685,10 +686,6 @@ public static class Options
         ImpCanBeSeer = BooleanOptionItem.Create(6050353, "ImpCanBeSeer", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Seer]);
         CrewCanBeSeer = BooleanOptionItem.Create(6050354, "CrewCanBeSeer", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Seer]);
         NeutralCanBeSeer = BooleanOptionItem.Create(6050355, "NeutralCanBeSeer", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Seer]);
-        SetupAdtRoleOptions(20000, CustomRoles.Bait, canSetNum: true);
-        SetupAdtRoleOptions(20800, CustomRoles.Trapper, canSetNum: true);
-        TrapperBlockMoveTime = FloatOptionItem.Create(20810, "TrapperBlockMoveTime", new(1f, 180f, 1f), 5f, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Trapper])
-            .SetValueFormat(OptionFormat.Seconds);
         SetupAdtRoleOptions(6050360, CustomRoles.Brakar, canSetNum: true);
         SetupAdtRoleOptions(6050370, CustomRoles.Oblivious, canSetNum: true);
         SetupAdtRoleOptions(6050380, CustomRoles.Bewilder, canSetNum: true);
@@ -750,7 +747,6 @@ public static class Options
             .SetValueFormat(OptionFormat.Times);
         SetupRoleOptions(8023487, TabGroup.OtherRoles, CustomRoles.Glitch);
         GlitchCanVote = BooleanOptionItem.Create(8023489, "GlitchCanVote", true, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Glitch]);
-        Marshall.SetupCustomOption();
         // 中立
         TextOptionItem.Create(909094, "OtherRoles.NeutralRoles", TabGroup.OtherRoles)
             .SetGameMode(CustomGameMode.Standard)
@@ -787,18 +783,33 @@ public static class Options
         SetupAdtRoleOptions(6050490, CustomRoles.Egoist, canSetNum: true, tab: TabGroup.OtherRoles);
         ImpCanBeEgoist = BooleanOptionItem.Create(6050495, "ImpCanBeEgoist", true, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Egoist]);
         CrewCanBeEgoist = BooleanOptionItem.Create(6050497, "CrewCanBeEgoist", true, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Egoist]);
-        SetupAdtRoleOptions(6050500, CustomRoles.Necroview, canSetNum: true, tab: TabGroup.OtherRoles);
 
-        // Vanilla
-        TextOptionItem.Create(120015, "OtherRoles.ImpostorRoles", TabGroup.VanillaRoles)
+        // Exclusive Roles
+        TextOptionItem.Create(120015, "OtherRoles.ImpostorRoles", TabGroup.ExclusiveRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(247, 70, 49, byte.MaxValue));
-        SetupRoleOptions(120000, TabGroup.VanillaRoles, CustomRoles.ShapeshifterTOHE);
-        TextOptionItem.Create(120020, "OtherRoles.CrewmateRoles", TabGroup.VanillaRoles)
+        SetupRoleOptions(120000, TabGroup.ExclusiveRoles, CustomRoles.ShapeshifterTOHE);
+        TextOptionItem.Create(120020, "OtherRoles.CrewmateRoles", TabGroup.ExclusiveRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(140, 255, 255, byte.MaxValue));
-        SetupRoleOptions(120005, TabGroup.VanillaRoles, CustomRoles.EngineerTOHE);
-        SetupRoleOptions(120010, TabGroup.VanillaRoles, CustomRoles.ScientistTOHE);
+        SetupRoleOptions(120005, TabGroup.ExclusiveRoles, CustomRoles.EngineerTOHE);
+        SetupRoleOptions(120010, TabGroup.ExclusiveRoles, CustomRoles.ScientistTOHE);
+        Marshall.SetupCustomOption();
+        TextOptionItem.Create(120030, "OtherRoles.NeutralRoles", TabGroup.ExclusiveRoles)
+            .SetGameMode(CustomGameMode.Standard)
+            .SetColor(new Color32(255, 171, 27, byte.MaxValue));
+        Poisoner.SetupCustomOption();
+        TextOptionItem.Create(120025, "OtherRoles.Addons", TabGroup.ExclusiveRoles)
+            .SetGameMode(CustomGameMode.Standard)
+            .SetColor(new Color32(255, 154, 206, byte.MaxValue));
+        SetupAdtRoleOptions(6050500, CustomRoles.Necroview, canSetNum: true, tab: TabGroup.ExclusiveRoles);
+        SetupAdtRoleOptions(6050505, CustomRoles.Sidekick, canSetNum: true, tab: TabGroup.ExclusiveRoles);
+        CrewmateCanBeSidekick = BooleanOptionItem.Create(6050510, "CrewmatesCanBeSidekick", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
+        NeutralCanBeSidekick = BooleanOptionItem.Create(6050515, "NeutralsCanBeSidekick", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
+        SetupAdtRoleOptions(20000, CustomRoles.Bait, canSetNum: true, tab: TabGroup.ExclusiveRoles);
+        SetupAdtRoleOptions(20800, CustomRoles.Trapper, canSetNum: true, tab: TabGroup.ExclusiveRoles);
+        TrapperBlockMoveTime = FloatOptionItem.Create(20810, "TrapperBlockMoveTime", new(1f, 180f, 1f), 5f, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Trapper])
+            .SetValueFormat(OptionFormat.Seconds);
 
         #endregion
 

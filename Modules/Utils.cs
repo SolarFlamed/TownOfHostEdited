@@ -346,6 +346,7 @@ public static class Utils
             case CustomRoles.Sheriff:
             case CustomRoles.Arsonist:
             case CustomRoles.Jackal:
+        //    case CustomRoles.Sidekick:
             case CustomRoles.Poisoner:
             case CustomRoles.Jester:
             case CustomRoles.Opportunist:
@@ -1154,6 +1155,8 @@ public static class Utils
                         (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoleTypes.Impostor) && Options.MadmateKnowWhosImp.GetBool()) ||
                         (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Madmate) && Options.ImpKnowWhosMadmate.GetBool()) ||
                         (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosMadmate.GetBool()) ||
+                        (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Sidekick)) ||
+                        (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Jackal))||
                         (target.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool()) ||
                         (seer.Is(CustomRoles.God)) ||
                         (target.Is(CustomRoles.GM))
@@ -1202,6 +1205,8 @@ public static class Utils
                         TargetMark.Append(ColorString(GetRoleColor(CustomRoles.Impostor), "★"));
                     if (seer.Is(CustomRoleTypes.Crewmate) && target.Is(CustomRoles.Marshall) && target.GetPlayerTaskState().IsTaskFinished)
                         TargetMark.Append(ColorString(GetRoleColor(CustomRoles.Marshall), "★"));
+                    if (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Sidekick))
+                        TargetMark.Append(ColorString(GetRoleColor(CustomRoles.Jackal), " ♥"));
 
                     TargetMark.Append(Executioner.TargetMark(seer, target));
 

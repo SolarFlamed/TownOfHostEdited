@@ -32,6 +32,8 @@ public static class NameColorManager
             || seer.Is(CustomRoles.GM)
             || seer.Is(CustomRoles.God)
             || (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoleTypes.Impostor))
+            || (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Sidekick))
+            || (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Jackal))
             || (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoleTypes.Impostor) && Options.MadmateKnowWhosImp.GetBool())
             || (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Madmate) && Options.ImpKnowWhosMadmate.GetBool())
             || (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosMadmate.GetBool())

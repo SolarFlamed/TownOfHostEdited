@@ -613,6 +613,7 @@ internal static class RPC
                 Executioner.Add(targetId);
                 break;
             case CustomRoles.Jackal:
+        //    case CustomRoles.Sidekick:
                 Jackal.Add(targetId);
                 break;
             case CustomRoles.Poisoner:

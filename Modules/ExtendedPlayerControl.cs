@@ -426,6 +426,7 @@ static class ExtendedPlayerControl
             CustomRoles.Revolutionist => !pc.IsDrawDone(),
             CustomRoles.SwordsMan => pc.IsAlive(),
             CustomRoles.Jackal => pc.IsAlive(),
+      //      CustomRoles.Sidekick => pc.IsAlive(),
             CustomRoles.Poisoner => pc.IsAlive(),
             CustomRoles.Bomber => false,
             CustomRoles.Innocent => pc.IsAlive(),
@@ -458,6 +459,7 @@ static class ExtendedPlayerControl
             => false,
 
             CustomRoles.Jackal => Jackal.CanVent.GetBool(),
+       //     CustomRoles.Sidekick => Jackal.CanVent.GetBool(),
             CustomRoles.Poisoner => Poisoner.CanVent.GetBool(),
             CustomRoles.Pelican => Pelican.CanVent.GetBool(),
             CustomRoles.Gamer => Gamer.CanVent.GetBool(),
@@ -521,6 +523,7 @@ static class ExtendedPlayerControl
                 Main.AllPlayerKillCooldown[player.PlayerId] = Options.RevolutionistCooldown.GetFloat();
                 break;
             case CustomRoles.Jackal:
+       //     case CustomRoles.Sidekick:
                 Jackal.SetKillCooldown(player.PlayerId);
                 break;
             case CustomRoles.Poisoner:

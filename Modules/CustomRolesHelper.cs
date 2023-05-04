@@ -104,6 +104,7 @@ internal static class CustomRolesHelper
             CustomRoles.Sheriff => RoleTypes.Impostor,
             CustomRoles.Arsonist => RoleTypes.Impostor,
             CustomRoles.Jackal => RoleTypes.Impostor,
+       //     CustomRoles.Sidekick => RoleTypes.Impostor,
             CustomRoles.SwordsMan => RoleTypes.Impostor,
             CustomRoles.Innocent => RoleTypes.Impostor,
             CustomRoles.Pelican => RoleTypes.Impostor,
@@ -131,6 +132,7 @@ internal static class CustomRolesHelper
             CustomRoles.Lighter or
             CustomRoles.Seer or
             CustomRoles.Bait or
+            CustomRoles.Sidekick or
             CustomRoles.Trapper or
             CustomRoles.Brakar or
             CustomRoles.Oblivious or
@@ -150,6 +152,7 @@ internal static class CustomRolesHelper
     {
         return role is
             CustomRoles.Jackal or
+        //    CustomRoles.Sidekick or
             CustomRoles.Pelican or
             CustomRoles.FFF or
             CustomRoles.Gamer or
@@ -164,6 +167,7 @@ internal static class CustomRolesHelper
             CustomRoles.Terrorist or
             CustomRoles.Arsonist or
             CustomRoles.Jackal or
+       //     CustomRoles.Sidekick or
             CustomRoles.God or
             CustomRoles.Mario or
             CustomRoles.Innocent or
@@ -244,6 +248,7 @@ internal static class CustomRolesHelper
             CustomRoles.Jackal or
             CustomRoles.God or
             CustomRoles.Innocent or
+        //    CustomRoles.Sidekick or
             CustomRoles.Poisoner or
             CustomRoles.Pelican or
             CustomRoles.Revolutionist or
@@ -285,6 +290,11 @@ internal static class CustomRolesHelper
         if (role is CustomRoles.DualPersonality && pc.GetCustomRole().IsImpostor() && !Options.ImpCanBeDualPersonality.GetBool()) return false;
         if (role is CustomRoles.DualPersonality && pc.GetCustomRole().IsCrewmate() && !Options.CrewCanBeDualPersonality.GetBool()) return false;
         if (role is CustomRoles.Seer && ((pc.GetCustomRole().IsCrewmate() && !Options.CrewCanBeSeer.GetBool()) || (pc.GetCustomRole().IsNeutral() && !Options.NeutralCanBeSeer.GetBool()) || (pc.GetCustomRole().IsImpostor() && !Options.ImpCanBeSeer.GetBool()))) return false;
+        if (role is CustomRoles.Sidekick && (pc.GetCustomRole().IsImpostor() || pc.Is(CustomRoles.Madmate))) return false;
+        if (role is CustomRoles.Sidekick && pc.GetCustomRole().IsNeutral() && !Options.NeutralCanBeSidekick.GetBool()) return false;
+        if (role is CustomRoles.Sidekick && pc.GetCustomRole().IsCrewmate() && !Options.CrewmateCanBeSidekick.GetBool()) return false;
+        if (role is CustomRoles.Madmate && pc.Is(CustomRoles.Sidekick)) return false;
+        if (role is CustomRoles.Sidekick && pc.Is(CustomRoles.Jackal)) return false;
         return true;
     }
     public static RoleTypes GetRoleTypes(this CustomRoles role)
@@ -369,6 +379,7 @@ internal static class CustomRolesHelper
        {
            CustomRoles.GM => CountTypes.OutOfGame,
            CustomRoles.Jackal => CountTypes.Jackal,
+           CustomRoles.Sidekick => CountTypes.Jackal,
            CustomRoles.Poisoner => CountTypes.Poisoner,
            CustomRoles.Pelican => CountTypes.Pelican,
            CustomRoles.Gamer => CountTypes.Gamer,

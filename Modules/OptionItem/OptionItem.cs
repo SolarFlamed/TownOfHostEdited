@@ -265,7 +265,7 @@ public enum TabGroup
     NeutralRoles,
     Addons,
     OtherRoles,
-    VanillaRoles
+    ExclusiveRoles
 }
 public enum OptionFormat
 {
