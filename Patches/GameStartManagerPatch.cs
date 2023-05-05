@@ -192,6 +192,7 @@ public class GameStartRandomMap
             Utils.SendMessage(msg);
             return false;
         }
+        
 
         Options.DefaultKillCooldown = Main.NormalOptions.KillCooldown;
         Main.LastKillCooldown.Value = Main.NormalOptions.KillCooldown;
