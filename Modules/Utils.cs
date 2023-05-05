@@ -297,9 +297,19 @@ public static class Utils
             RoleText = GetRoleString("Last-") + RoleText;
 
         if (Options.NameDisplayAddons.GetBool() && !pure)
-            foreach (var subRole in SubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Lovers))
+{     
+    if (Options.AddBracketsToAddons.GetBool())       
+    {
+        foreach (var subRole in SubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Lovers))
+                RoleText = ColorString(GetRoleColor(subRole), GetString("PrefixB." + subRole.ToString())) + RoleText;
+    }
+    else if (!Options.AddBracketsToAddons.GetBool())
+    {
+        foreach (var subRole in SubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Lovers))
                 RoleText = ColorString(GetRoleColor(subRole), GetString("Prefix." + subRole.ToString())) + RoleText;
+    }
 
+}
         if (SubRoles.Contains(CustomRoles.Madmate))
             RoleText = GetRoleString("Mad-") + RoleText;
 

@@ -101,6 +101,7 @@ public static class Options
     // 各役職の詳細設定
     public static OptionItem EnableGM;
     public static float DefaultKillCooldown = Main.NormalOptions?.KillCooldown ?? 20;
+    public static OptionItem GhostsDoTasks;
 
     public static OptionItem DisableMeeting;
     public static OptionItem DisableCloseDoor;
@@ -215,6 +216,18 @@ public static class Options
     public static OptionItem DisableUploadData;
     public static OptionItem DisableStartReactor;
     public static OptionItem DisableResetBreaker;
+    public static OptionItem DisableWires;
+    public static OptionItem DisableVentCleaning;
+    public static OptionItem DisableRebootWifi;
+    public static OptionItem DisableDiagnostics;
+    public static OptionItem DisableFuel;
+    public static OptionItem DisableInspectSample;
+    public static OptionItem DisablePhotoTask;
+    public static OptionItem DisableGemCode;
+    public static OptionItem DisableNodes;
+    public static OptionItem DisableWaterwheels;
+    public static OptionItem DisableKeys;
+    public static OptionItem DisableDivertPower;
 
     //デバイスブロック
     public static OptionItem DisableDevices;
@@ -358,6 +371,7 @@ public static class Options
 
     //Add-Ons
     public static OptionItem NameDisplayAddons;
+    public static OptionItem AddBracketsToAddons;
     public static OptionItem NoLimitAddonsNum;
     public static OptionItem BewilderVision;
     public static OptionItem ImpCanBeAvanger;
@@ -785,6 +799,9 @@ public static class Options
         CrewCanBeEgoist = BooleanOptionItem.Create(6050497, "CrewCanBeEgoist", true, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Egoist]);
 
         // Exclusive Roles
+   //     TextOptionItem.Create(6050520, "MenuTitle.Settings", TabGroup.ExclusiveRoles)
+  //          .SetGameMode(CustomGameMode.Standard)
+  //          .SetColor(new Color32(255, 255, 0, byte.MaxValue));
         TextOptionItem.Create(120015, "OtherRoles.ImpostorRoles", TabGroup.ExclusiveRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(247, 70, 49, byte.MaxValue));
@@ -794,6 +811,7 @@ public static class Options
             .SetColor(new Color32(140, 255, 255, byte.MaxValue));
         SetupRoleOptions(120005, TabGroup.ExclusiveRoles, CustomRoles.EngineerTOHE);
         SetupRoleOptions(120010, TabGroup.ExclusiveRoles, CustomRoles.ScientistTOHE);
+   //     SetupSingleRoleOptions(6050525, TabGroup.ExclusiveRoles, CustomRoles.GuardianAngelTOHE, 1, zeroOne: false);
         Marshall.SetupCustomOption();
         TextOptionItem.Create(120030, "OtherRoles.NeutralRoles", TabGroup.ExclusiveRoles)
             .SetGameMode(CustomGameMode.Standard)
@@ -802,6 +820,9 @@ public static class Options
         TextOptionItem.Create(120025, "OtherRoles.Addons", TabGroup.ExclusiveRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 154, 206, byte.MaxValue));
+        AddBracketsToAddons = BooleanOptionItem.Create(6050510, "BracketAddons", false, TabGroup.ExclusiveRoles, false)
+            .SetGameMode(CustomGameMode.Standard)
+            .SetHeader(true);
         SetupAdtRoleOptions(6050500, CustomRoles.Necroview, canSetNum: true, tab: TabGroup.ExclusiveRoles);
         SetupAdtRoleOptions(6050505, CustomRoles.Sidekick, canSetNum: true, tab: TabGroup.ExclusiveRoles);
         CrewmateCanBeSidekick = BooleanOptionItem.Create(6050510, "CrewmatesCanBeSidekick", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
@@ -920,8 +941,6 @@ public static class Options
         DisableTaskWin = BooleanOptionItem.Create(66_900_001, "DisableTaskWin", false, TabGroup.GameSettings, false)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 153, 153, byte.MaxValue));
-
-        // 禁用任务
         DisableTasks = BooleanOptionItem.Create(100300, "DisableTasks", false, TabGroup.GameSettings, false)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 153, 153, byte.MaxValue));
@@ -937,6 +956,8 @@ public static class Options
             .SetGameMode(CustomGameMode.Standard);
         DisableResetBreaker = BooleanOptionItem.Create(100306, "DisableResetBreakerTask", false, TabGroup.GameSettings, false).SetParent(DisableTasks)
             .SetGameMode(CustomGameMode.Standard);
+
+        // 禁用任务
 
         DisableMeeting = BooleanOptionItem.Create(66_900_002, "DisableMeeting", false, TabGroup.GameSettings, false)
             .SetGameMode(CustomGameMode.Standard)
