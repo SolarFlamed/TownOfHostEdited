@@ -20,7 +20,7 @@ public class ModUpdater
     private static readonly string URL_2018k = "http://api.2018k.cn";
     private static readonly string URL_Github = "https://api.github.com/repos/KARPED1EM/TownOfHostEdited";
     public static bool hasUpdate = false;
-    public static bool forceUpdate = true;
+    public static bool forceUpdate = false;
     public static bool isBroken = false;
     public static bool isChecked = false;
     public static Version latestVersion = null;
@@ -103,7 +103,7 @@ public class ModUpdater
             if (!onlyInfo)
             {
                 hasUpdate = false;
-                forceUpdate = info[1] == "true";
+                forceUpdate = info[1] == "false";
                 latestVersion = new(info[4]);
                 latestTitle = new("TOHE");
 
@@ -133,7 +133,7 @@ public class ModUpdater
             if (create > Main.PluginCreate)
             {
                 hasUpdate = true;
-                forceUpdate = true;
+                forceUpdate = false;
             }
 
 #if DEBUG
