@@ -173,6 +173,12 @@ class CheckMurderPatch
                     killer.SetKillCooldown();
                     Utils.NotifyRoles(SpecifySeer: killer);
                     return false;
+                case CustomRoles.NWitch:
+                  //  if (target.Is(CustomRoles.Needy)) return false;
+                    Main.TaglockedList[target.PlayerId] = killer.PlayerId;
+                    killer.SetKillCooldown();
+                    Utils.NotifyRoles(SpecifySeer: killer);
+                    return false;
                 case CustomRoles.Capitalism:
                     if (!Main.CapitalismAddTask.ContainsKey(target.PlayerId))
                         Main.CapitalismAddTask.Add(target.PlayerId, 0);
@@ -1369,6 +1375,46 @@ class FixedUpdatePatch
                         }
                     }
                 }
+                if (GameStates.IsInTask && Main.TaglockedList.ContainsKey(player.PlayerId))
+                {
+                    if (!player.IsAlive() || Pelican.IsEaten(player.PlayerId))
+                    {
+                        Main.TaglockedList.Remove(player.PlayerId);
+                    }
+                    else
+                    {
+                        Vector2 puppeteerPos = player.transform.position;//PuppeteerListのKeyの位置
+                        Dictionary<byte, float> targetDistance = new();
+                        float dis;
+                        foreach (var target in Main.AllAlivePlayerControls)
+                        {
+                            if (target.PlayerId != player.PlayerId && !target.Is(CustomRoles.NWitch))
+                            {
+                                dis = Vector2.Distance(puppeteerPos, target.transform.position);
+                                targetDistance.Add(target.PlayerId, dis);
+                            }
+                        }
+                        if (targetDistance.Count() != 0)
+                        {
+                            var min = targetDistance.OrderBy(c => c.Value).FirstOrDefault();//一番値が小さい
+                            PlayerControl target = Utils.GetPlayerById(min.Key);
+                            var KillRange = NormalGameOptionsV07.KillDistances[Mathf.Clamp(Main.NormalOptions.KillDistance, 0, 2)];
+                            if (min.Value <= KillRange && player.CanMove && target.CanMove)
+                            {
+                                if (player.RpcCheckAndMurder(target, true))
+                                {
+                                    var puppeteerId = Main.TaglockedList[player.PlayerId];
+                                    RPC.PlaySoundRPC(puppeteerId, Sounds.KillSound);
+                                    target.SetRealKiller(Utils.GetPlayerById(puppeteerId));
+                                    player.RpcMurderPlayerV3(target);
+                                    Utils.MarkEveryoneDirtySettings();
+                                    Main.TaglockedList.Remove(player.PlayerId);
+                                    Utils.NotifyRoles();
+                                }
+                            }
+                        }
+                    }
+                }
                 #endregion
 
                 if (GameStates.IsInTask && player == PlayerControl.LocalPlayer)
@@ -1548,6 +1594,13 @@ class FixedUpdatePatch
                     Main.PuppeteerList.ContainsValue(seer.PlayerId) &&
                     Main.PuppeteerList.ContainsKey(target.PlayerId))
                         Mark.Append($"<color={Utils.GetRoleColorCode(CustomRoles.Impostor)}>◆</color>");
+                }
+                if (seer.Is(CustomRoles.NWitch))
+                {
+                    if (seer.Is(CustomRoles.NWitch) &&
+                    Main.TaglockedList.ContainsValue(seer.PlayerId) &&
+                    Main.TaglockedList.ContainsKey(target.PlayerId))
+                        Mark.Append($"<color={Utils.GetRoleColorCode(CustomRoles.NWitch)}>◆</color>");
                 }
                 if (Sniper.IsEnable && target.AmOwner)
                 {
