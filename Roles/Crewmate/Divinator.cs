@@ -165,6 +165,7 @@ public static class Divinator
                 CustomRoles.TimeManager or
                 CustomRoles.Jester or
                 CustomRoles.Medicaler or
+                CustomRoles.GuardianAngelTOHE or
                 CustomRoles.DarkHide or
                 CustomRoles.CursedWolf or
                 CustomRoles.OverKiller or
