@@ -270,6 +270,9 @@ class CheckMurderPatch
                     killer.SetRealKiller(target);
                     Main.Provoked.TryAdd(killer.PlayerId, target.PlayerId);
                     return false;
+                case CustomRoles.Totocalcio:
+                    if (!Totocalcio.OnCheckMurder(killer, target)) return false;
+                    break;
 
                 //==========船员职业==========//
                 case CustomRoles.Sheriff:
@@ -688,7 +691,7 @@ class ShapeshiftPatch
         if (!AmongUsClient.Instance.AmHost) return;
         if (!shapeshifting) Camouflage.RpcSetSkin(__instance);
 
-        if (Pelican.IsEaten(shapeshifter.PlayerId))
+        if (Pelican.IsEaten(shapeshifter.PlayerId) || GameStates.IsVoting)
             goto End;
 
         switch (shapeshifter.GetCustomRole())
@@ -1494,6 +1497,7 @@ class FixedUpdatePatch
                 else if (__instance.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool()) RoleText.enabled = true;
                 else if (PlayerControl.LocalPlayer.Is(CustomRoles.God)) RoleText.enabled = true;
                 else if (PlayerControl.LocalPlayer.Is(CustomRoles.GM)) RoleText.enabled = true;
+                else if (Totocalcio.KnowRole(PlayerControl.LocalPlayer, __instance)) RoleText.enabled = true;
                 else if (Main.GodMode.Value) RoleText.enabled = true;
                 else RoleText.enabled = false; //そうでなければロールを非表示
                 if (!AmongUsClient.Instance.IsGameStarted && AmongUsClient.Instance.NetworkMode != NetworkModes.FreePlay)
@@ -1593,6 +1597,9 @@ class FixedUpdatePatch
                 Mark.Append(Gamer.TargetMark(seer, target));
 
                 Mark.Append(Medicaler.TargetMark(seer, target));
+
+                Mark.Append(Totocalcio.TargetMark(seer, target));
+
 
                 if (seer.Is(CustomRoles.Puppeteer))
                 {

@@ -270,6 +270,11 @@ internal class ChatCommands
                 case "/colour":
                 case "/color":
                     canceled = true;
+                    if (GameStates.IsInGame)
+                    {
+                        Utils.SendMessage(GetString("Message.OnlyCanUseInLobby"), PlayerControl.LocalPlayer.PlayerId);
+                        break;
+                    }
                     subArgs = args.Length < 2 ? "" : args[1];
                     var color = Utils.MsgToColor(subArgs, true);
                     if (color == byte.MaxValue)
@@ -340,6 +345,16 @@ internal class ChatCommands
                     canceled = true;
                     CustomWinnerHolder.ResetAndSetWinner(CustomWinner.Draw);
                     GameManager.Instance.LogicFlow.CheckEndCriteria();
+                    break;
+                case "/cosid":
+                    canceled = true;
+                    var of = PlayerControl.LocalPlayer.Data.DefaultOutfit;
+                    Logger.Warn($"ColorId: {of.ColorId}", "Get Cos Id");
+                    Logger.Warn($"PetId: {of.PetId}", "Get Cos Id");
+                    Logger.Warn($"HatId: {of.HatId}", "Get Cos Id");
+                    Logger.Warn($"SkinId: {of.SkinId}", "Get Cos Id");
+                    Logger.Warn($"VisorId: {of.VisorId}", "Get Cos Id");
+                    Logger.Warn($"NamePlateId: {of.NamePlateId}", "Get Cos Id");
                     break;
 
                 case "/mt":
@@ -496,6 +511,8 @@ internal class ChatCommands
             "隱匿者" or "隐匿" or "隐身" or "隐身人" or "印尼" => GetString("Swooper"),
             "船鬼" => GetString("Crewpostor"),
             "嗜血騎士" or "血骑" or "骑士" or "bk" => GetString("BloodKnight"),
+            "賭徒" => GetString("Totocalcio"),
+            "持槍" or "持械" or "手长" => GetString("Reach"),
             _ => text,
         };
     }
@@ -679,9 +696,14 @@ internal class ChatCommands
             case "/color":
                 if (Options.PlayerCanSetColor.GetBool())
                 {
+                    if (GameStates.IsInGame)
+                    {
+                        Utils.SendMessage(GetString("Message.OnlyCanUseInLobby"), player.PlayerId);
+                        break;
+                    }
                     subArgs = args.Length < 2 ? "" : args[1];
                     var color = Utils.MsgToColor(subArgs);
-                    if (color == Byte.MaxValue)
+                    if (color == byte.MaxValue)
                     {
                         Utils.SendMessage(GetString("IllegalColor"), player.PlayerId);
                         break;

@@ -376,6 +376,7 @@ public static class Utils
             case CustomRoles.Medicaler:
             case CustomRoles.BloodKnight:
             case CustomRoles.Concealer:
+            case CustomRoles.Totocalcio:
                 hasTasks = false;
                 break;
             case CustomRoles.Workaholic:
@@ -497,6 +498,9 @@ public static class Utils
                 break;
             case CustomRoles.KB_Normal:
                 ProgressText.Append(SoloKombatManager.GetDisplayScore(playerId));
+                break;
+            case CustomRoles.Totocalcio:
+                ProgressText.Append(Totocalcio.GetProgressText(playerId));
                 break;
             default:
                 //タスクテキスト
@@ -1173,6 +1177,7 @@ public static class Utils
                         (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Sidekick)) ||
                         (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Jackal))||
                         (target.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool()) ||
+                        (Totocalcio.KnowRole(seer, target)) ||
                         (seer.Is(CustomRoles.God)) ||
                         (target.Is(CustomRoles.GM))
                         ? $"<size={fontSize}>{target.GetDisplayRoleName(seer.PlayerId != target.PlayerId && !seer.Data.IsDead)}{GetProgressText(target)}</size>\r\n" : "";
@@ -1228,6 +1233,9 @@ public static class Utils
                     TargetMark.Append(Gamer.TargetMark(seer, target));
 
                     TargetMark.Append(Medicaler.TargetMark(seer, target));
+                    
+                    TargetMark.Append(Totocalcio.TargetMark(seer, target));
+
 
                     //KB目标玩家名字后缀
                     TargetSuffix.Clear();

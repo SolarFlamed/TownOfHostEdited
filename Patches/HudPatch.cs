@@ -3,6 +3,8 @@ using TOHE.Roles.Impostor;
 using TOHE.Roles.Neutral;
 using UnityEngine;
 using static TOHE.Translator;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace TOHE;
 
@@ -188,6 +190,9 @@ class HudManagerPatch
                     case CustomRoles.Sheriff:
                         __instance.KillButton.OverrideText($"{GetString("SheriffKillButtonText")}");
                         break;
+                    case CustomRoles.Totocalcio:
+                        __instance.KillButton.OverrideText($"{GetString("TotocalcioKillButtonText")}");
+                        break;
                 }
 
                 //バウンティハンターのターゲットテキスト
@@ -337,6 +342,11 @@ class SetVentOutlinePatch
 class SetHudActivePatch
 {
     public static bool IsActive = false;
+    public static void Prefix(HudManager __instance, [HarmonyArgument(2)] ref bool isActive)
+    {
+        isActive &= !GameStates.IsMeeting;
+        return;
+    }
     public static void Postfix(HudManager __instance, [HarmonyArgument(2)] bool isActive)
     {
         __instance.ReportButton.ToggleVisible(!GameStates.IsLobby && isActive);
@@ -393,6 +403,17 @@ class SetHudActivePatch
         __instance.ImpostorVentButton.ToggleVisible(player.CanUseImpostorVentButton());
     }
 }
+[HarmonyPatch(typeof(VentButton), nameof(VentButton.DoClick))]
+class VentButtonDoClickPatch
+{ 
+    public static bool Prefix(VentButton __instance)
+    {
+        var pc = PlayerControl.LocalPlayer;
+        if (!pc.Is(CustomRoles.Swooper) || pc.inVent || __instance.currentTarget == null || !pc.CanMove || !__instance.isActiveAndEnabled) return true;
+        pc?.MyPhysics?.RpcEnterVent(__instance.currentTarget.Id);
+        return false;
+    }
+}
 [HarmonyPatch(typeof(MapBehaviour), nameof(MapBehaviour.Show))]
 class MapBehaviourShowPatch
 {
@@ -424,7 +445,19 @@ class TaskPanelBehaviourPatch
         {
             var RoleWithInfo = $"{player.GetDisplayRoleName()}:\r\n";
             RoleWithInfo += player.GetRoleInfo();
-            __instance.taskText.text = Utils.ColorString(player.GetRoleColor(), RoleWithInfo) + "\n" + __instance.taskText.text;
+            
+            var AllText = Utils.ColorString(player.GetRoleColor(), RoleWithInfo) + "\r\n\r\n";
+
+            var taskText = __instance.taskText.text;
+            if (taskText != "None" && Utils.HasTasks(player.Data, false))
+            {
+                int endOf = taskText.LastIndexOf("</color>\r\n") + "</color>\r\n".Length;
+                if (endOf != -1) AllText += taskText[endOf..] + "\r\n\r\n";
+            }
+
+            AllText += $"<size=70%>{GetString("PressF1ShowMainRoleDes")}\r\n{GetString("PressF2ShowAddRoleDes")}</size>";
+
+            __instance.taskText.text = AllText;
         }
 
         // RepairSenderの表示

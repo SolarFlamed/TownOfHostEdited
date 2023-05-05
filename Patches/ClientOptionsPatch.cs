@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TOHE;
 
-//À´Ô´£ºhttps://github.com/tukasa0001/TownOfHost/pull/1265
+//ï¿½ï¿½Ô´ï¿½ï¿½https://github.com/tukasa0001/TownOfHost/pull/1265
 [HarmonyPatch(typeof(OptionsMenuBehaviour), nameof(OptionsMenuBehaviour.Start))]
 public static class OptionsMenuBehaviourStartPatch
 {
@@ -20,14 +20,9 @@ public static class OptionsMenuBehaviourStartPatch
         if (__instance.DisableMouseMovement == null) return;
 
         Main.SwitchVanilla.Value = false;
-        if (!Main.SetAutoStartToDisable)
+        if (Main.ResetOptions || !DebugModeManager.AmDebugger)
         {
-            Main.VersionCheat.Value = false;
-            Main.AutoStart.Value = false;
-            Main.SetAutoStartToDisable = true;
-        }
-        if (!DebugModeManager.AmDebugger)
-        {
+            Main.ResetOptions = false;
             Main.VersionCheat.Value = false;
             Main.GodMode.Value = false;
         }

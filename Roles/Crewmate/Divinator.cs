@@ -69,7 +69,8 @@ public static class Divinator
                 CustomRoles.Marshall or
                 CustomRoles.Counterfeiter or
                 CustomRoles.God or
-                CustomRoles.Judge
+                CustomRoles.Judge or
+                CustomRoles.Observer
                 => "HideMsg",
 
                 CustomRoles.Miner or
@@ -156,7 +157,8 @@ public static class Divinator
                 CustomRoles.CyberStar or
                 CustomRoles.Collector or
                 CustomRoles.Sunnyboy or
-                CustomRoles.Bard
+                CustomRoles.Bard or
+                CustomRoles.Totocalcio
                 => "Enthusiasm",
 
                 CustomRoles.BoobyTrap or

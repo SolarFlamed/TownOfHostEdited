@@ -162,9 +162,10 @@ static class ExtendedPlayerControl
         AmongUsClient.Instance.FinishRpcImmediately(writer);
     }
 
-    public static void RpcGuardAndKill(this PlayerControl killer, PlayerControl target = null, int colorId = 0)
+    public static void RpcGuardAndKill(this PlayerControl killer, PlayerControl target = null, int colorId = 0, bool forObserver = false)
     {
         if (target == null) target = killer;
+        if (!forObserver) Main.AllPlayerControls.Where(x => x.Is(CustomRoles.Observer)).Do(x => x.RpcGuardAndKill(target, colorId, true));
         // Host
         if (killer.AmOwner)
         {
@@ -440,6 +441,7 @@ static class ExtendedPlayerControl
             CustomRoles.Assassin => Assassin.CanUseKillButton(pc),
             CustomRoles.BloodKnight => pc.IsAlive(),
             CustomRoles.Crewpostor => false,
+            CustomRoles.Totocalcio => Totocalcio.CanUseKillButton(pc),
             _ => pc.Is(CustomRoleTypes.Impostor),
         };
     }

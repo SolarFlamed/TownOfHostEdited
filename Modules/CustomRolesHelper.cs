@@ -93,6 +93,7 @@ internal static class CustomRolesHelper
                 CustomRoles.Bard => CustomRoles.Impostor,
                 CustomRoles.Swooper => CustomRoles.Impostor,
                 CustomRoles.Crewpostor => CustomRoles.Crewmate,
+                CustomRoles.Observer => CustomRoles.Crewmate,
                 _ => role.IsImpostor() ? CustomRoles.Impostor : CustomRoles.Crewmate,
             };
     }
@@ -120,6 +121,7 @@ internal static class CustomRolesHelper
             CustomRoles.BloodKnight => RoleTypes.Impostor,
             CustomRoles.Poisoner => RoleTypes.Impostor,
             CustomRoles.NWitch => RoleTypes.Impostor,
+            CustomRoles.Totocalcio => RoleTypes.Impostor,
             _ => RoleTypes.GuardianAngel
         };
     }
@@ -149,7 +151,8 @@ internal static class CustomRolesHelper
             CustomRoles.Egoist or
             CustomRoles.TicketsStealer or
             CustomRoles.DualPersonality or
-            CustomRoles.Mimic;
+            CustomRoles.Mimic or
+            CustomRoles.Reach;
     }
     public static bool IsNK(this CustomRoles role) // �Ƿ��������
     {
@@ -265,7 +268,8 @@ internal static class CustomRolesHelper
             CustomRoles.Collector or
             CustomRoles.Provocateur or
             CustomRoles.Sunnyboy or
-            CustomRoles.BloodKnight;
+            CustomRoles.BloodKnight or
+            CustomRoles.Totocalcio;
     }
     public static bool CheckAddonConfilct(CustomRoles role, PlayerControl pc)
     {
@@ -302,6 +306,7 @@ internal static class CustomRolesHelper
         if (role is CustomRoles.Sidekick && pc.Is(CustomRoles.Jackal)) return false;
         if (role is CustomRoles.Bait && pc.Is(CustomRoles.GuardianAngelTOHE)) return false;
         if (role is CustomRoles.Trapper && pc.Is(CustomRoles.GuardianAngelTOHE)) return false;
+        if (role is CustomRoles.Reach && !pc.CanUseKillButton()) return false;
         return true;
     }
     public static RoleTypes GetRoleTypes(this CustomRoles role)

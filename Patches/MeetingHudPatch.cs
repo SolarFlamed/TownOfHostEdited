@@ -145,14 +145,17 @@ class CheckForEndVotingPatch
                         }
                     }
                 }
-                if (ps.TargetPlayerId != ps.VotedFor || Options.MadmateSpawnMode.GetInt() != 2) //主动叛变模式下自票无效
+                //隐藏占卜师的票
+                if (CheckRole(ps.TargetPlayerId, CustomRoles.Divinator) && Divinator.HideVote.GetBool()) continue;
+
+                //主动叛变模式下自票无效
+                if (ps.TargetPlayerId == ps.VotedFor && Options.MadmateSpawnMode.GetInt() == 2) continue;
+
+                statesList.Add(new MeetingHud.VoterState()
                 {
-                    statesList.Add(new MeetingHud.VoterState()
-                    {
-                        VoterId = ps.TargetPlayerId,
-                        VotedForId = ps.VotedFor
-                    });
-                }
+                    VoterId = ps.TargetPlayerId,
+                    VotedForId = ps.VotedFor
+                });
                 if (CheckRole(ps.TargetPlayerId, CustomRoles.Mayor) && !Options.MayorHideVote.GetBool()) //Mayorの投票数
                 {
                     for (var i2 = 0; i2 < Options.MayorAdditionalVote.GetFloat(); i2++)
@@ -319,6 +322,17 @@ class CheckForEndVotingPatch
             case 2:
                 name = string.Format(GetString("PlayerIsRole"), realName, coloredRole);
                 break;
+            if (Options.ShowTeamNextToRoleNameOnEject.GetBool())
+                {
+                    name += " (";
+                    if (player.GetCustomRole().IsImpostor())
+                        name += Utils.ColorString(new Color32(255, 25, 25, byte.MaxValue), GetString("TeamImpostor"));
+                    else if (player.GetCustomRole().IsCrewmate())
+                        name += Utils.ColorString(new Color32(140, 255, 255, byte.MaxValue), GetString("TeamCrewmate"));
+                    else if (player.GetCustomRole().IsNeutral())
+                        name += Utils.ColorString(new Color32(255, 171, 27, byte.MaxValue), GetString("TeamNeutral"));
+                    name += ")";
+                }
         }
         var DecidedWinner = false;
         //小丑胜利
@@ -605,6 +619,7 @@ class MeetingHudStartPatch
                 (pc.Is(CustomRoles.Jackal) && PlayerControl.LocalPlayer.Is(CustomRoles.Sidekick)) ||
                 (pc.Is(CustomRoles.Sidekick) && PlayerControl.LocalPlayer.Is(CustomRoles.Jackal)) ||
                 (pc.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool()) ||
+                (Totocalcio.KnowRole(PlayerControl.LocalPlayer, pc)) ||
                 PlayerControl.LocalPlayer.Is(CustomRoles.God) ||
                 PlayerControl.LocalPlayer.Is(CustomRoles.GM) ||
                 Main.GodMode.Value;
@@ -737,6 +752,9 @@ class MeetingHudStartPatch
                     sb.Append(Gamer.TargetMark(seer, target));
                     sb.Append(Snitch.GetWarningMark(seer, target));
                     break;
+                case CustomRoles.Totocalcio:
+                    sb.Append(Totocalcio.TargetMark(seer, target));
+                    break;
             }
 
             bool isLover = false;
@@ -774,6 +792,9 @@ class MeetingHudStartPatch
             //医生护盾提示
             if (seer.PlayerId == target.PlayerId)
                 sb.Append(Medicaler.GetSheildMark(seer));
+            //赌徒提示
+            sb.Append(Totocalcio.TargetMark(seer, target));
+
 
             //会議画面ではインポスター自身の名前にSnitchマークはつけません。
 
