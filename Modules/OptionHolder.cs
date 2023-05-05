@@ -135,6 +135,8 @@ public static class Options
     public static OptionItem MadmateKnowWhosMadmate;
     public static OptionItem ImpCanKillMadmate;
     public static OptionItem MadmateCanKillImp;
+    public static OptionItem JackalCanKillSidekick;
+    public static OptionItem SidekickCanKillJackal;
 
     public static OptionItem ShapeMasterShapeshiftDuration;
     public static OptionItem EGCanGuessImp;
