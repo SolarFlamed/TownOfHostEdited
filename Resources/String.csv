@@ -60,6 +60,7 @@
 "EngineerTOHE","工程师","Engineer","Инженер","工程師","Ingeniero"
 "ScientistTOHE","科学家","Scientist","Ученый","科學家","Cientifico"
 "ShapeshifterTOHE","变形者","Shapeshifter","Оборотень","變形者","Cambiaformas"
+"GuardianAngelTOHE","守护天使","Guardian Angel","Ангел-хранитель","守護天使","Angel Guardian"
 
 "# 内鬼阵营 / Impostors"
 "BountyHunter","赏金猎人","Bounty Hunter","Охотник за Головами","賞金獵人","Cazador de Premios"
@@ -205,11 +206,38 @@
 "Prefix.Necroview","Necroview ","Necroview ","Necroview ","Necroview ","Necroview "
 "Prefix.Sidekick","Sidekick ","Sidekick ","Sidekick ","Sidekick ","Sidekick "
 
+"## 附加职业作为前缀时 / Prefixes for Add-ons But With Brackets"
+
+"PrefixB.Ntr","海王","<color=#ffffff>(</color>Neptunian<color=#ffffff>)</color> ","Нептунский ","海王","海王"
+"PrefixB.Watcher","窥视","<color=#ffffff>(</color>Watcher<color=#ffffff>)</color> ","Наблюдательный ","觀察","窥视"
+"PrefixB.Flashman","闪电","<color=#ffffff>(</color>Flash<color=#ffffff>)</color> ","Флэшевый ","閃電","闪电"
+"PrefixB.Lighter","执灯","<color=#ffffff>(</color>Lighter<color=#ffffff>)</color> ","Фонарный ","燈人","执灯"
+"PrefixB.Seer","灵媒","<color=#ffffff>(</color>Seer<color=#ffffff>)</color> ","Провидящий ","靈媒","灵媒"
+"PrefixB.Brakar","破平","<color=#ffffff>(</color>Tiebreaker<color=#ffffff>)</color> ","Решающий ","破平","破平"
+"PrefixB.Oblivious","胆小","<color=#ffffff>(</color>Oblivious<color=#ffffff>)</color> ","Забывчивый ","膽小","胆小"
+"PrefixB.Bewilder","迷幻","<color=#ffffff>(</color>Bewilder<color=#ffffff>)</color> ","Растерянный ","視障","迷幻"
+"PrefixB.Workhorse","加班狂","<color=#ffffff>(</color>Workhorse<color=#ffffff>)</color> ","Рабочий ","加班狂","加班狂"
+"PrefixB.Fool","蠢蛋","<color=#ffffff>(</color>Fool<color=#ffffff>)</color> ","Глуповатый ","蠢蛋","蠢蛋"
+"PrefixB.Avanger","复仇","<color=#ffffff>(</color>Avenger<color=#ffffff>)</color> ","Мстительный ","復仇","复仇"
+"PrefixB.Youtuber","UP主","<color=#ffffff>(</color>YouTuber<color=#ffffff>)</color> ","Ютубер ","Youtuber","UP主"
+"PrefixB.Egoist","利己主义","<color=#ffffff>(</color>Egoist<color=#ffffff>)</color> ","Эгоистичный ","利己主義","利己主义"
+"PrefixB.TicketsStealer","窃票","<color=#ffffff>(</color>Stealer<color=#ffffff>)</color> ","Ворующий ","竊票","窃票"
+"PrefixB.DualPersonality","双重人格","<color=#ffffff>(</color>Schizophrenic<color=#ffffff>)</color> ","Шизофренический ","雙重人格","双重人格"
+"PrefixB.Mimic","宝箱怪","<color=#ffffff>(</color>Mimic<color=#ffffff>)</color> ","Мимикующий ","保險箱","宝箱怪"
+"PrefixB.Bait","诱饵","<color=#ffffff>(</color>Bait<color=#ffffff>)</color> ","Байт","誘餌","Bait"
+"PrefixB.Trapper","陷阱师","<color=#ffffff>(</color>Sticky<color=#ffffff>)</color> ","Капкан","設陷者","陷阱师"
+"PrefixB.Guesser","Guesser ","<color=#ffffff>(</color>Guesser<color=#ffffff>)</color> ","Guesser ","Guesser ","Guesser "
+"PrefixB.Necroview","Necroview ","<color=#ffffff>(</color>Necroview<color=#ffffff>)</color> ","Necroview ","Necroview ","Necroview "
+"PrefixB.Sidekick","Sidekick ","<color=#ffffff>(</color>Sidekick<color=#ffffff>)</color> ","Sidekick ","Sidekick ","Sidekick "
+
+"BracketAddons","BracketAddons","Add Brackets To Add-ons","BracketAddons","BracketAddons","BracketAddons"
+
 "## 以下是职业简介（显示在开局以及任务栏的文本）/ Shows at Impostor/Crewmate screen"
 "# Vanilla Remake Descriptions"
 "EngineerTOHEInfo","Use the vents to catch the <color=#ff1919>Impostors</color>","Use the vents to catch the <color=#ff1919>Impostors</color>","Use the vents to catch the <color=#ff1919>Impostors</color>","Use the vents to catch the <color=#ff1919>Impostors</color>","Use the vents to catch the <color=#ff1919>Impostors</color>"
 "ScientistTOHEInfo","Access portable vitals from anywhere","Access portable vitals from anywhere","Access portable vitals from anywhere","Access portable vitals from anywhere","Access portable vitals from anywhere"
 "ShapeshifterTOHEInfo","Disguise as crewmates to frame them","Disguise as crewmates to frame them","Disguise as crewmates to frame them","Disguise as crewmates to frame them","Disguise as crewmates to frame them"
+"GuardianAngelTOHEInfo","Protect the crewmates from the <color=#ff1919>Impostors</color>","Protect the crewmates from the <color=#ff1919>Impostors</color>","Protect the crewmates from the <color=#ff1919>Impostors</color>","Protect the crewmates from the <color=#ff1919>Impostors</color>","Protect the crewmates from the <color=#ff1919>Impostors</color>"
 
 "# 内鬼阵营 / Impostor descriptions"
 "BountyHunterInfo","走，去拿下你的目标！","Eliminate your target","Охотьтесь за своей целью","拿下你的目標","走，去拿下你的目标！"
@@ -348,6 +376,7 @@
 "EngineerTOHEInfoLong","(Crewmate):\nAs the Engineer, you may access the vents while comms are not sabotaged.\nVents are disabled when they are sabotaged.","(Crewmate):\nAs the Engineer, you may access the vents while comms are not sabotaged.\nVents are disabled when they are sabotaged.","(Crewmate):\nAs the Engineer, you may access the vents while comms are not sabotaged.\nVents are disabled when they are sabotaged.","(Crewmate):\nAs the Engineer, you may access the vents while comms are not sabotaged.\nVents are disabled when they are sabotaged.","(Crewmate):\nAs the Engineer, you may access the vents while comms are not sabotaged.\nVents are disabled when they are sabotaged."
 "ScientistTOHEInfoLong","(Crewmate):\nAs the Scientist, you have a portable tablet with the crew's vitals on it.\nUse this any way you'd like.\nCatching self reports, extra intel on body age, etc.","(Crewmate):\nAs the Scientist, you have a portable tablet with the crew's vitals on it.\nUse this any way you'd like.\nCatching self reports, extra intel on body age, etc.","(Crewmate):\nAs the Scientist, you have a portable tablet with the crew's vitals on it.\nUse this any way you'd like.\nCatching self reports, extra intel on body age, etc.","(Crewmate):\nAs the Scientist, you have a portable tablet with the crew's vitals on it.\nUse this any way you'd like.\nCatching self reports, extra intel on body age, etc.","(Crewmate):\nAs the Scientist, you have a portable tablet with the crew's vitals on it.\nUse this any way you'd like.\nCatching self reports, extra intel on body age, etc."
 "ShapeshifterTOHEInfoLong","(Impostors):\nAs the Shapeshifter, you have a shapeshift ability which you may use to frame other crewmates.\nJust be aware that there is an egg while shifting and the disguise is temporary.","(Impostors):\nAs the Shapeshifter, you have a shapeshift ability which you may use to frame other crewmates.\nJust be aware that there is an egg while shifting and the disguise is temporary.","(Impostors):\nAs the Shapeshifter, you have a shapeshift ability which you may use to frame other crewmates.\nJust be aware that there is an egg while shifting and the disguise is temporary.","(Impostors):\nAs the Shapeshifter, you have a shapeshift ability which you may use to frame other crewmates.\nJust be aware that there is an egg while shifting and the disguise is temporary.","(Impostors):\nAs the Shapeshifter, you have a shapeshift ability which you may use to frame other crewmates.\nJust be aware that there is an egg while shifting and the disguise is temporary."
+"GuardianAngelTOHEInfoLong","(Crewmate):\nAs the Guardian Angel, you spawn as a ghost and must do your job by protecting crewmates from the Impostors.","(Crewmate):\nAs the Guardian Angel, you spawn as a ghost and must do your job by protecting crewmates from the Impostors.","(Crewmate):\nAs the Guardian Angel, you spawn as a ghost and must do your job by protecting crewmates from the Impostors.","(Crewmate):\nAs the Guardian Angel, you spawn as a ghost and must do your job by protecting crewmates from the Impostors.","(Crewmate):\nAs the Guardian Angel, you spawn as a ghost and must do your job by protecting crewmates from the Impostors."
 
 "# 内鬼阵营 / Long Impostors descriptions"
 "BountyHunterInfoLong","(内鬼阵营):\n赏金猎人会被随机分配一个悬赏目标，若在规定时间内击杀了悬赏目标，则击杀CD会变得很短，能立刻进行下一次击杀。若赏金猎人击杀的人不是赏金目标，则击杀CD会被延长。若赏金猎人在规定时间内没有完成任何击杀，则目标会被随机切换为另一个人。","(Impostors):\nIf you kill your assigned target, your next kill cooldown will be shortened.\nIf you kill anyone other than your target, your next kill cooldown will be increased.\nThe target swaps after a certain amount of time."," (Предатель):\nЕсли Охотник за головами убьет назначенную ему цель, время отката убийства будет намного меньше чем обычно. \n При убийстве игрока который не является его целью, время отката убийства будет обычным. \nЦели меняются спустя какое-то время.","(偽裝者陣營):\n如果賞金獵人擊殺了賞金目標，下一次的殺人冷卻會變得非常的短\n反之，如果賞金獵人擊殺了非賞金目標，那麼他的冷卻將會被延長\n賞金目標將會重置在殺死賞金目標後或切換目標時間結束。","(内鬼阵营):\n赏金猎人会被随机分配一个悬赏目标，若在规定时间内击杀了悬赏目标，则击杀CD会变得很短，能立刻进行下一次击杀。若赏金猎人击杀的人不是赏金目标，则击杀CD会被延长。若赏金猎人在规定时间内没有完成任何击杀，则目标会被随机切换为另一个人。"
@@ -467,7 +496,7 @@
 "DualPersonalityInfoLong","(附加职业)\n中立和叛徒不会成为双重人格，计算其阵营人数时双重人格被视为两人。例如场上剩余一个内鬼和一个双重人格船员，则视为两名船员和一名内鬼，因此游戏不会结束。","(Add-ons):\nNeutrals and Madmates can't become Schizophrenic. Schizophrenic will be considered as 2 players in the game (not applying to meeting votes). Having at least one player as Schizophrenic won't end the game if there are only them and the Impostor left.","(Атрибут):\nНейтралы и Предатели не могут быть с Шизофринией. При подсчете количества игроков в их команде Шизофреник рассматривает как два игрока. Например, если в игре останется один Предатель и одна команда с Шизофринией, то это будет рассматриваться как два Члена Экипажа и один Предатель, поэтому игра не закончится пока Шизофреник не будет убит.","(附加職業):\n模組計算陣營人數時雙重人格被視為兩名玩家。請注意: 中立職業和叛徒不會成為雙重人格。","(附加职业)\n中立和叛徒不会成为双重人格，计算其阵营人数时双重人格被视为两人。例如场上剩余一个内鬼和一个双重人格船员，则视为两名船员和一名内鬼，因此游戏不会结束。"
 "MimicInfoLong","(附加职业)\n只有除黑手党以外的内鬼会成为宝箱怪。宝箱怪死后，其他内鬼可以在会议上收到信息。信息包含了宝箱怪生前击杀的所有人的职业。","(Add-ons):\nOnly Impostor can become Mimic. When the Mimic is dead, other Impostors will receive a message once a meeting is called, this message will include information on roles who were killed by the Mimic.","(Атрибут):\nТолько Предатели могут стать Мимиком. После того как Мимик умрёт, призраки получат сообщение на собрании. Сообщение содержит роли всех кого убил Мимик пока он был жив.","(附加職業):\n保險箱死後他的隊友會在會議上收到訊息，內容包括保險箱生前殺死的所有人的職業。請注意: 黑手黨不會成為保險箱。","(附加职业)\n只有除黑手党以外的内鬼会成为宝箱怪。宝箱怪死后，其他内鬼可以在会议上收到信息。信息包含了宝箱怪生前击杀的所有人的职业。"
 "GuesserInfoLong","(Add-ons):\nInfo not provided.","(Add-ons):\nAs a guesser, guess roles of players in meetings to kill them.\nGuessing incorrectly kills you instead.","(Add-ons):\nInfo not provided.","(Add-ons):\nInfo not provided.","(Add-ons):\nInfo not provided."
-"NecroviewInfoLong","(Add-ons):\nInfo not provided.","(Add-ons):\nThe Necroview can see the teams of dead players.","(Add-ons):\nInfo not provided.","(Add-ons):\nInfo not provided.","(Add-ons):\nInfo not provided."
+"NecroviewInfoLong","(Add-ons):\nInfo not provided.","(Add-ons):\nThe Necroview can see the teams of dead players. The following info will be displayed next to dead players name while in meeting:\n- The Red star indicate the Impostors.\n- The Cyan star indicate the Crewmates.\n- The Orange star indicate the Neutrals.","(Add-ons):\nInfo not provided.","(Add-ons):\nInfo not provided.","(Add-ons):\nInfo not provided."
 
 "# 其它 / Other long description"
 "GMInfoLong","(房主):\n看我干啥，我只是个开局就死的冤魂，静静地吃瓜而已。","(None):\nThe GM (Game Master) is an observer role.\nTheir presence has no effect on the game, and all players know who the GM is. The GM role will be assigned to the host, who will automatically become a ghost at the start of the game.","(Никто):\nGM (Мастер Игры) — это роль, которая наблюдает за игрой в роле призрака. \nОн не влияет на игру, и все игроки всегда знают кто Мастер Игры. Всегда назначается только хосту лобби и становится призраком в самом начале игры.","(房主):\n看我幹嘛，我只是開始遊戲時就在冥界吃瓜而已。","(房主):\n看我干啥，我只是个开局就死的冤魂，静静地吃瓜而已。"
@@ -633,6 +662,7 @@
 "MenuTitle.Ghost","★ 幽灵相关设定","★Ghost★","★Призраки★","★ 幽靈相關設定","★ 幽灵相关设定"
 "MenuTitle.Other","★ 其它设定","★Different★","★Другое★","★ 其他設定","★ 其它设定"
 "MenuTitle.Ejections","★ 驱逐相关设定","★Ejection★","★Выбрасивание★","★ 逐出相關設定","★ 驱逐相关设定"
+"MenuTitle.Settings","★Settings★","★Settings★","★Settings★","★Settings★","★Settings★"
 "ShieldPersonDiedFirst","首刀保护（仅限被杀）","Shield the person who got killed first in the last game","Щит для первого убитого в прошлой игре","首刀保護(僅限被殺)","首刀保护（仅限被杀）"
 
 "## 详细设定 / Advanced Settings"
@@ -1359,3 +1389,6 @@
 "DCNotify.GameFull","该房间已满人，请稍后重试","The room is full, please try again later","Комната переполнена, пожалуйста, попробуйте еще раз позже","该房间已满人，请稍后重试","该房间已满人，请稍后重试"
 "DCNotify.IncorrectVersion","您的AmongUs版本与该房间不同","Your version of Among Us is different from this room","Ваша версия Among Us отличается от этой комнаты","您的AmongUs版本与该房间不同","您的AmongUs版本与该房间不同"
 "ModeDescribe.SoloKombat","本房间模式为【个人竞技模式】\n没有职业分配，所有人拥有血量，可以使用击杀键对其他人造成伤害。游戏结束时击杀数量最多的玩家获胜。","Current mode is [Solo PVP]\nNo role assignment. Everyone has HP and can use the kill button to cause damage to other players. The player with the highest number of kills wins at the end of the game.","Текущий режим - [ПВП]. У каждого есть здоровье, и может использовать кнопку 'Убить', чтобы нанести урон другим игрокам. Игрок, совершивший наибольшее количество убийств, выигрывает в конце игры.","本房间模式为【个人竞技模式】\n没有职业分配，所有人拥有血量，可以使用击杀键对其他人造成伤害。游戏结束时击杀数量最多的玩家获胜。","本房间模式为【个人竞技模式】\n没有职业分配，所有人拥有血量，可以使用击杀键对其他人造成伤害。游戏结束时击杀数量最多的玩家获胜。"
+
+"## Unused GhostsDoTasks Setting From Vanilla Game"
+"GhostsDoTasks","GhostsDoTasks","Ghosts Can Do Tasks","GhostsDoTasks","GhostsDoTasks","GhostsDoTasks"

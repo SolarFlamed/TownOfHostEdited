@@ -263,6 +263,7 @@ public class Main : BasePlugin
                 // Vanilla Remakes
                 {CustomRoles.EngineerTOHE, "#FF6A00"},
                 {CustomRoles.ScientistTOHE, "#8ee98e"},
+                {CustomRoles.GuardianAngelTOHE, "#77e6d1"},
                 //特殊クルー役職
                 {CustomRoles.Bait, "#00f7ff"},
                 {CustomRoles.Luckey, "#b8d7a3" },
@@ -396,6 +397,7 @@ public enum CustomRoles
     // Vanilla Remakes
     EngineerTOHE,
     ScientistTOHE,
+    GuardianAngelTOHE,
     ShapeshifterTOHE,
     //Impostor
     BountyHunter,
