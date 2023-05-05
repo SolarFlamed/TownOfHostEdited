@@ -428,6 +428,7 @@ static class ExtendedPlayerControl
             CustomRoles.Jackal => pc.IsAlive(),
       //      CustomRoles.Sidekick => pc.IsAlive(),
             CustomRoles.Poisoner => pc.IsAlive(),
+            CustomRoles.NWitch => pc.IsAlive(),
             CustomRoles.Bomber => false,
             CustomRoles.Innocent => pc.IsAlive(),
             CustomRoles.Counterfeiter => Counterfeiter.CanUseKillButton(pc.PlayerId),
@@ -454,6 +455,7 @@ static class ExtendedPlayerControl
             CustomRoles.SwordsMan or
             CustomRoles.FFF or
             CustomRoles.Medicaler or
+            CustomRoles.NWitch or
             CustomRoles.DarkHide or
             CustomRoles.Provocateur
             => false,
@@ -518,6 +520,9 @@ static class ExtendedPlayerControl
                 break;
             case CustomRoles.Arsonist:
                 Main.AllPlayerKillCooldown[player.PlayerId] = Options.ArsonistCooldown.GetFloat(); //アーソニストはアーソニストのキルクールに。
+                break;
+            case CustomRoles.NWitch:
+                Main.AllPlayerKillCooldown[player.PlayerId] = Options.ControlCooldown.GetFloat(); //アーソニストはアーソニストのキルクールに。
                 break;
             case CustomRoles.Revolutionist:
                 Main.AllPlayerKillCooldown[player.PlayerId] = Options.RevolutionistCooldown.GetFloat();

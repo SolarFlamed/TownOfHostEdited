@@ -127,6 +127,7 @@ public class Main : BasePlugin
     public static Dictionary<byte, long> RevolutionistLastTime = new();
     public static Dictionary<byte, int> RevolutionistCountdown = new();
     public static Dictionary<byte, byte> PuppeteerList = new();
+    public static Dictionary<byte, byte> TaglockedList = new();
     public static Dictionary<byte, byte> SpeedBoostTarget = new();
     public static Dictionary<byte, int> MayorUsedButtonCount = new();
     public static Dictionary<byte, int> ParaUsedButtonCount = new();
@@ -319,6 +320,7 @@ public class Main : BasePlugin
                 {CustomRoles.Sunnyboy, "#ff9902"},
                 {CustomRoles.BloodKnight, "#630000"},
                 {CustomRoles.Poisoner, "#ed2f91"},
+                {CustomRoles.NWitch, "#BF5FFF"},
                 // GM
                 {CustomRoles.GM, "#ff5b70"},
                 //サブ役職
@@ -484,6 +486,7 @@ public enum CustomRoles
     Executioner,
     Jackal,
     Poisoner,
+    NWitch,
     Innocent,
     Pelican,
     Revolutionist,
@@ -568,6 +571,7 @@ public enum AdditionalWinners
     FFF = CustomRoles.FFF,
     Provocateur = CustomRoles.Provocateur,
     Sunnyboy = CustomRoles.Sunnyboy,
+    Witch = CustomRoles.NWitch,
 }
 public enum SuffixModes
 {

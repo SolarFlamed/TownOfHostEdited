@@ -98,6 +98,7 @@ class HudManagerPatch
                         __instance.AbilityButton.buttonLabelText.text = GetString("RevolutionistVetnButtonText");
                         break;
                     case CustomRoles.Puppeteer:
+                    case CustomRoles.NWitch:
                         __instance.KillButton.OverrideText($"{GetString("PuppeteerOperateButtonText")}");
                         break;
                     case CustomRoles.BountyHunter:
@@ -350,6 +351,7 @@ class SetHudActivePatch
             case CustomRoles.Sheriff:
             case CustomRoles.SwordsMan:
             case CustomRoles.Arsonist:
+            case CustomRoles.NWitch:
             case CustomRoles.Innocent:
             case CustomRoles.Pelican:
             case CustomRoles.Revolutionist:
@@ -360,6 +362,7 @@ class SetHudActivePatch
             case CustomRoles.Provocateur:
                 __instance.SabotageButton.ToggleVisible(false);
                 __instance.AbilityButton.ToggleVisible(false);
+                __instance.ImpostorVentButton.ToggleVisible(false);
                 break;
             case CustomRoles.Minimalism:
             case CustomRoles.KB_Normal:
