@@ -164,6 +164,11 @@ public class PlayerGameOptionsSender : GameOptionsSender
             case CustomRoles.FFF:
                 opt.SetVision(true);
                 break;
+             case CustomRoles.NWitch:
+                opt.SetVision(true);
+                Main.NormalOptions.KillCooldown = Options.ControlCooldown.GetFloat();
+                break;
+
             case CustomRoles.Gamer:
                 Gamer.ApplyGameOptions(opt);
                 break;

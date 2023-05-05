@@ -38,6 +38,7 @@ internal static class CustomRolesHelper
                 CustomRoles.Doctor => CustomRoles.Scientist,
                 CustomRoles.ScientistTOHE => CustomRoles.Scientist,
                 CustomRoles.Puppeteer => CustomRoles.Impostor,
+                CustomRoles.NWitch => CustomRoles.Impostor,
                 CustomRoles.TimeThief => CustomRoles.Impostor,
                 CustomRoles.EvilTracker => CustomRoles.Shapeshifter,
                 CustomRoles.Paranoia => CustomRoles.Engineer,
@@ -118,6 +119,7 @@ internal static class CustomRolesHelper
             CustomRoles.Provocateur => RoleTypes.Impostor,
             CustomRoles.BloodKnight => RoleTypes.Impostor,
             CustomRoles.Poisoner => RoleTypes.Impostor,
+            CustomRoles.NWitch => RoleTypes.Impostor,
             _ => RoleTypes.GuardianAngel
         };
     }
@@ -155,6 +157,7 @@ internal static class CustomRolesHelper
             CustomRoles.Jackal or
         //    CustomRoles.Sidekick or
             CustomRoles.Pelican or
+            CustomRoles.NWitch or
             CustomRoles.FFF or
             CustomRoles.Gamer or
             CustomRoles.DarkHide or
@@ -243,6 +246,7 @@ internal static class CustomRolesHelper
             CustomRoles.Jester or
             CustomRoles.Opportunist or
             CustomRoles.Mario or
+            CustomRoles.NWitch or
             CustomRoles.Terrorist or
             CustomRoles.Executioner or
             CustomRoles.Arsonist or
