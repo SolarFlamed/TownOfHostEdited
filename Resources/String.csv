@@ -1366,7 +1366,7 @@
 "## 作弊 / EAC"
 "EAC.CheatDetected.HighLevel","警告：EAC正在抵御炸房外挂","Warning: EAC detected High Level of cheats.","Предупреждение: EAC обнаружил высокий уровень читов.","警告：EAC正在抵御炸房外挂","警告：EAC正在抵御炸房外挂"
 "EAC.CheatDetected.LowLevel","警告：EAC检测到可能存在作弊玩家","Warning: EAC detected Low Level of cheats. One of the players is hacking.","Предупреждение: EAC обнаружил низкий уровень читов. Один из игроков читерит.","警告：EAC检测到可能存在作弊玩家","警告：EAC检测到可能存在作弊玩家"
-"PlayerIsRole","{0} 是 {1}","{0} was the {1}.","{0} был ролью {1}","{0} 是 {1}","{0} 是 {1}"
+"PlayerIsRole","{0} 是 {1}","{0} was The {1}.","{0} был ролью {1}","{0} 是 {1}","{0} 是 {1}"
 
 "## 驱逐确认 / Ejections"
 "PlayerExiled","{0} 被驱逐了...","{0} was ejected...","{0} был изгнан...","{0} 被驱逐了...","{0} 被驱逐了..."
