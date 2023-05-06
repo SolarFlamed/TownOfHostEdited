@@ -1168,6 +1168,10 @@ public static class Utils
                 Main.PuppeteerList.ContainsValue(seer.PlayerId) &&
                 Main.PuppeteerList.ContainsKey(target.PlayerId))
                     TargetMark.Append($"<color={Utils.GetRoleColorCode(CustomRoles.Impostor)}>◆</color>");
+                if (seer.Is(CustomRoles.NWitch) &&
+                    Main.TaglockedList.ContainsValue(seer.PlayerId) &&
+                    Main.TaglockedList.ContainsKey(target.PlayerId))
+                    TargetMark.Append($"<color={Utils.GetRoleColorCode(CustomRoles.NWitch)}>◆</color>");
 
                 //他人の役職とタスクは幽霊が他人の役職を見れるようになっていてかつ、seerが死んでいる場合のみ表示されます。それ以外の場合は空になります。
                 string TargetRoleText =
