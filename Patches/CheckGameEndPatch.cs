@@ -182,7 +182,7 @@ class GameEndChecker
                         }
                     }
                 }
-                /赌徒
+                
                 foreach (var pc in Main.AllPlayerControls.Where(x => x.Is(CustomRoles.Totocalcio)))
                 {
                     if (Totocalcio.BetPlayer.TryGetValue(pc.PlayerId, out var betTarget) && (

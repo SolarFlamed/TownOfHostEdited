@@ -533,6 +533,9 @@ internal class SelectRolesPatch
                     case CustomRoles.BloodKnight:
                         BloodKnight.Add(pc.PlayerId);
                         break;
+                    case CustomRoles.Wildling:
+                        Wildling.Add(pc.PlayerId);
+                        break;
                     case CustomRoles.Totocalcio:
                         Totocalcio.Add(pc.PlayerId);
                         break;

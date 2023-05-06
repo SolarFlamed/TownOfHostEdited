@@ -234,6 +234,10 @@ class HudManagerPatch
                 {
                     LowerInfoText.text = BloodKnight.GetHudText(player);
                 }
+                else if (player.Is(CustomRoles.Wildling))
+                {
+                    LowerInfoText.text = Wildling.GetHudText(player);
+                }
                 else
                 {
                     LowerInfoText.text = "";
@@ -457,7 +461,7 @@ class TaskPanelBehaviourPatch
 
             AllText += $"<size=70%>{GetString("PressF1ShowMainRoleDes")}\r\n{GetString("PressF2ShowAddRoleDes")}</size>";
 
-            __instance.taskText.text = AllText;
+            __instance.taskText.text = __instance.taskText.text = Utils.ColorString(player.GetRoleColor(), RoleWithInfo) + "\n" + __instance.taskText.text;
         }
 
         // RepairSenderの表示

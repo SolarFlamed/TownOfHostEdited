@@ -146,7 +146,7 @@ class CheckForEndVotingPatch
                     }
                 }
                 //隐藏占卜师的票
-                if (CheckRole(ps.TargetPlayerId, CustomRoles.Divinator) && Divinator.HideVote.GetBool()) continue;
+                if (CheckRole(ps.TargetPlayerId, CustomRoles.Divinator)) continue;
 
                 //主动叛变模式下自票无效
                 if (ps.TargetPlayerId == ps.VotedFor && Options.MadmateSpawnMode.GetInt() == 2) continue;
@@ -285,6 +285,10 @@ class CheckForEndVotingPatch
         var coloredRole = Utils.ColorString(Utils.GetRoleColor(exiledPlayer.GetCustomRole()), $"{role}");
         if (Options.ConfirmMadmateOnEject.GetBool() && player.Is(CustomRoles.Madmate))
             coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Madmate), GetRoleString("Mad-") + coloredRole.RemoveHtmlTags());
+        if (Options.ConfirmEgoistOnEject.GetBool() && player.Is(CustomRoles.Egoist))
+            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Egoist), GetRoleString("Temp.Blank") + coloredRole.RemoveHtmlTags());
+        if (Options.ConfirmSidekickOnEject.GetBool() && player.Is(CustomRoles.Sidekick))
+            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Sidekick), GetRoleString("Temp.Blank") + coloredRole.RemoveHtmlTags());
         var name = "";
         int impnum = 0;
         int neutralnum = 0;
@@ -336,7 +340,7 @@ class CheckForEndVotingPatch
         }
         var DecidedWinner = false;
         //小丑胜利
-        if (crole == CustomRoles.Jester)
+   /*     if (crole == CustomRoles.Jester)
         {
             name = string.Format(GetString("ExiledJester"), realName, coloredRole);
             DecidedWinner = true;
@@ -356,7 +360,7 @@ class CheckForEndVotingPatch
                 else name = string.Format(GetString("ExiledInnocentTargetInOneLine"), realName, coloredRole);
                 DecidedWinner = true;
             }
-        }
+        } */
 
         if (DecidedWinner) name += "<size=0>";
         if (Options.ShowImpRemainOnEject.GetBool() && !DecidedWinner)
@@ -364,7 +368,10 @@ class CheckForEndVotingPatch
             name += "\n";
             string comma = neutralnum > 0 ? "，" : "";
             if (impnum == 0) name += GetString("NoImpRemain") + comma;
-            else name += string.Format(GetString("ImpRemain"), impnum) + comma;
+            if (impnum == 1) name += GetString("OneImpRemain") + comma;
+            if (impnum == 2) name += GetString("TwoImpRemain") + comma;
+            if (impnum == 3) name += GetString("ThreeImpRemain") + comma;
+        //    else name += string.Format(GetString("ImpRemain"), impnum) + comma;
             if (Options.ShowNKRemainOnEject.GetBool() && neutralnum > 0)
                 name += string.Format(GetString("NeutralRemain"), neutralnum);
         }

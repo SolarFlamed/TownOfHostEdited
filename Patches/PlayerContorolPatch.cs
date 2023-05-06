@@ -426,6 +426,15 @@ class CheckMurderPatch
                     return false;
                 }
                 break;
+            case CustomRoles.Wildling:
+                if (Wildling.InProtect(target.PlayerId))
+                {
+                    killer.RpcGuardAndKill(target);
+                    target.RpcGuardAndKill();
+                    target.Notify(GetString("BKOffsetKill"));
+                    return false;
+                }
+                break;
         }
 
         //保镖保护
@@ -621,6 +630,9 @@ class MurderPlayerPatch
                 break;
             case CustomRoles.BloodKnight:
                 BloodKnight.OnMurderPlayer(killer, target);
+                break;
+            case CustomRoles.Wildling:
+                Wildling.OnMurderPlayer(killer, target);
                 break;
         }
 
