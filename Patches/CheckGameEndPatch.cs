@@ -380,7 +380,7 @@ class GameEndChecker
                 CustomWinnerHolder.ResetAndSetWinner(CustomWinner.BloodKnight);
                 CustomWinnerHolder.WinnerRoles.Add(CustomRoles.BloodKnight);
             }
-            else if (Imp == 0 && Jackal == 0 && Pel == 0 && BK == 0 && Gam == 0 && Pois == 0 && Crew <= CM) //嗜血骑士胜利
+            else if (Imp == 0 && Jackal == 0 && Pel == 0 && BK == 0 && Gam == 0 && CM == 0 && Crew <= Pois) //嗜血骑士胜利
             {
                 reason = GameOverReason.ImpostorByKill;
                 CustomWinnerHolder.ResetAndSetWinner(CustomWinner.Poisoner);
