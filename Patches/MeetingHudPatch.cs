@@ -325,7 +325,7 @@ class CheckForEndVotingPatch
                 break;
             case 2:
                 name = string.Format(GetString("PlayerIsRole"), realName, coloredRole);
-                break;
+               
             if (Options.ShowTeamNextToRoleNameOnEject.GetBool())
                 {
                     name += " (";
@@ -337,6 +337,7 @@ class CheckForEndVotingPatch
                         name += Utils.ColorString(new Color32(255, 171, 27, byte.MaxValue), GetString("TeamNeutral"));
                     name += ")";
                 }
+                break;
         }
         var DecidedWinner = false;
         //小丑胜利
