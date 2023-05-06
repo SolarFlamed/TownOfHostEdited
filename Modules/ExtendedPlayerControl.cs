@@ -1,4 +1,5 @@
 using AmongUs.GameOptions;
+using HarmonyLib;
 using Hazel;
 using InnerNet;
 using System;
@@ -459,7 +460,8 @@ static class ExtendedPlayerControl
             CustomRoles.Medicaler or
             CustomRoles.NWitch or
             CustomRoles.DarkHide or
-            CustomRoles.Provocateur
+            CustomRoles.Provocateur or
+            CustomRoles.Wildling
             => false,
 
             CustomRoles.Jackal => Jackal.CanVent.GetBool(),

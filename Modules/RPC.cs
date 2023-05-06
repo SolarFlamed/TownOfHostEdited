@@ -725,6 +725,7 @@ internal static class RPC
             case CustomRoles.BloodKnight:
                 BloodKnight.Add(targetId);
                 break;
+            
             case CustomRoles.Totocalcio:
                 Totocalcio.Add(targetId);
                 break;

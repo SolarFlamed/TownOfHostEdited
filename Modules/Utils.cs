@@ -291,7 +291,7 @@ public static class Utils
         var mainRole = Main.PlayerStates[playerId].MainRole;
         var SubRoles = Main.PlayerStates[playerId].SubRoles;
         RoleText = GetRoleName(mainRole);
-        RoleColor = SubRoles.Contains(CustomRoles.Madmate) ? GetRoleColor(CustomRoles.Madmate) : GetRoleColor(mainRole);
+        RoleColor = SubRoles.Contains(CustomRoles.Madmate | CustomRoles.Egoist) ? GetRoleColor(CustomRoles.Madmate | CustomRoles.Egoist) : GetRoleColor(mainRole);
 
         if (LastImpostor.currentId == playerId)
             RoleText = GetRoleString("Last-") + RoleText;
@@ -312,6 +312,8 @@ public static class Utils
 }
         if (SubRoles.Contains(CustomRoles.Madmate))
             RoleText = GetRoleString("Mad-") + RoleText;
+        if (SubRoles.Contains(CustomRoles.Egoist))
+            RoleText = $"<color=#5600ff>" + RoleText + $"</color>";
 
         return (RoleText, RoleColor);
     }
