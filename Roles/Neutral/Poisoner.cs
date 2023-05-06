@@ -49,6 +49,10 @@ public static class Poisoner
     {
         IsEnable = true;
         PlayerIdList.Add(playerId);
+
+        if (!AmongUsClient.Instance.AmHost) return;
+        if (!Main.ResetCamPlayerList.Contains(playerId))
+            Main.ResetCamPlayerList.Add(playerId);
     }
 
     public static bool IsEnable = false;

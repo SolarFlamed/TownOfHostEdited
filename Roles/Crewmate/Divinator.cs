@@ -134,6 +134,7 @@ public static class Divinator
                 CustomRoles.QuickShooter or
                 CustomRoles.Mediumshiper or
                 CustomRoles.Judge or
+                CustomRoles.Wildling or
                 CustomRoles.BloodKnight
                 => "Strong",
 

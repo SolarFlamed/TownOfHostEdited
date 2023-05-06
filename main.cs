@@ -410,6 +410,7 @@ public enum CustomRoles
     Mafia,
     SerialKiller,
     ShapeMaster,
+    Wildling,
     EvilGuesser,
     Minimalism,
     Zombie,
@@ -503,7 +504,7 @@ public enum CustomRoles
     Provocateur,
     Sunnyboy,
     BloodKnight,
-    Totocalcio
+    Totocalcio,
 
     //SoloKombat
     KB_Normal,
