@@ -1,4 +1,5 @@
 using AmongUs.GameOptions;
+using HarmonyLib;
 using Hazel;
 using InnerNet;
 using System;
@@ -162,9 +163,10 @@ static class ExtendedPlayerControl
         AmongUsClient.Instance.FinishRpcImmediately(writer);
     }
 
-    public static void RpcGuardAndKill(this PlayerControl killer, PlayerControl target = null, int colorId = 0)
+    public static void RpcGuardAndKill(this PlayerControl killer, PlayerControl target = null, int colorId = 0, bool forObserver = false)
     {
         if (target == null) target = killer;
+        if (!forObserver) Main.AllPlayerControls.Where(x => x.Is(CustomRoles.Observer) && killer.PlayerId != x.PlayerId).Do(x => x.RpcGuardAndKill(target, colorId, true));
         // Host
         if (killer.AmOwner)
         {
@@ -440,6 +442,8 @@ static class ExtendedPlayerControl
             CustomRoles.Assassin => Assassin.CanUseKillButton(pc),
             CustomRoles.BloodKnight => pc.IsAlive(),
             CustomRoles.Crewpostor => false,
+            CustomRoles.Totocalcio => Totocalcio.CanUseKillButton(pc),
+            CustomRoles.Succubus => Succubus.CanUseKillButton(pc),
             _ => pc.Is(CustomRoleTypes.Impostor),
         };
     }
@@ -457,7 +461,9 @@ static class ExtendedPlayerControl
             CustomRoles.Medicaler or
             CustomRoles.NWitch or
             CustomRoles.DarkHide or
-            CustomRoles.Provocateur
+            CustomRoles.Provocateur or
+            CustomRoles.Totocalcio or
+            CustomRoles.Succubus
             => false,
 
             CustomRoles.Jackal => Jackal.CanVent.GetBool(),
@@ -610,6 +616,15 @@ static class ExtendedPlayerControl
                 break;
             case CustomRoles.Crewpostor:
                 Main.AllPlayerKillCooldown[player.PlayerId] = 300f;
+                break;
+            case CustomRoles.Totocalcio:
+                Totocalcio.SetKillCooldown(player.PlayerId);
+                break;
+            case CustomRoles.Gangster:
+                Gangster.SetKillCooldown(player.PlayerId);
+                break;
+            case CustomRoles.Succubus:
+                Succubus.SetKillCooldown(player.PlayerId);
                 break;
         }
         if (player.PlayerId == LastImpostor.currentId)

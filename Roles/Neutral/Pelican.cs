@@ -95,11 +95,11 @@ public static class Pelican
     public static string GetProgressText(byte playerId)
     {
         var player = Utils.GetPlayerById(playerId);
-        if (player == null) return null;
+        if (player == null) return "Invalid";
         var eatenNum = 0;
         if (eatenList.ContainsKey(playerId))
             eatenNum = eatenList[playerId].Count;
-        return Utils.ColorString(Utils.GetRoleColor(CustomRoles.Pelican), $"({eatenNum})");
+        return Utils.ColorString(eatenNum < 1 ? Color.gray : Utils.GetRoleColor(CustomRoles.Pelican), $"({eatenNum})");
     }
     public static void EatPlayer(PlayerControl pc, PlayerControl target)
     {
@@ -137,6 +137,7 @@ public static class Pelican
                 target.SetRealKiller(killer);
                 Main.PlayerStates[tar].deathReason = PlayerState.DeathReason.Eaten;
                 Main.PlayerStates[tar].SetDead();
+                Utils.AfterPlayerDeathTasks(target);
                 Logger.Info($"{killer.GetRealName()} 消化了 {target.GetRealName()}", "Pelican");
             }
         }

@@ -120,6 +120,7 @@ public static class Options
     public static OptionItem ShowImpRemainOnEject;
     public static OptionItem ShowNKRemainOnEject;
     public static OptionItem ConfirmMadmateOnEject;
+    public static OptionItem ShowTeamNextToRoleNameOnEject;
     public static OptionItem CheatResponses;
     public static OptionItem LowLoadMode;
 
@@ -368,9 +369,9 @@ public static class Options
     public static OptionItem KickLowLevelPlayer;
     public static OptionItem ApplyBanList;
     public static OptionItem AutoWarnStopWords;
-
     public static OptionItem DIYGameSettings;
     public static OptionItem PlayerCanSetColor;
+    public static OptionItem KPDCamouflageMode;
 
     //Add-Ons
     public static OptionItem NameDisplayAddons;
@@ -390,6 +391,7 @@ public static class Options
     public static OptionItem LoverKnowRoles;
     public static OptionItem LoverSuicide;
     public static OptionItem ImpCanBeEgoist;
+    public static OptionItem ImpEgoistVisibalToAllies;
     public static OptionItem CrewCanBeEgoist;
     public static OptionItem TicketsPerKill;
     public static OptionItem ImpCanBeDualPersonality;
@@ -591,6 +593,7 @@ public static class Options
             .SetValueFormat(OptionFormat.Seconds);
         QuickShooter.SetupCustomOption();
         Hangman.SetupCustomOption();
+        Swooper.SetupCustomOption();
         SetupRoleOptions(907090, TabGroup.ImpostorRoles, CustomRoles.Crewpostor);
         CrewpostorCanKillAllies = BooleanOptionItem.Create(907092, "CanKillAllies", true, TabGroup.ImpostorRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Crewpostor]);
         CrewpostorTasks = OverrideTasksData.Create(9079094, TabGroup.ImpostorRoles, CustomRoles.Crewpostor);
@@ -664,6 +667,7 @@ public static class Options
         Judge.SetupCustomOption();
         Mortician.SetupCustomOption();
         Mediumshiper.SetupCustomOption();
+        SetupRoleOptions(8021618, TabGroup.CrewmateRoles, CustomRoles.Observer);
 
         // Neutral
         SetupRoleOptions(50500, TabGroup.NeutralRoles, CustomRoles.Arsonist);
@@ -694,6 +698,7 @@ public static class Options
         WorkaholicTasks = OverrideTasksData.Create(60115, TabGroup.NeutralRoles, CustomRoles.Workaholic);
         Collector.SetupCustomOption();
         BloodKnight.SetupCustomOption();
+        Totocalcio.SetupCustomOption();
 
         // Add-Ons
         SetupLoversRoleOptionsToggle(50300);
@@ -706,14 +711,16 @@ public static class Options
         SetupAdtRoleOptions(6050360, CustomRoles.Brakar, canSetNum: true);
         SetupAdtRoleOptions(6050370, CustomRoles.Oblivious, canSetNum: true);
         SetupAdtRoleOptions(6050380, CustomRoles.Bewilder, canSetNum: true);
-        BewilderVision = FloatOptionItem.Create(6050383, "BewilderVision", new(0f, 5f, 0.05f), 0.65f, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Bewilder])
+        BewilderVision = FloatOptionItem.Create(6050383, "BewilderVision", new(0f, 5f, 0.05f), 0.6f, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Bewilder])
             .SetValueFormat(OptionFormat.Multiplier);
         SetupAdtRoleOptions(6050440, CustomRoles.Fool, canSetNum: true);
+        Workhorse.SetupCustomOption();
         SetupAdtRoleOptions(6050450, CustomRoles.Avanger, canSetNum: true);
         ImpCanBeAvanger = BooleanOptionItem.Create(6050455, "ImpCanBeAvanger", false, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Avanger]);
         SetupAdtRoleOptions(6052333, CustomRoles.DualPersonality, canSetNum: true);
         ImpCanBeDualPersonality = BooleanOptionItem.Create(6052338, "ImpCanBeDualPersonality", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.DualPersonality]);
         CrewCanBeDualPersonality = BooleanOptionItem.Create(6052340, "CrewCanBeDualPersonality", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.DualPersonality]);
+        SetupAdtRoleOptions(6052490, CustomRoles.Reach, canSetNum: true);
 
         SetupAdtRoleOptions(6050390, CustomRoles.Madmate, canSetNum: true, canSetChance: false);
         MadmateSpawnMode = StringOptionItem.Create(6060444, "MadmateSpawnMode", madmateSpawnMode, 0, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Madmate]);
@@ -751,7 +758,6 @@ public static class Options
         Concealer.SetupCustomOption();
         Eraser.SetupCustomOption();
         SetupRoleOptions(902622, TabGroup.OtherRoles, CustomRoles.OverKiller);
-        Swooper.SetupCustomOption();
 
         // 船员
         TextOptionItem.Create(909092, "OtherRoles.CrewmateRoles", TabGroup.OtherRoles)
@@ -785,7 +791,7 @@ public static class Options
         RevolutionistVentCountDown = FloatOptionItem.Create(5050621, "RevolutionistVentCountDown", new(1f, 180f, 1f), 15f, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Revolutionist])
             .SetValueFormat(OptionFormat.Seconds);
         SetupRoleOptions(5051412, TabGroup.OtherRoles, CustomRoles.Provocateur);
-        //SetupRoleOptions(5051422, TabGroup.OtherRoles, CustomRoles.Sunnyboy);
+        Succubus.SetupCustomOption();
 
         // 副职
         TextOptionItem.Create(909096, "OtherRoles.Addons", TabGroup.OtherRoles)
@@ -795,11 +801,11 @@ public static class Options
         SetupAdtRoleOptions(6050330, CustomRoles.Flashman, canSetNum: true, tab: TabGroup.OtherRoles);
         FlashmanSpeed = FloatOptionItem.Create(6050335, "FlashmanSpeed", new(0.25f, 5f, 0.25f), 2.5f, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Flashman])
             .SetValueFormat(OptionFormat.Multiplier);
-        Workhorse.SetupCustomOption();
         SetupAdtRoleOptions(6050480, CustomRoles.Youtuber, canSetNum: true, tab: TabGroup.OtherRoles);
         SetupAdtRoleOptions(6050490, CustomRoles.Egoist, canSetNum: true, tab: TabGroup.OtherRoles);
-        ImpCanBeEgoist = BooleanOptionItem.Create(6050495, "ImpCanBeEgoist", true, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Egoist]);
         CrewCanBeEgoist = BooleanOptionItem.Create(6050497, "CrewCanBeEgoist", true, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Egoist]);
+        ImpCanBeEgoist = BooleanOptionItem.Create(6050495, "ImpCanBeEgoist", true, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Egoist]);
+        ImpEgoistVisibalToAllies = BooleanOptionItem.Create(6050496, "ImpEgoistVisibalToAllies", true, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Egoist]);
 
         // Exclusive Roles
    //     TextOptionItem.Create(6050520, "MenuTitle.Settings", TabGroup.ExclusiveRoles)
@@ -900,6 +906,10 @@ public static class Options
                 (object obj, OptionItem.UpdateValueEventArgs args) => IRandom.SetInstanceById(args.CurrentValue)
             );
 
+        KPDCamouflageMode = BooleanOptionItem.Create(1_000_015, "KPDCamouflageMode", false, TabGroup.SystemSettings, false)
+            .SetHeader(true)
+            .SetColor(new Color32(255, 192, 203, byte.MaxValue));
+
         DebugModeManager.SetupCustomOption();
 
         EnableUpMode = BooleanOptionItem.Create(6090665, "EnableUpMode", false, TabGroup.SystemSettings, false)
@@ -927,7 +937,11 @@ public static class Options
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 238, 232, byte.MaxValue));
         ShowNKRemainOnEject = BooleanOptionItem.Create(6090119, "ShowNKRemainOnEject", true, TabGroup.GameSettings, false).SetParent(ShowImpRemainOnEject)
-            .SetGameMode(CustomGameMode.Standard);
+            .SetGameMode(CustomGameMode.Standard)
+            .SetColor(new Color32(255, 238, 232, byte.MaxValue));
+        ShowTeamNextToRoleNameOnEject = BooleanOptionItem.Create(6090125, "ShowTeamNextToRoleNameOnEject", true, TabGroup.GameSettings, false)
+            .SetGameMode(CustomGameMode.Standard)
+            .SetColor(new Color32(255, 238, 232, byte.MaxValue));
         ConfirmMadmateOnEject = BooleanOptionItem.Create(6090120, "ConfirmMadmateOnEject", true, TabGroup.GameSettings, false)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 238, 232, byte.MaxValue));

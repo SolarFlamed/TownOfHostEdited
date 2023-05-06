@@ -2,6 +2,8 @@ using HarmonyLib;
 using TOHE.Roles.Impostor;
 using TOHE.Roles.Neutral;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static TOHE.Translator;
 
 namespace TOHE;
@@ -22,7 +24,6 @@ class HudManagerPatch
         if (!GameStates.IsModHost) return;
         var player = PlayerControl.LocalPlayer;
         if (player == null) return;
-        var TaskTextPrefix = "";
         //壁抜け
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
@@ -188,6 +189,9 @@ class HudManagerPatch
                     case CustomRoles.Sheriff:
                         __instance.KillButton.OverrideText($"{GetString("SheriffKillButtonText")}");
                         break;
+                    case CustomRoles.Totocalcio:
+                        __instance.KillButton.OverrideText($"{GetString("TotocalcioKillButtonText")}");
+                        break;
                 }
 
                 //バウンティハンターのターゲットテキスト
@@ -249,12 +253,6 @@ class HudManagerPatch
                 {
                     __instance.KillButton.SetDisabled();
                     __instance.KillButton.ToggleVisible(false);
-                }
-                switch (player.GetCustomRole())
-                {
-                    case CustomRoles.Jester:
-                        TaskTextPrefix += GetString(StringNames.FakeTasks);
-                        break;
                 }
 
                 bool CanUseVent = player.CanUseImpostorVentButton();
@@ -337,6 +335,11 @@ class SetVentOutlinePatch
 class SetHudActivePatch
 {
     public static bool IsActive = false;
+    public static void Prefix(HudManager __instance, [HarmonyArgument(2)] ref bool isActive)
+    {
+        isActive &= !GameStates.IsMeeting;
+        return;
+    }
     public static void Postfix(HudManager __instance, [HarmonyArgument(2)] bool isActive)
     {
         __instance.ReportButton.ToggleVisible(!GameStates.IsLobby && isActive);
@@ -393,6 +396,17 @@ class SetHudActivePatch
         __instance.ImpostorVentButton.ToggleVisible(player.CanUseImpostorVentButton());
     }
 }
+[HarmonyPatch(typeof(VentButton), nameof(VentButton.DoClick))]
+class VentButtonDoClickPatch
+{ 
+    public static bool Prefix(VentButton __instance)
+    {
+        var pc = PlayerControl.LocalPlayer;
+        if (!pc.Is(CustomRoles.Swooper) || pc.inVent || __instance.currentTarget == null || !pc.CanMove || !__instance.isActiveAndEnabled) return true;
+        pc?.MyPhysics?.RpcEnterVent(__instance.currentTarget.Id);
+        return false;
+    }
+}
 [HarmonyPatch(typeof(MapBehaviour), nameof(MapBehaviour.Show))]
 class MapBehaviourShowPatch
 {
@@ -424,14 +438,27 @@ class TaskPanelBehaviourPatch
         {
             var RoleWithInfo = $"{player.GetDisplayRoleName()}:\r\n";
             RoleWithInfo += player.GetRoleInfo();
-            __instance.taskText.text = Utils.ColorString(player.GetRoleColor(), RoleWithInfo) + "\n" + __instance.taskText.text;
+
+            var AllText = Utils.ColorString(player.GetRoleColor(), RoleWithInfo);
+
+            var taskText = __instance.taskText.text;
+            if (taskText != "None" && Utils.HasTasks(player.Data, false))
+                AllText += "\r\n\r\n" + taskText.Split("\r\n\n")[0];
+
+            if (MeetingStates.FirstMeeting)
+            {
+                AllText += $"\r\n\r\n<size=70%>{GetString("PressF1ShowMainRoleDes")}";
+                if (Main.PlayerStates.TryGetValue(PlayerControl.LocalPlayer.PlayerId, out var ps) && ps.SubRoles.Count >= 1)
+                    AllText += $"\r\n{GetString("PressF2ShowAddRoleDes")}";
+                AllText += "</size>";
+            }
+
+            __instance.taskText.text = AllText;
         }
 
         // RepairSenderの表示
         if (RepairSender.enabled && AmongUsClient.Instance.NetworkMode != NetworkModes.OnlineGame)
-        {
             __instance.taskText.text = RepairSender.GetText();
-        }
     }
 }
 

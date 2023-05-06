@@ -605,6 +605,8 @@ class MeetingHudStartPatch
                 (pc.Is(CustomRoles.Jackal) && PlayerControl.LocalPlayer.Is(CustomRoles.Sidekick)) ||
                 (pc.Is(CustomRoles.Sidekick) && PlayerControl.LocalPlayer.Is(CustomRoles.Jackal)) ||
                 (pc.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool()) ||
+                (Totocalcio.KnowRole(PlayerControl.LocalPlayer, pc)) ||
+                (Succubus.KnowRole(PlayerControl.LocalPlayer, pc)) ||
                 PlayerControl.LocalPlayer.Is(CustomRoles.God) ||
                 PlayerControl.LocalPlayer.Is(CustomRoles.GM) ||
                 Main.GodMode.Value;
@@ -774,6 +776,9 @@ class MeetingHudStartPatch
             //医生护盾提示
             if (seer.PlayerId == target.PlayerId)
                 sb.Append(Medicaler.GetSheildMark(seer));
+
+            //赌徒提示
+            sb.Append(Totocalcio.TargetMark(seer, target));
 
             //会議画面ではインポスター自身の名前にSnitchマークはつけません。
 

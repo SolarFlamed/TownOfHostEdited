@@ -33,8 +33,8 @@ public class Main : BasePlugin
     public static ConfigEntry<string> DebugKeyInput { get; private set; }
     public static readonly string MainMenuText = "哟这不TOHE吗，几天不见Bug又多了？";
     public const string PluginGuid = "com.karped1em.townofhostedited";
-    public const string PluginVersion = "2.3.0";
-    public const int PluginCreate = 1;
+    public const string PluginVersion = "2.3.2";
+    public const int PluginCreate = 3;
 
     public static readonly bool ShowQQButton = true;
     public static readonly string QQInviteUrl = "https://jq.qq.com/?_wv=1027&k=2RpigaN6";
@@ -154,7 +154,7 @@ public class Main : BasePlugin
     public static float DefaultImpostorVision;
     public static bool IsInitialRelease = DateTime.Now.Month == 1 && DateTime.Now.Day is 17;
     public static bool IsAprilFools = DateTime.Now.Month == 4 && DateTime.Now.Day is 1;
-    public static bool SetAutoStartToDisable = false;
+    public static bool ResetOptions = true;
     public static byte FirstDied = byte.MaxValue;
     public static byte ShieldPlayer = byte.MaxValue;
     public static int MadmateNum = 0;
@@ -297,6 +297,7 @@ public class Main : BasePlugin
                 {CustomRoles.Judge, "#f8d85a"},
                 {CustomRoles.Mortician, "#333c49"},
                 {CustomRoles.Mediumshiper, "#a200ff"},
+                {CustomRoles.Observer, "#a8e0fa"},
                 //第三陣営役職
                 {CustomRoles.Arsonist, "#ff6633"},
                 {CustomRoles.Jester, "#ec62a5"},
@@ -321,6 +322,8 @@ public class Main : BasePlugin
                 {CustomRoles.BloodKnight, "#630000"},
                 {CustomRoles.Poisoner, "#ed2f91"},
                 {CustomRoles.NWitch, "#BF5FFF"},
+                {CustomRoles.Totocalcio, "#ff9409"},
+                {CustomRoles.Succubus, "#cf6acd"},
                 // GM
                 {CustomRoles.GM, "#ff5b70"},
                 //サブ役職
@@ -346,6 +349,8 @@ public class Main : BasePlugin
                 {CustomRoles.Mimic, "#ff1919"},
                 {CustomRoles.Guesser, "#FFFF00"},
                 {CustomRoles.Necroview, "#663399"},
+                {CustomRoles.Reach, "#74ba43"},
+                {CustomRoles.Charmed, "#cf6acd"},
                 //SoloKombat
                 {CustomRoles.KB_Normal, "#f55252"}
             };
@@ -476,6 +481,7 @@ public enum CustomRoles
     Judge,
     Mortician,
     Mediumshiper,
+    Observer,
     //Neutral
     Arsonist,
     Jester,
@@ -499,6 +505,8 @@ public enum CustomRoles
     Provocateur,
     Sunnyboy,
     BloodKnight,
+    Totocalcio,
+    Succubus,
 
     //SoloKombat
     KB_Normal,
@@ -531,7 +539,9 @@ public enum CustomRoles
     DualPersonality,
     Mimic,
     Guesser,
-    Necroview
+    Necroview,
+    Reach,
+    Charmed,
 }
 //WinData
 public enum CustomWinner
@@ -561,6 +571,7 @@ public enum CustomWinner
     Collector = CustomRoles.Collector,
     BloodKnight = CustomRoles.BloodKnight,
     Poisoner = CustomRoles.Poisoner,
+    Succubus = CustomRoles.Succubus,
 }
 public enum AdditionalWinners
 {
@@ -572,6 +583,7 @@ public enum AdditionalWinners
     Provocateur = CustomRoles.Provocateur,
     Sunnyboy = CustomRoles.Sunnyboy,
     Witch = CustomRoles.NWitch,
+    Totocalcio = CustomRoles.Totocalcio,
 }
 public enum SuffixModes
 {
