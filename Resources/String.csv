@@ -33,7 +33,7 @@
 
 "# 阵营 / Teams"
 "TeamImpostor","内鬼阵营","Impostor","Предатель","偽裝者陣營","EquipoImpostor"
-"TeamNeutral","中立阵营","Neutral","Нейтрал","中立陣營","EquipoNeutro"
+"TeamNeutral","中立阵营","Evil Neutral","Нейтрал","中立陣營","EquipoNeutro"
 "TeamCrewmate","船员阵营","Crewmate","Член Экипажа","船員陣營",""
 
 "## 个人竞技模式 / PVP"
@@ -191,7 +191,7 @@
 
 "## 附加职业作为前缀时 / Prefixes for Add-ons"
 
-"Prefix.Ntr","海王","Neptunian ","Нептунский ","海王","海王"
+"Prefix.Ntr","海王","Neptune ","Нептунский ","海王","海王"
 "Prefix.Watcher","窥视","Watcher ","Наблюдательный ","觀察","窥视"
 "Prefix.Flashman","闪电","Flash ","Флэшевый ","閃電","闪电"
 "Prefix.Lighter","执灯","Lighter ","Фонарный ","燈人","执灯"
@@ -216,7 +216,7 @@
 
 "## 附加职业作为前缀时 / Prefixes for Add-ons But With Brackets"
 
-"PrefixB.Ntr","海王","<color=#ffffff>(</color>Neptunian<color=#ffffff>)</color> ","Нептунский ","海王","海王"
+"PrefixB.Ntr","海王","<color=#ffffff>(</color>Neptune<color=#ffffff>)</color> ","Нептунский ","海王","海王"
 "PrefixB.Watcher","窥视","<color=#ffffff>(</color>Watcher<color=#ffffff>)</color> ","Наблюдательный ","觀察","窥视"
 "PrefixB.Flashman","闪电","<color=#ffffff>(</color>Flash<color=#ffffff>)</color> ","Флэшевый ","閃電","闪电"
 "PrefixB.Lighter","执灯","<color=#ffffff>(</color>Lighter<color=#ffffff>)</color> ","Фонарный ","燈人","执灯"
