@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static TOHE.Translator;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace TOHE;
 
@@ -190,9 +188,6 @@ class HudManagerPatch
                         break;
                     case CustomRoles.Sheriff:
                         __instance.KillButton.OverrideText($"{GetString("SheriffKillButtonText")}");
-                        break;
-                    case CustomRoles.Totocalcio:
-                        __instance.KillButton.OverrideText($"{GetString("TotocalcioKillButtonText")}");
                         break;
                     case CustomRoles.Totocalcio:
                         __instance.KillButton.OverrideText($"{GetString("TotocalcioKillButtonText")}");

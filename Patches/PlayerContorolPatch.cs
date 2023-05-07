@@ -276,8 +276,6 @@ class CheckMurderPatch
                 case CustomRoles.Succubus:
                     Succubus.OnCheckMurder(killer, target);
                     return false;
-                    if (!Totocalcio.OnCheckMurder(killer, target)) return false;
-                    break;
 
                 //==========船员职业==========//
                 case CustomRoles.Sheriff:

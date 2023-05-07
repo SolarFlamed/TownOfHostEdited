@@ -425,9 +425,6 @@ internal class RPCHandlerPatch
             case CustomRPC.SetSuccubusCharmLimit:
                 Succubus.ReceiveRPC(reader);
                 break;
-            case CustomRPC.SyncTotocalcioTargetAndTimes:
-                Totocalcio.ReceiveRPC(reader);
-                break;
         }
     }
 }
@@ -737,10 +734,6 @@ internal static class RPC
                 break;
             case CustomRoles.Succubus:
                 Succubus.Add(targetId);
-                break;
-            
-            case CustomRoles.Totocalcio:
-                Totocalcio.Add(targetId);
                 break;
         }
         HudManager.Instance.SetHudActive(true);

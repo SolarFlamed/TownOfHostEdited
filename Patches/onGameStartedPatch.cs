@@ -559,7 +559,6 @@ internal class SelectRolesPatch
         EndOfSelectRolePatch:
 
             HudManager.Instance.SetHudActive(true);
-            bool sidekickSpawn = false;
             List<PlayerControl> AllPlayers = new();
             CustomRpcSender sender = CustomRpcSender.Create("SelectRoles Sender", SendOption.Reliable);
             foreach (var pc in Main.AllPlayerControls)

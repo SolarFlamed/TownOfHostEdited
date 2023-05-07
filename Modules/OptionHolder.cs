@@ -373,11 +373,9 @@ public static class Options
     public static OptionItem KickLowLevelPlayer;
     public static OptionItem ApplyBanList;
     public static OptionItem AutoWarnStopWords;
-    public static OptionItem ShowTeamNextToRoleNameOnEject;
 
     public static OptionItem DIYGameSettings;
     public static OptionItem PlayerCanSetColor;
-    public static OptionItem KPDCamouflageMode;
 
     //Add-Ons
     public static OptionItem NameDisplayAddons;
