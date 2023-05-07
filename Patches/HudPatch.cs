@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static TOHE.Translator;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace TOHE;
 
@@ -192,6 +194,9 @@ class HudManagerPatch
                     case CustomRoles.Totocalcio:
                         __instance.KillButton.OverrideText($"{GetString("TotocalcioKillButtonText")}");
                         break;
+                    case CustomRoles.Totocalcio:
+                        __instance.KillButton.OverrideText($"{GetString("TotocalcioKillButtonText")}");
+                        break;
                 }
 
                 //バウンティハンターのターゲットテキスト
@@ -232,6 +237,10 @@ class HudManagerPatch
                 else if (player.Is(CustomRoles.BloodKnight))
                 {
                     LowerInfoText.text = BloodKnight.GetHudText(player);
+                }
+                else if (player.Is(CustomRoles.Wildling))
+                {
+                    LowerInfoText.text = Wildling.GetHudText(player);
                 }
                 else
                 {

@@ -276,6 +276,8 @@ class CheckMurderPatch
                 case CustomRoles.Succubus:
                     Succubus.OnCheckMurder(killer, target);
                     return false;
+                    if (!Totocalcio.OnCheckMurder(killer, target)) return false;
+                    break;
 
                 //==========船员职业==========//
                 case CustomRoles.Sheriff:
@@ -422,6 +424,15 @@ class CheckMurderPatch
             //嗜血骑士技能生效中
             case CustomRoles.BloodKnight:
                 if (BloodKnight.InProtect(target.PlayerId))
+                {
+                    killer.RpcGuardAndKill(target);
+                    target.RpcGuardAndKill();
+                    target.Notify(GetString("BKOffsetKill"));
+                    return false;
+                }
+                break;
+            case CustomRoles.Wildling:
+                if (Wildling.InProtect(target.PlayerId))
                 {
                     killer.RpcGuardAndKill(target);
                     target.RpcGuardAndKill();
@@ -624,6 +635,9 @@ class MurderPlayerPatch
                 break;
             case CustomRoles.BloodKnight:
                 BloodKnight.OnMurderPlayer(killer, target);
+                break;
+            case CustomRoles.Wildling:
+                Wildling.OnMurderPlayer(killer, target);
                 break;
         }
 
@@ -1500,6 +1514,7 @@ class FixedUpdatePatch
                 else if (Succubus.KnowRole(PlayerControl.LocalPlayer, __instance)) RoleText.enabled = true;
                 else if (PlayerControl.LocalPlayer.Is(CustomRoles.God)) RoleText.enabled = true;
                 else if (PlayerControl.LocalPlayer.Is(CustomRoles.GM)) RoleText.enabled = true;
+                else if (Totocalcio.KnowRole(PlayerControl.LocalPlayer, __instance)) RoleText.enabled = true;
                 else if (Main.GodMode.Value) RoleText.enabled = true;
                 else RoleText.enabled = false; //そうでなければロールを非表示
                 if (!AmongUsClient.Instance.IsGameStarted && AmongUsClient.Instance.NetworkMode != NetworkModes.FreePlay)

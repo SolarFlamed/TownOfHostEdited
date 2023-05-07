@@ -412,6 +412,7 @@ public enum CustomRoles
     Mafia,
     SerialKiller,
     ShapeMaster,
+    Wildling,
     EvilGuesser,
     Minimalism,
     Zombie,

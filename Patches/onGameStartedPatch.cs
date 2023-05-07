@@ -541,6 +541,9 @@ internal class SelectRolesPatch
                     case CustomRoles.Succubus:
                         Succubus.Add(pc.PlayerId);
                         break;
+                    case CustomRoles.Wildling:
+                        Wildling.Add(pc.PlayerId);
+                        break;
                 }
                 foreach (var subRole in pc.GetCustomSubRoles())
                 {

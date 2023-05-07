@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TOHE.Roles.Neutral;
 using static TOHE.Translator;
+using TOHE.Roles.Neutral;
 
 namespace TOHE;
 
@@ -187,6 +188,19 @@ class GameEndChecker
                         }
                     }
                 }
+                
+                foreach (var pc in Main.AllPlayerControls.Where(x => x.Is(CustomRoles.Totocalcio)))
+                {
+                    if (Totocalcio.BetPlayer.TryGetValue(pc.PlayerId, out var betTarget) && (
+                        CustomWinnerHolder.WinnerIds.Contains(betTarget) ||
+                        (Main.PlayerStates.TryGetValue(betTarget, out var ps) && CustomWinnerHolder.WinnerRoles.Contains(ps.MainRole)
+                        )))
+                    {
+                        CustomWinnerHolder.WinnerIds.Add(pc.PlayerId);
+                        CustomWinnerHolder.AdditionalWinnerTeams.Add(AdditionalWinners.Totocalcio);
+                    }
+                }
+
 
                 //中立共同胜利
                 if (Options.NeutralWinTogether.GetBool() && CustomWinnerHolder.WinnerIds.Where(x => Utils.GetPlayerById(x) != null && Utils.GetPlayerById(x).GetCustomRole().IsNeutral()).Count() >= 1)

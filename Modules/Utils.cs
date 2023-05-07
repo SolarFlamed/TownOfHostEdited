@@ -316,6 +316,8 @@ public static class Utils
             RoleText = GetRoleString("Mad-") + RoleText;
         if (SubRoles.Contains(CustomRoles.Charmed))
             RoleText = GetRoleString("Charmed-") + RoleText;
+        if (SubRoles.Contains(CustomRoles.Egoist))
+            RoleText = $"<color=#5600ff>" + RoleText + $"</color>";
 
         return (RoleText, RoleColor);
     }
@@ -1173,30 +1175,99 @@ public static class Utils
                     Main.TaglockedList.ContainsKey(target.PlayerId))
                     TargetMark.Append($"<color={Utils.GetRoleColorCode(CustomRoles.NWitch)}>◆</color>");
 
-                //他人の役職とタスクは幽霊が他人の役職を見れるようになっていてかつ、seerが死んでいる場合のみ表示されます。それ以外の場合は空になります。
-                string TargetRoleText =
-                    (seer.Data.IsDead && Options.GhostCanSeeOtherRoles.GetBool()) ||
-                    (seer.Is(CustomRoles.Lovers) && target.Is(CustomRoles.Lovers) && Options.LoverKnowRoles.GetBool()) ||
-                    (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoleTypes.Impostor) && Options.ImpKnowAlliesRole.GetBool()) ||
-                    (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoleTypes.Impostor) && Options.MadmateKnowWhosImp.GetBool()) ||
-                    (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Madmate) && Options.ImpKnowWhosMadmate.GetBool()) ||
-                    (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosMadmate.GetBool()) ||
-                    (target.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool()) ||
-                    (Totocalcio.KnowRole(seer, target)) ||
-                    (Succubus.KnowRole(seer, target)) ||
-                    (seer.Is(CustomRoles.God)) ||
-                    (target.Is(CustomRoles.GM))
-                    ? $"<size={fontSize}>{target.GetDisplayRoleName(seer.PlayerId != target.PlayerId && !seer.Data.IsDead)}{GetProgressText(target)}</size>\r\n" : "";
+                    //他人の役職とタスクは幽霊が他人の役職を見れるようになっていてかつ、seerが死んでいる場合のみ表示されます。それ以外の場合は空になります。
+                    string TargetRoleText =
+                        (seer.Data.IsDead && Options.GhostCanSeeOtherRoles.GetBool()) ||
+                        (seer.Is(CustomRoles.Lovers) && target.Is(CustomRoles.Lovers) && Options.LoverKnowRoles.GetBool()) ||
+                        (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoleTypes.Impostor) && Options.ImpKnowAlliesRole.GetBool()) ||
+                        (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoleTypes.Impostor) && Options.MadmateKnowWhosImp.GetBool()) ||
+                        (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Madmate) && Options.ImpKnowWhosMadmate.GetBool()) ||
+                        (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosMadmate.GetBool()) ||
+                        (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Sidekick)) ||
+                        (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Jackal))||
+                        (target.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool()) ||
+                        (Totocalcio.KnowRole(seer, target)) ||
+                        (Succubus.KnowRole(seer, target)) ||
+                        (seer.Is(CustomRoles.God)) ||
+                        (target.Is(CustomRoles.GM))
+                        ? $"<size={fontSize}>{target.GetDisplayRoleName(seer.PlayerId != target.PlayerId && !seer.Data.IsDead)}{GetProgressText(target)}</size>\r\n" : "";
 
                 if (Options.CurrentGameMode == CustomGameMode.SoloKombat)
                     TargetRoleText = $"<size={fontSize}>{GetProgressText(target)}</size>\r\n";
 
-                if (seer.Is(CustomRoles.EvilTracker))
-                {
-                    TargetMark.Append(EvilTracker.GetTargetMark(seer, target));
-                    if (isForMeeting && EvilTracker.IsTrackTarget(seer, target) && EvilTracker.CanSeeLastRoomInMeeting)
-                        TargetRoleText = $"<size={fontSize}>{EvilTracker.GetArrowAndLastRoom(seer, target)}</size>\r\n";
-                }
+                    if (seer.Is(CustomRoles.EvilTracker))
+                    {
+                        TargetMark.Append(EvilTracker.GetTargetMark(seer, target));
+                        if (isForMeeting && EvilTracker.IsTrackTarget(seer, target) && EvilTracker.CanSeeLastRoomInMeeting)
+                            TargetRoleText = $"<size={fontSize}>{EvilTracker.GetArrowAndLastRoom(seer, target)}</size>\r\n";
+                    }
+
+                    //RealNameを取得 なければ現在の名前をRealNamesに書き込む
+                    string TargetPlayerName = target.GetRealName(isForMeeting);
+
+                    if (seer.Is(CustomRoles.Psychic) && seer.IsAlive() && target.IsRedForPsy(seer) && isForMeeting)
+                    {
+                        TargetPlayerName = ColorString(GetRoleColor(CustomRoles.Impostor), TargetPlayerName);
+                    }
+                    if (seer.Is(CustomRoles.Mafia) && !seer.IsAlive() && target.IsAlive())
+                    {
+                        TargetPlayerName = ColorString(GetRoleColor(CustomRoles.Mafia), target.PlayerId.ToString()) + " " + TargetPlayerName;
+                    }
+                    if (seer.Is(CustomRoles.NiceGuesser) || seer.Is(CustomRoles.EvilGuesser))
+                    {
+                        if (seer.IsAlive() && target.IsAlive() && isForMeeting)
+                        {
+                            TargetPlayerName = ColorString(GetRoleColor(seer.Is(CustomRoles.NiceGuesser) ? CustomRoles.NiceGuesser : CustomRoles.EvilGuesser), target.PlayerId.ToString()) + " " + TargetPlayerName;
+                        }
+                    }
+                    if (seer.Is(CustomRoles.Judge))
+                    {
+                        if (seer.IsAlive() && target.IsAlive() && isForMeeting)
+                        {
+                            TargetPlayerName = ColorString(GetRoleColor(CustomRoles.Judge), target.PlayerId.ToString()) + " " + TargetPlayerName;
+                        }
+                    }
+
+                    //ターゲットのプレイヤー名の色を書き換えます。
+                    TargetPlayerName = TargetPlayerName.ApplyNameColorData(seer, target, isForMeeting);
+
+                    if (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Snitch) && target.Is(CustomRoles.Madmate) && target.GetPlayerTaskState().IsTaskFinished)
+                        TargetMark.Append(ColorString(GetRoleColor(CustomRoles.Impostor), "★"));
+                    if (seer.Is(CustomRoleTypes.Crewmate) && target.Is(CustomRoles.Marshall) && target.GetPlayerTaskState().IsTaskFinished)
+                        TargetMark.Append(ColorString(GetRoleColor(CustomRoles.Marshall), "★"));
+                    if (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Sidekick))
+                        TargetMark.Append(ColorString(GetRoleColor(CustomRoles.Jackal), " ♥"));
+
+                    TargetMark.Append(Executioner.TargetMark(seer, target));
+
+                    TargetMark.Append(Gamer.TargetMark(seer, target));
+
+                    TargetMark.Append(Medicaler.TargetMark(seer, target));
+                    
+                    TargetMark.Append(Totocalcio.TargetMark(seer, target));
+
+
+                    //KB目标玩家名字后缀
+                    TargetSuffix.Clear();
+
+                    if (Options.CurrentGameMode == CustomGameMode.SoloKombat)
+                        TargetSuffix.Append(SoloKombatManager.GetDisplayHealth(target));
+
+                    string TargetDeathReason = "";
+                    if (seer.KnowDeathReason(target))
+                        TargetDeathReason = $"({ColorString(GetRoleColor(CustomRoles.Doctor), GetVitalText(target.PlayerId))})";
+
+                    if (((IsActive(SystemTypes.Comms) && Options.CommsCamouflage.GetBool()) || Concealer.IsHidding) && !isForMeeting)
+                        TargetPlayerName = $"<size=0%>{TargetPlayerName}</size>";
+
+                    //全てのテキストを合成します。
+                    string TargetName = $"{TargetRoleText}{TargetPlayerName}{TargetDeathReason}{TargetMark}";
+                    TargetName += (TargetSuffix.ToString() == "" ? "" : ("\r\n" + TargetSuffix.ToString()));
+
+                    //適用
+                    target.RpcSetNamePrivate(TargetName, true, seer, force: NoCache);
+
+                    logger.Info("NotifyRoles-Loop2-" + target.GetNameWithRole() + ":END");
 
                 //RealNameを取得 なければ現在の名前をRealNamesに書き込む
                 string TargetPlayerName = target.GetRealName(isForMeeting);
