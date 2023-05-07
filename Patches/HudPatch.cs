@@ -233,6 +233,10 @@ class HudManagerPatch
                 {
                     LowerInfoText.text = BloodKnight.GetHudText(player);
                 }
+                else if (player.Is(CustomRoles.Wildling))
+                {
+                    LowerInfoText.text = Wildling.GetHudText(player);
+                }
                 else
                 {
                     LowerInfoText.text = "";

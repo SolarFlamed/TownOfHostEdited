@@ -1,4 +1,4 @@
-﻿using Hazel;
+using Hazel;
 using Il2CppSystem;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +30,9 @@ public static class Totocalcio
             .SetValueFormat(OptionFormat.Times);
         BetCooldown = FloatOptionItem.Create(Id + 12, "TotocalcioBetCooldown", new(0f, 990f, 2.5f), 10f, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Totocalcio])
             .SetValueFormat(OptionFormat.Seconds);
-        MaxBetCooldown = FloatOptionItem.Create(Id + 16, "TotocalcioMaxBetCooldown", new(0f, 990f, 2.5f), 50f, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Totocalcio])
-            .SetValueFormat(OptionFormat.Seconds);
         BetCooldownIncrese = FloatOptionItem.Create(Id + 14, "TotocalcioBetCooldownIncrese", new(0f, 60f, 1f), 4f, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Totocalcio])
+            .SetValueFormat(OptionFormat.Seconds);
+        MaxBetCooldown = FloatOptionItem.Create(Id + 16, "TotocalcioMaxBetCooldown", new(0f, 990f, 2.5f), 50f, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Totocalcio])
             .SetValueFormat(OptionFormat.Seconds);
         KnowTargetRole = BooleanOptionItem.Create(Id + 18, "TotocalcioKnowTargetRole", false, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Totocalcio]);
         BetTargetKnowTotocalcio = BooleanOptionItem.Create(Id + 20, "TotocalcioBetTargetKnowTotocalcio", false, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Totocalcio]);
@@ -90,10 +90,11 @@ public static class Totocalcio
         if (!KnowTargetRole.GetBool()) return false;
         return player.Is(CustomRoles.Totocalcio) && BetPlayer.TryGetValue(player.PlayerId, out var tar) && tar == target.PlayerId;
     }
-    public static void OnCheckMurder(PlayerControl killer, PlayerControl target)
+    public static bool OnCheckMurder(PlayerControl killer, PlayerControl target)
     {
-        if (BetPlayer.TryGetValue(killer.PlayerId, out var tar) && tar == target.PlayerId) return;
-        if (!BetTimes.TryGetValue(killer.PlayerId, out var times) || times < 1) return;
+        if (killer.PlayerId == target.PlayerId) return true;
+        if (BetPlayer.TryGetValue(killer.PlayerId, out var tar) && tar == target.PlayerId) return false;
+        if (!BetTimes.TryGetValue(killer.PlayerId, out var times) || times < 1) return false;
 
         BetTimes[killer.PlayerId]--;
         if (BetPlayer.TryGetValue(killer.PlayerId, out var originalTarget) && Utils.GetPlayerById(originalTarget) != null)
@@ -105,12 +106,12 @@ public static class Totocalcio
         killer.ResetKillCooldown();
         killer.SetKillCooldown();
 
-        killer.Notify(GetString("TotocalcioBetPlayer"));
+        killer.Notify(Translator.GetString("TotocalcioBetPlayer"));
         if (BetTargetKnowTotocalcio.GetBool())
-            target.Notify(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Totocalcio), GetString("TotocalcioBetOnYou")));
+            target.Notify(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Totocalcio), Translator.GetString("TotocalcioBetYou")));
 
         Logger.Info($"赌徒下注：{killer.GetNameWithRole()} => {target.GetNameWithRole()}", "Totocalcio");
-        return;
+        return false;
     }
     public static string TargetMark(PlayerControl seer, PlayerControl target)
     {

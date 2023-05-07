@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TOHE;
 
-//À´Ô´£ºhttps://github.com/tukasa0001/TownOfHost/pull/1265
+//ï¿½ï¿½Ô´ï¿½ï¿½https://github.com/tukasa0001/TownOfHost/pull/1265
 [HarmonyPatch(typeof(OptionsMenuBehaviour), nameof(OptionsMenuBehaviour.Start))]
 public static class OptionsMenuBehaviourStartPatch
 {

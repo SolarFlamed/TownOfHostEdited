@@ -27,6 +27,7 @@ false;
         EnableDebugMode = BooleanOptionItem.Create(2, "EnableDebugMode", false, TabGroup.SystemSettings, true)
             .SetHeader(true)
             .SetColor(Color.green)
+            .SetHeader(true)
             .SetHidden(!AmDebugger);
     }
 }
