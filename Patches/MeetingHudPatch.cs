@@ -159,15 +159,7 @@ class CheckForEndVotingPatch
                     VoterId = ps.TargetPlayerId,
                     VotedForId = ps.VotedFor
                 });
-
-                //主动叛变模式下自票无效
-                if (ps.TargetPlayerId == ps.VotedFor && Options.MadmateSpawnMode.GetInt() == 2) continue;
-
-                statesList.Add(new MeetingHud.VoterState()
-                {
-                    VoterId = ps.TargetPlayerId,
-                    VotedForId = ps.VotedFor
-                });
+                
                 if (CheckRole(ps.TargetPlayerId, CustomRoles.Mayor) && !Options.MayorHideVote.GetBool()) //Mayorの投票数
                 {
                     for (var i2 = 0; i2 < Options.MayorAdditionalVote.GetFloat(); i2++)
@@ -847,7 +839,7 @@ class MeetingHudUpdatePatch
         }
 
         //投票结束时销毁全部技能按钮
-        if (!GameStates.IsVoting && __instance.discussionTimer > 0)
+        if (!GameStates.IsVoting && __instance.lastSecond < 0)
         {
             if (GameObject.Find("ShootButton") != null) ClearShootButton(__instance, true);
             return;
@@ -855,7 +847,7 @@ class MeetingHudUpdatePatch
 
         //会议技能UI处理
         bufferTime--;
-        if (bufferTime < 0 && __instance.lastSecond > 3)
+        if (bufferTime < 0 && __instance.discussionTimer > 0)
         {
             bufferTime = 10;
             var myRole = PlayerControl.LocalPlayer.GetCustomRole();
