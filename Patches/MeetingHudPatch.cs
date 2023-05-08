@@ -144,11 +144,6 @@ class CheckForEndVotingPatch
                                 break;
                         }
                     }
-<<<<<<< HEAD
-                }
-                //隐藏占卜师的票
-                if (CheckRole(ps.TargetPlayerId, CustomRoles.Divinator)) continue;
-=======
                 }
 
                 //隐藏占卜师的票
@@ -164,7 +159,6 @@ class CheckForEndVotingPatch
                     VoterId = ps.TargetPlayerId,
                     VotedForId = ps.VotedFor
                 });
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
 
                 //主动叛变模式下自票无效
                 if (ps.TargetPlayerId == ps.VotedFor && Options.MadmateSpawnMode.GetInt() == 2) continue;
@@ -300,17 +294,7 @@ class CheckForEndVotingPatch
         var player = Utils.GetPlayerById(exiledPlayer.PlayerId);
         var role = GetString(exiledPlayer.GetCustomRole().ToString());
         var crole = exiledPlayer.GetCustomRole();
-<<<<<<< HEAD
-        var coloredRole = Utils.ColorString(Utils.GetRoleColor(exiledPlayer.GetCustomRole()), $"{role}");
-        if (Options.ConfirmMadmateOnEject.GetBool() && player.Is(CustomRoles.Madmate))
-            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Madmate), GetRoleString("Mad-") + coloredRole.RemoveHtmlTags());
-        if (Options.ConfirmEgoistOnEject.GetBool() && player.Is(CustomRoles.Egoist))
-            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Egoist), GetRoleString("Temp.Blank") + coloredRole.RemoveHtmlTags());
-        if (Options.ConfirmSidekickOnEject.GetBool() && player.Is(CustomRoles.Sidekick))
-            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Sidekick), GetRoleString("Temp.Blank") + coloredRole.RemoveHtmlTags());
-=======
         var coloredRole = Utils.GetDisplayRoleName(exileId, true);
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
         var name = "";
         int impnum = 0;
         int neutralnum = 0;
@@ -332,35 +316,6 @@ class CheckForEndVotingPatch
             else if (pc_role.IsNeutralKilling() && pc != exiledPlayer.Object)
                 neutralnum++;
         }
-<<<<<<< HEAD
-        switch (Options.CEMode.GetInt())
-        {
-            case 0:
-                name = string.Format(GetString("PlayerExiled"), realName);
-                break;
-            case 1:
-                if (player.GetCustomRole().IsImpostor())
-                    name = string.Format(GetString("BelongTo"), realName, Utils.ColorString(Utils.GetRoleColor(CustomRoles.Impostor), GetString("TeamImpostor")));
-                else if (player.GetCustomRole().IsCrewmate())
-                    name = string.Format(GetString("IsGood"), realName);
-                else if (player.GetCustomRole().IsNeutral())
-                    name = string.Format(GetString("BelongTo"), realName, Utils.ColorString(new Color32(255, 171, 27, byte.MaxValue), GetString("TeamNeutral")));
-                break;
-            case 2:
-                name = string.Format(GetString("PlayerIsRole"), realName, coloredRole);
-                if (Options.ShowTeamNextToRoleNameOnEject.GetBool())
-                {
-                    name += " (";
-                    if (player.GetCustomRole().IsImpostor())
-                        name += Utils.ColorString(new Color32(255, 25, 25, byte.MaxValue), GetString("TeamImpostor"));
-                    else if (player.GetCustomRole().IsCrewmate())
-                        name += Utils.ColorString(new Color32(140, 255, 255, byte.MaxValue), GetString("TeamCrewmate"));
-                    else if (player.GetCustomRole().IsNeutral())
-                        name += Utils.ColorString(new Color32(255, 171, 27, byte.MaxValue), GetString("TeamNeutral"));
-                    name += ")";
-                }
-                break;
-=======
         switch (Options.CEMode.GetInt())
         {
             case 0:
@@ -388,7 +343,6 @@ class CheckForEndVotingPatch
                     name += ")";
                 }
                 break;
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
         }
         var DecidedWinner = false;
         //小丑胜利

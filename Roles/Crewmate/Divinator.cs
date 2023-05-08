@@ -80,10 +80,6 @@ public static class Divinator
 
                 CustomRoles.Miner or
                 CustomRoles.Scavenger or
-<<<<<<< HEAD
-           //     CustomRoles.Bait or
-=======
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
                 CustomRoles.Luckey or
                 CustomRoles.Needy or
                 CustomRoles.SabotageMaster or
@@ -123,10 +119,6 @@ public static class Divinator
                 CustomRoles.Bomber or
                 CustomRoles.Capitalism or
                 CustomRoles.NiceGuesser or
-<<<<<<< HEAD
-            //    CustomRoles.Trapper or
-=======
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
                 CustomRoles.Grenadier or
                 CustomRoles.Terrorist or
                 CustomRoles.Revolutionist or

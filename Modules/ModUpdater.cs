@@ -3,12 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Globalization;
 using System.IO;
-<<<<<<< HEAD
-using System.Net;
 using System.Net.Http;
-=======
-using System.Net.Http;
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -109,7 +104,7 @@ public class ModUpdater
                 hasUpdate = false;
                 forceUpdate = info[1] == "false";
                 latestVersion = new(info[4]);
-                latestTitle = new("TOHE");
+                latestTitle = "Ver. " + info[4];
 
                 string[] num = info[4].Split(".");
                 string[] inum = Main.PluginVersion.Split(".");
@@ -322,22 +317,6 @@ public class ModUpdater
     {
         try
         {
-<<<<<<< HEAD
-            using WebClient client = new();
-            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadCallBack);
-            client.DownloadFileAsync(new Uri(url), "BepInEx/plugins/TOHE.dll");
-            while (client.IsBusy) await Task.Delay(1);
-            if (GetMD5HashFromFile("BepInEx/plugins/TOHE.dll") != md5)
-            {
-                BackOldDLL();
-                ShowPopup(GetString("downloadFailed"), true, false);
-                MainMenuManagerPatch.updateButton.SetActive(true);
-                MainMenuManagerPatch.updateButton.transform.position = MainMenuManagerPatch.template.transform.position + new Vector3(0.25f, 0.75f);
-            }
-            else
-            {
-                ShowPopup(GetString("updateRestart"), true);
-=======
             var savePath = "BepInEx/plugins/TOHE.dll.temp";
             File.Delete(savePath);
 
@@ -384,7 +363,6 @@ public class ModUpdater
                         }
                     }
                 }
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
             }
 
             if (GetMD5HashFromFile(savePath) != md5)

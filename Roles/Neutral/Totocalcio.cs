@@ -115,19 +115,11 @@ public static class Totocalcio
     }
     public static string TargetMark(PlayerControl seer, PlayerControl target)
     {
-<<<<<<< HEAD
-        if (!seer.Is(CustomRoles.Totocalcio))
-        {
-            if (!BetTargetKnowTotocalcio.GetBool()) return "";
-            return (BetPlayer.TryGetValue(target.PlayerId, out var x) && seer.PlayerId == x) ? 
-                Utils.ColorString(Utils.GetRoleColor(CustomRoles.Totocalcio), "♦") : "";
-=======
         if (!seer.Is(CustomRoles.Totocalcio))
         {
             if (!BetTargetKnowTotocalcio.GetBool()) return "";
             return (BetPlayer.TryGetValue(target.PlayerId, out var x) && seer.PlayerId == x) ?
                 Utils.ColorString(Utils.GetRoleColor(CustomRoles.Totocalcio), "♦") : "";
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
         }
         var GetValue = BetPlayer.TryGetValue(seer.PlayerId, out var targetId);
         return GetValue && targetId == target.PlayerId ? Utils.ColorString(Utils.GetRoleColor(CustomRoles.Totocalcio), "♦") : "";

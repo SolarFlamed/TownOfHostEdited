@@ -546,8 +546,6 @@ public enum CustomRoles
     Necroview,
     Reach,
     Charmed,
-    Bait,
-    Trapper,
 }
 //WinData
 public enum CustomWinner

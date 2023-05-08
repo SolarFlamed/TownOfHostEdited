@@ -1,17 +1,8 @@
-<<<<<<< HEAD
-using HarmonyLib;
-using TOHE.Roles.Impostor;
-using TOHE.Roles.Neutral;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-=======
 using HarmonyLib;
 using Il2CppSystem.Text;
 using TOHE.Roles.Impostor;
 using TOHE.Roles.Neutral;
 using UnityEngine;
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
 using static TOHE.Translator;
 
 namespace TOHE;
@@ -412,17 +403,6 @@ class SetHudActivePatch
     }
 }
 [HarmonyPatch(typeof(VentButton), nameof(VentButton.DoClick))]
-<<<<<<< HEAD
-class VentButtonDoClickPatch
-{ 
-    public static bool Prefix(VentButton __instance)
-    {
-        var pc = PlayerControl.LocalPlayer;
-        if (!pc.Is(CustomRoles.Swooper) || pc.inVent || __instance.currentTarget == null || !pc.CanMove || !__instance.isActiveAndEnabled) return true;
-        pc?.MyPhysics?.RpcEnterVent(__instance.currentTarget.Id);
-        return false;
-    }
-=======
 class VentButtonDoClickPatch
 {
     public static bool Prefix(VentButton __instance)
@@ -432,7 +412,6 @@ class VentButtonDoClickPatch
         pc?.MyPhysics?.RpcEnterVent(__instance.currentTarget.Id);
         return false;
     }
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
 }
 [HarmonyPatch(typeof(MapBehaviour), nameof(MapBehaviour.Show))]
 class MapBehaviourShowPatch
@@ -469,17 +448,6 @@ class TaskPanelBehaviourPatch
             var AllText = Utils.ColorString(player.GetRoleColor(), RoleWithInfo);
 
             var taskText = __instance.taskText.text;
-<<<<<<< HEAD
-            if (taskText != "None" && Utils.HasTasks(player.Data, false))
-                AllText += "\r\n\r\n" + taskText.Split("\r\n\n")[0];
-
-            if (MeetingStates.FirstMeeting)
-            {
-                AllText += $"\r\n\r\n<size=70%>{GetString("PressF1ShowMainRoleDes")}";
-                if (Main.PlayerStates.TryGetValue(PlayerControl.LocalPlayer.PlayerId, out var ps) && ps.SubRoles.Count >= 1)
-                    AllText += $"\r\n{GetString("PressF2ShowAddRoleDes")}";
-                AllText += "</size>";
-=======
             if (taskText != "None")
             {
                 var lines = taskText.Split("\r\n</color>\n")[0].Split("\r\n\n")[0].Split("\r\n");
@@ -505,7 +473,6 @@ class TaskPanelBehaviourPatch
                 if (Main.PlayerStates.TryGetValue(PlayerControl.LocalPlayer.PlayerId, out var ps) && ps.SubRoles.Count >= 1)
                     AllText += $"\r\n{GetString("PressF2ShowAddRoleDes")}";
                 AllText += "</size>";
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
             }
 
             __instance.taskText.text = AllText;

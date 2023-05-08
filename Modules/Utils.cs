@@ -286,40 +286,6 @@ public static class Utils
         string RoleText = "Invalid Role";
         Color RoleColor;
 
-<<<<<<< HEAD
-        var mainRole = Main.PlayerStates[playerId].MainRole;
-        var SubRoles = Main.PlayerStates[playerId].SubRoles;
-        RoleText = GetRoleName(mainRole);
-        RoleColor = GetRoleColor(mainRole);
-
-        if (SubRoles.Contains(CustomRoles.Madmate)) RoleColor = GetRoleColor(CustomRoles.Madmate);
-        if (SubRoles.Contains(CustomRoles.Charmed)) RoleColor = GetRoleColor(CustomRoles.Charmed);
-        if (SubRoles.Contains(CustomRoles.Egoist) && Options.ImpEgoistVisibalToAllies.GetBool()) RoleColor = GetRoleColor(CustomRoles.Egoist);
-
-        if (LastImpostor.currentId == playerId)
-            RoleText = GetRoleString("Last-") + RoleText;
-
-        if (Options.NameDisplayAddons.GetBool() && !pure)
-            {     
-    if (Options.AddBracketsToAddons.GetBool())       
-    {
-        foreach (var subRole in SubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Lovers))
-                RoleText = ColorString(GetRoleColor(subRole), GetString("PrefixB." + subRole.ToString())) + RoleText;
-    }
-    else if (!Options.AddBracketsToAddons.GetBool())
-    {
-        foreach (var subRole in SubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Lovers))
-                RoleText = ColorString(GetRoleColor(subRole), GetString("Prefix." + subRole.ToString())) + RoleText;
-    }
-}
-
-        if (SubRoles.Contains(CustomRoles.Madmate))
-            RoleText = GetRoleString("Mad-") + RoleText;
-        if (SubRoles.Contains(CustomRoles.Charmed))
-            RoleText = GetRoleString("Charmed-") + RoleText;
-        if (SubRoles.Contains(CustomRoles.Egoist))
-            RoleText = $"<color=#5600ff>" + RoleText + $"</color>";
-=======
         var seerMainRole = Main.PlayerStates[seerId].MainRole;
         var seerSubRoles = Main.PlayerStates[seerId].SubRoles;
 
@@ -335,8 +301,18 @@ public static class Utils
             RoleText = GetRoleString("Last-") + RoleText;
 
         if (Options.NameDisplayAddons.GetBool() && !pure && self)
+        {     
+            if (Options.AddBracketsToAddons.GetBool())       
+            {
+            foreach (var subRole in targetSubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Charmed and not CustomRoles.Lovers))
+                RoleText = ColorString(GetRoleColor(subRole), GetString("PrefixB." + subRole.ToString())) + RoleText;
+            }
+            else if (!Options.AddBracketsToAddons.GetBool())
+            {
             foreach (var subRole in targetSubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Charmed and not CustomRoles.Lovers))
                 RoleText = ColorString(GetRoleColor(subRole), GetString("Prefix." + subRole.ToString())) + RoleText;
+            }
+        }
 
         if (targetSubRoles.Contains(CustomRoles.Madmate))
         {
@@ -352,7 +328,6 @@ public static class Utils
         {
             RoleColor = GetRoleColor(CustomRoles.Egoist);
         }
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
 
         return (RoleText, RoleColor);
     }
@@ -1101,23 +1076,6 @@ public static class Utils
             string SelfRoleName = $"<size={fontSize}>{seer.GetDisplayRoleName()}{SelfTaskText}</size>";
             string SelfDeathReason = seer.KnowDeathReason(seer) ? $"({ColorString(GetRoleColor(CustomRoles.Doctor), GetVitalText(seer.PlayerId))})" : "";
             string SelfName = $"{ColorString(seer.GetRoleColor(), SeerRealName)}{SelfDeathReason}{SelfMark}";
-<<<<<<< HEAD
-            if (seer.Is(CustomRoles.Arsonist) && seer.IsDouseDone())
-                SelfName = $"</size>\r\n{ColorString(seer.GetRoleColor(), GetString("EnterVentToWin"))}";
-            if (seer.Is(CustomRoles.Revolutionist) && seer.IsDrawDone())
-                SelfName = $"</size>\r\n{ColorString(seer.GetRoleColor(), string.Format(GetString("EnterVentWinCountDown"), Main.RevolutionistCountdown.TryGetValue(seer.PlayerId, out var x) ? x : 10))}";
-            if (Pelican.IsEaten(seer.PlayerId))
-                SelfName = $"</size>\r\n{ColorString(GetRoleColor(CustomRoles.Pelican), GetString("EatenByPelican"))}";
-            if (Options.CurrentGameMode == CustomGameMode.SoloKombat)
-            {
-                SoloKombatManager.GetNameNotify(seer, ref SelfName);
-                SelfName = $"<size={fontSize}>{SelfTaskText}</size>\r\n{SelfName}";
-            }
-            if (NameNotifyManager.GetNameNotify(seer, ref SelfName))
-            {
-                SelfName = $"<size={fontSize}>{SelfTaskText}</size>\r\n{SelfName}";
-            }
-=======
 
             if (seer.Is(CustomRoles.Arsonist) && seer.IsDouseDone())
                 SelfName = $"</size>\r\n{ColorString(seer.GetRoleColor(), GetString("EnterVentToWin"))}";
@@ -1133,7 +1091,6 @@ public static class Utils
                 SoloKombatManager.GetNameNotify(seer, ref SelfName);
                 SelfName = $"<size={fontSize}>{SelfTaskText}</size>\r\n{SelfName}";
             }
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
             else SelfName = SelfRoleName + "\r\n" + SelfName;
             SelfName += SelfSuffix.ToString() == "" ? "" : "\r\n " + SelfSuffix.ToString();
             if (((IsActive(SystemTypes.Comms) && Options.CommsCamouflage.GetBool()) || Concealer.IsHidding) && !isForMeeting)

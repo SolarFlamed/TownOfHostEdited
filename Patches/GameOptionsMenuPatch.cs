@@ -188,44 +188,6 @@ public class GameOptionsMenuUpdatePatch
                 var parent = option.Parent;
 
                 enabled = AmongUsClient.Instance.AmHost &&
-<<<<<<< HEAD
-                    !option.IsHiddenOn(Options.CurrentGameMode);
-
-                var opt = option.OptionBehaviour.transform.Find("Background").GetComponent<SpriteRenderer>();
-                opt.size = new(5.0f, 0.45f);
-                while (parent != null && enabled)
-                {
-                    enabled = parent.GetBool();
-                    parent = parent.Parent;
-                    opt.color = new(0f, 1f, 0f);
-                    opt.size = new(4.8f, 0.45f);
-                    opt.transform.localPosition = new Vector3(0.11f, 0f);
-                    option.OptionBehaviour.transform.Find("Title_TMP").transform.localPosition = new Vector3(-0.95f, 0f);
-                    option.OptionBehaviour.transform.FindChild("Title_TMP").GetComponent<RectTransform>().sizeDelta = new Vector2(3.4f, 0.37f);
-                    if (option.Parent?.Parent != null)
-                    {
-                        opt.color = new(0f, 0f, 1f);
-                        opt.size = new(4.6f, 0.45f);
-                        opt.transform.localPosition = new Vector3(0.24f, 0f);
-                        option.OptionBehaviour.transform.Find("Title_TMP").transform.localPosition = new Vector3(-0.7f, 0f);
-                        option.OptionBehaviour.transform.FindChild("Title_TMP").GetComponent<RectTransform>().sizeDelta = new Vector2(3.3f, 0.37f);
-                        if (option.Parent?.Parent?.Parent != null)
-                        {
-                            opt.color = new(1f, 0f, 0f);
-                            opt.size = new(4.4f, 0.45f);
-                            opt.transform.localPosition = new Vector3(0.37f, 0f);
-                            option.OptionBehaviour.transform.Find("Title_TMP").transform.localPosition = new Vector3(-0.55f, 0f);
-                            option.OptionBehaviour.transform.FindChild("Title_TMP").GetComponent<RectTransform>().sizeDelta = new Vector2(3.2f, 0.37f);
-                        }
-                    }
-                }
-                if (option.IsText)
-                {
-                    opt.color = new(0, 0, 0);
-                    opt.transform.localPosition = new(100f, 100f, 100f);
-                }
-
-=======
                     !option.IsHiddenOn(Options.CurrentGameMode);
 
                 var opt = option.OptionBehaviour.transform.Find("Background").GetComponent<SpriteRenderer>();
@@ -263,7 +225,6 @@ public class GameOptionsMenuUpdatePatch
                     opt.transform.localPosition = new(100f, 100f, 100f);
                 }
 
->>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
                 option.OptionBehaviour.gameObject.SetActive(enabled);
                 if (enabled)
                 {
