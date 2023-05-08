@@ -868,7 +868,7 @@ public static class Options
         TextOptionItem.Create(120025, "OtherRoles.Addons", TabGroup.ExclusiveRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 154, 206, byte.MaxValue));
-        AddBracketsToAddons = BooleanOptionItem.Create(6050510, "BracketAddons", false, TabGroup.ExclusiveRoles, false)
+        AddBracketsToAddons = BooleanOptionItem.Create(6050512, "BracketAddons", false, TabGroup.ExclusiveRoles, false)
             .SetGameMode(CustomGameMode.Standard)
             .SetHeader(true);
         SetupAdtRoleOptions(6050500, CustomRoles.Necroview, canSetNum: true, tab: TabGroup.ExclusiveRoles);
