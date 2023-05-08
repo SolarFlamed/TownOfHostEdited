@@ -122,6 +122,8 @@ public static class Options
     public static OptionItem ShowTeamNextToRoleNameOnEject;
     public static OptionItem ConfirmEgoistOnEject;
     public static OptionItem ConfirmSidekickOnEject;
+    public static OptionItem ConfirmCharmedOnEject;
+    public static OptionItem ConfirmMadmateOnEject;
     public static OptionItem CheatResponses;
     public static OptionItem LowLoadMode;
 
@@ -843,9 +845,21 @@ public static class Options
         ImpEgoistVisibalToAllies = BooleanOptionItem.Create(6050496, "ImpEgoistVisibalToAllies", true, TabGroup.OtherRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Egoist]);
 
         // Exclusive Roles
-   //     TextOptionItem.Create(6050520, "MenuTitle.Settings", TabGroup.ExclusiveRoles)
-  //          .SetGameMode(CustomGameMode.Standard)
-  //          .SetColor(new Color32(255, 255, 0, byte.MaxValue));
+        TextOptionItem.Create(6050520, "MenuTitle.Settings", TabGroup.ExclusiveRoles)
+            .SetGameMode(CustomGameMode.Standard)
+            .SetColor(new Color32(255, 255, 0, byte.MaxValue));
+                        ConfirmEgoistOnEject = BooleanOptionItem.Create(6090122, "ConfirmEgoistOnEject", true, TabGroup.ExclusiveRoles, false)
+            .SetGameMode(CustomGameMode.Standard)
+            .SetColor(new Color32(255, 238, 232, byte.MaxValue));
+                    ConfirmSidekickOnEject = BooleanOptionItem.Create(6090124, "ConfirmSidekickOnEject", true, TabGroup.ExclusiveRoles, false)
+            .SetGameMode(CustomGameMode.Standard)
+            .SetColor(new Color32(255, 238, 232, byte.MaxValue));
+                    ConfirmCharmedOnEject = BooleanOptionItem.Create(6090126, "ConfirmCharmedOnEject", true, TabGroup.ExclusiveRoles, false)
+            .SetGameMode(CustomGameMode.Standard)
+            .SetColor(new Color32(255, 238, 232, byte.MaxValue));
+                    ConfirmMadmateOnEject = BooleanOptionItem.Create(6090128, "ConfirmMadmateOnEject", true, TabGroup.ExclusiveRoles, false)
+            .SetGameMode(CustomGameMode.Standard)
+            .SetColor(new Color32(255, 238, 232, byte.MaxValue));
         TextOptionItem.Create(120015, "OtherRoles.ImpostorRoles", TabGroup.ExclusiveRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(247, 70, 49, byte.MaxValue));

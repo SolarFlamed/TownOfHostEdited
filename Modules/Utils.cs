@@ -304,13 +304,29 @@ public static class Utils
         {     
             if (Options.AddBracketsToAddons.GetBool())       
             {
+                if (Options.ImpEgoistVisibalToAllies.GetBool())
+                {
+            foreach (var subRole in targetSubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Egoist and not CustomRoles.Madmate and not CustomRoles.Charmed and not CustomRoles.Lovers))
+                RoleText = ColorString(GetRoleColor(subRole), GetString("PrefixB." + subRole.ToString())) + RoleText;
+                }
+                if (!Options.ImpEgoistVisibalToAllies.GetBool())
+                {
             foreach (var subRole in targetSubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Charmed and not CustomRoles.Lovers))
                 RoleText = ColorString(GetRoleColor(subRole), GetString("PrefixB." + subRole.ToString())) + RoleText;
+                }
             }
             else if (!Options.AddBracketsToAddons.GetBool())
             {
+                if (Options.ImpEgoistVisibalToAllies.GetBool())
+                {
+            foreach (var subRole in targetSubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Egoist and not CustomRoles.Madmate and not CustomRoles.Charmed and not CustomRoles.Lovers))
+                RoleText = ColorString(GetRoleColor(subRole), GetString("Prefix." + subRole.ToString())) + RoleText;
+                }
+                    if (!Options.ImpEgoistVisibalToAllies.GetBool())
+                {
             foreach (var subRole in targetSubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Charmed and not CustomRoles.Lovers))
                 RoleText = ColorString(GetRoleColor(subRole), GetString("Prefix." + subRole.ToString())) + RoleText;
+                }
             }
         }
 
@@ -327,6 +343,12 @@ public static class Utils
         if (targetSubRoles.Contains(CustomRoles.Egoist) && Options.ImpEgoistVisibalToAllies.GetBool() && !self && seerMainRole.IsImpostor())
         {
             RoleColor = GetRoleColor(CustomRoles.Egoist);
+            RoleText = GetRoleString("Ego-") + RoleText;
+        }
+        if (seerSubRoles.Contains(CustomRoles.Egoist) && Options.ImpEgoistVisibalToAllies.GetBool())
+        {
+            RoleColor = GetRoleColor(CustomRoles.Egoist);
+            RoleText = GetRoleString("Ego-") + RoleText;
         }
 
         return (RoleText, RoleColor);

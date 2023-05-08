@@ -287,6 +287,14 @@ class CheckForEndVotingPatch
         var role = GetString(exiledPlayer.GetCustomRole().ToString());
         var crole = exiledPlayer.GetCustomRole();
         var coloredRole = Utils.GetDisplayRoleName(exileId, true);
+        if (Options.ConfirmEgoistOnEject.GetBool() && player.Is(CustomRoles.Egoist))
+            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Egoist), GetRoleString("Temp.Blank") + coloredRole.RemoveHtmlTags());
+        if (Options.ConfirmSidekickOnEject.GetBool() && player.Is(CustomRoles.Sidekick))
+            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Sidekick), GetRoleString("Temp.Blank") + coloredRole.RemoveHtmlTags());
+        if (Options.ConfirmCharmedOnEject.GetBool() && player.Is(CustomRoles.Charmed))
+            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Charmed), GetRoleString("Charmed-") + coloredRole.RemoveHtmlTags());
+        if (Options.ConfirmMadmateOnEject.GetBool() && player.Is(CustomRoles.Madmate))
+            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Madmate), GetRoleString("Mad-") + coloredRole.RemoveHtmlTags());
         var name = "";
         int impnum = 0;
         int neutralnum = 0;
