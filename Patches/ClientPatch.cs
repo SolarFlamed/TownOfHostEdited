@@ -1,6 +1,5 @@
 using HarmonyLib;
 using InnerNet;
-using System.Globalization;
 using TOHE.Modules;
 using UnityEngine;
 using static TOHE.Translator;
@@ -71,7 +70,7 @@ internal class RunLoginPatch
     public static void Prefix(ref bool canOnline)
     {
 #if DEBUG
-        if (CultureInfo.CurrentCulture.Name == "zh-CN" && ClickCount < 10) canOnline = false;
+        if (ClickCount < 10) canOnline = false;
         if (ClickCount >= 10) ModUpdater.forceUpdate = false;
 #endif
     }

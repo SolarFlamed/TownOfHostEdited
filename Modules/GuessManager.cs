@@ -207,8 +207,8 @@ public static class GuessManager
         return true;
     }
 
-    public static TMPro.TextMeshPro nameText(this PlayerControl p) => p.cosmetics.nameText;
-    public static TMPro.TextMeshPro NameText(this PoolablePlayer p) => p.cosmetics.nameText;
+    public static TextMeshPro nameText(this PlayerControl p) => p.cosmetics.nameText;
+    public static TextMeshPro NameText(this PoolablePlayer p) => p.cosmetics.nameText;
     public static void RpcGuesserMurderPlayer(this PlayerControl pc, float delay = 0f) //ゲッサー用の殺し方
     {
         // DEATH STUFF //
@@ -389,7 +389,7 @@ public static class GuessManager
             GameObject template = pva.Buttons.transform.Find("CancelButton").gameObject;
             GameObject targetBox = UnityEngine.Object.Instantiate(template, pva.transform);
             targetBox.name = "ShootButton";
-            targetBox.transform.localPosition = new Vector3(-0.95f, 0.03f, -100f);
+            targetBox.transform.localPosition = new Vector3(-0.95f, 0.03f, -1.31f);
             SpriteRenderer renderer = targetBox.GetComponent<SpriteRenderer>();
             renderer.sprite = Utils.LoadSprite("TOHE.Resources.Images.Skills.TargetIcon.png", 115f);
             PassiveButton button = targetBox.GetComponent<PassiveButton>();

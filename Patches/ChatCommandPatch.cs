@@ -65,7 +65,8 @@ internal class ChatCommands
                 case "/win":
                 case "/winner":
                     canceled = true;
-                    Utils.SendMessage("Winner: " + string.Join(",", Main.winnerList.Select(b => Main.AllPlayerNames[b])));
+                    if (Main.winnerNameList.Count < 1) Utils.SendMessage(GetString("NoInfoExists"));
+                    else Utils.SendMessage("Winner: " + string.Join(",", Main.winnerNameList));
                     break;
 
                 case "/l":
@@ -530,14 +531,11 @@ internal class ChatCommands
             for (int i = 0; i < mc.Count; i++)
             {
                 if (mc[i].ToString() == "是") continue;
-                result += mc[i];//匹配结果是完整的数字，此处可以不做拼接的
+                result += mc[i]; //匹配结果是完整的数字，此处可以不做拼接的
             }
             name = FixRoleNameInput(result.Replace("是", string.Empty).Trim());
         }
-        else
-        {
-            name = name.Trim().ToLower();
-        }
+        else name = name.Trim().ToLower();
 
         foreach (CustomRoles rl in Enum.GetValues(typeof(CustomRoles)))
         {
@@ -576,7 +574,7 @@ internal class ChatCommands
         {
             if (rl.IsVanilla()) continue;
             var roleName = GetString(rl.ToString());
-            if (role.Contains(roleName.ToLower().Trim().TrimStart('*').Replace(" ", string.Empty)))
+            if (role == roleName.ToLower().Trim().TrimStart('*').Replace(" ", string.Empty))
             {
                 string devMark = "";
                 if ((isDev || isUp) && GameStates.IsLobby)

@@ -119,7 +119,6 @@ public static class Options
     public static OptionItem ConfirmEjectionsNeutralAsImp;
     public static OptionItem ShowImpRemainOnEject;
     public static OptionItem ShowNKRemainOnEject;
-    public static OptionItem ConfirmMadmateOnEject;
     public static OptionItem ShowTeamNextToRoleNameOnEject;
     public static OptionItem ConfirmEgoistOnEject;
     public static OptionItem ConfirmSidekickOnEject;
@@ -210,10 +209,22 @@ public static class Options
     public static OptionItem ImpCanBeSeer;
     public static OptionItem CrewCanBeSeer;
     public static OptionItem NeutralCanBeSeer;
+<<<<<<< HEAD
     public static OptionItem CrewmateCanBeSidekick;
     public static OptionItem NeutralCanBeSidekick;
     public static OptionItem ImpostorCanBeSidekick;
     public static OptionItem ControlCooldown;
+=======
+    public static OptionItem ImpCanBeBait;
+    public static OptionItem CrewCanBeBait;
+    public static OptionItem NeutralCanBeBait;
+    public static OptionItem BaitDelayMin;
+    public static OptionItem BaitDelayMax;
+    public static OptionItem BaitDelayNotify;
+    public static OptionItem ImpCanBeTrapper;
+    public static OptionItem CrewCanBeTrapper;
+    public static OptionItem NeutralCanBeTrapper;
+>>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
 
     // タスク無効化
     public static OptionItem DisableTasks;
@@ -292,6 +303,12 @@ public static class Options
         "MadmateSpawnMode.Assign",
         "MadmateSpawnMode.FirstKill",
         "MadmateSpawnMode.SelfVote",
+    };
+    public static readonly string[] madmateCountMode =
+    {
+        "MadmateCountMode.None",
+        "MadmateCountMode.Imp",
+        "MadmateCountMode.Crew",
     };
     public static VoteMode GetWhenSkipVote() => (VoteMode)WhenSkipVote.GetValue();
     public static VoteMode GetWhenNonVote() => (VoteMode)WhenNonVote.GetValue();
@@ -384,6 +401,7 @@ public static class Options
     public static OptionItem BewilderVision;
     public static OptionItem ImpCanBeAvanger;
     public static OptionItem MadmateSpawnMode;
+    public static OptionItem MadmateCountMode;
     public static OptionItem SheriffCanBeMadmate;
     public static OptionItem MayorCanBeMadmate;
     public static OptionItem NGuesserCanBeMadmate;
@@ -677,7 +695,7 @@ public static class Options
         SetupRoleOptions(50500, TabGroup.NeutralRoles, CustomRoles.Arsonist);
         ArsonistDouseTime = FloatOptionItem.Create(50510, "ArsonistDouseTime", new(0f, 10f, 1f), 3f, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Arsonist])
             .SetValueFormat(OptionFormat.Seconds);
-        ArsonistCooldown = FloatOptionItem.Create(50511, "Cooldown", new(5f, 100f, 1f), 10f, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Arsonist])
+        ArsonistCooldown = FloatOptionItem.Create(50511, "Cooldown", new(0f, 990f, 1f), 10f, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Arsonist])
             .SetValueFormat(OptionFormat.Seconds);
         SetupRoleOptions(50000, TabGroup.NeutralRoles, CustomRoles.Jester);
         JesterCanUseButton = BooleanOptionItem.Create(6050007, "JesterCanUseButton", false, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Jester]);
@@ -725,9 +743,26 @@ public static class Options
         ImpCanBeDualPersonality = BooleanOptionItem.Create(6052338, "ImpCanBeDualPersonality", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.DualPersonality]);
         CrewCanBeDualPersonality = BooleanOptionItem.Create(6052340, "CrewCanBeDualPersonality", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.DualPersonality]);
         SetupAdtRoleOptions(6052490, CustomRoles.Reach, canSetNum: true);
+        SetupAdtRoleOptions(20000, CustomRoles.Bait, canSetNum: true);
+        ImpCanBeBait = BooleanOptionItem.Create(20003, "ImpCanBeBait", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Bait]);
+        CrewCanBeBait = BooleanOptionItem.Create(20004, "CrewCanBeBait", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Bait]);
+        NeutralCanBeBait = BooleanOptionItem.Create(20005, "NeutralCanBeBait", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Bait]);
+        BaitDelayMin = FloatOptionItem.Create(20006, "BaitDelayMin", new(0f, 5f, 1f), 0f, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Bait])
+            .SetValueFormat(OptionFormat.Seconds);
+        BaitDelayMax = FloatOptionItem.Create(20007, "BaitDelayMax", new(0f, 10f, 1f), 0f, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Bait])
+            .SetValueFormat(OptionFormat.Seconds);
+        BaitDelayNotify = BooleanOptionItem.Create(20008, "BaitDelayNotify", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Bait]);
+
+        SetupAdtRoleOptions(20800, CustomRoles.Trapper, canSetNum: true);
+        ImpCanBeTrapper = BooleanOptionItem.Create(20803, "ImpCanBeTrapper", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Trapper]);
+        CrewCanBeTrapper = BooleanOptionItem.Create(20804, "CrewCanBeTrapper", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Trapper]);
+        NeutralCanBeTrapper = BooleanOptionItem.Create(20805, "NeutralCanBeTrapper", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Trapper]);
+        TrapperBlockMoveTime = FloatOptionItem.Create(20810, "TrapperBlockMoveTime", new(1f, 180f, 1f), 5f, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Trapper])
+            .SetValueFormat(OptionFormat.Seconds);
 
         SetupAdtRoleOptions(6050390, CustomRoles.Madmate, canSetNum: true, canSetChance: false);
         MadmateSpawnMode = StringOptionItem.Create(6060444, "MadmateSpawnMode", madmateSpawnMode, 0, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Madmate]);
+        MadmateCountMode = StringOptionItem.Create(6060445, "MadmateCountMode", madmateCountMode, 0, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Madmate]);
         SheriffCanBeMadmate = BooleanOptionItem.Create(6050395, "SheriffCanBeMadmate", false, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Madmate]);
         MayorCanBeMadmate = BooleanOptionItem.Create(6050396, "MayorCanBeMadmate", false, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Madmate]);
         NGuesserCanBeMadmate = BooleanOptionItem.Create(6050397, "NGuesserCanBeMadmate", false, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Madmate]);
@@ -951,10 +986,7 @@ public static class Options
         ShowNKRemainOnEject = BooleanOptionItem.Create(6090119, "ShowNKRemainOnEject", true, TabGroup.GameSettings, false).SetParent(ShowImpRemainOnEject)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 238, 232, byte.MaxValue));
-        ShowTeamNextToRoleNameOnEject = BooleanOptionItem.Create(6090125, "ShowTeamNextToRoleNameOnEject", true, TabGroup.GameSettings, false)
-            .SetGameMode(CustomGameMode.Standard)
-            .SetColor(new Color32(255, 238, 232, byte.MaxValue));
-        ConfirmMadmateOnEject = BooleanOptionItem.Create(6090120, "ConfirmMadmateOnEject", true, TabGroup.GameSettings, false)
+        ShowTeamNextToRoleNameOnEject = BooleanOptionItem.Create(6090125, "ShowTeamNextToRoleNameOnEject", false, TabGroup.GameSettings, false)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 238, 232, byte.MaxValue));
                 ConfirmEgoistOnEject = BooleanOptionItem.Create(6090122, "ConfirmEgoistOnEject", true, TabGroup.GameSettings, false)

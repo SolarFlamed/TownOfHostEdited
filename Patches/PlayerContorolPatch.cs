@@ -543,6 +543,7 @@ class MurderPlayerPatch
 
         //记录首刀
         if (Main.FirstDied == byte.MaxValue)
+<<<<<<< HEAD
             Main.FirstDied = target.PlayerId;
 
         switch (target.GetCustomRole())
@@ -643,6 +644,36 @@ class MurderPlayerPatch
         {
             killer.Notify(string.Format(GetString("TicketsStealerGetTicket"), (Main.AllPlayerControls.Where(x => x.GetRealKiller()?.PlayerId == killer.PlayerId).Count() * Options.TicketsPerKill.GetFloat()).ToString("0.0#####")));
         }
+=======
+            Main.FirstDied = target.PlayerId;
+
+        if (target.Is(CustomRoles.Bait))
+        {
+            if (killer.PlayerId != target.PlayerId || target.GetRealKiller()?.GetCustomRole() is CustomRoles.Swooper)
+            {
+                killer.RPCPlayCustomSound("Congrats");
+                target.RPCPlayCustomSound("Congrats");
+                float delay;
+                if (Options.BaitDelayMax.GetFloat() < Options.BaitDelayMin.GetFloat()) delay = 0f;
+                else delay = IRandom.Instance.Next((int)Options.BaitDelayMin.GetFloat(), (int)Options.BaitDelayMax.GetFloat() + 1);
+                delay = Math.Max(delay, 0.15f);
+                if (delay > 0.15f && Options.BaitDelayNotify.GetBool()) killer.Notify(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Bait), string.Format(GetString("KillBaitNotify"), (int)delay)), delay);
+                Logger.Info($"{killer.GetNameWithRole()} 击杀诱饵 => {target.GetNameWithRole()}", "MurderPlayer");
+                new LateTask(() => { if (GameStates.IsInTask) killer.CmdReportDeadBody(target.Data); }, delay, "Bait Self Report");
+            }
+        }
+
+        if (target.Is(CustomRoles.Trapper) && killer != target)
+            killer.TrapperKilled(target);
+
+        switch (target.GetCustomRole())
+        {
+            case CustomRoles.BallLightning:
+                if (killer != target)
+                    BallLightning.MurderPlayer(killer, target);
+                break;
+        }
+>>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
 
         if (target.Is(CustomRoles.Avanger))
         {
@@ -882,6 +913,7 @@ class ReportDeadBodyPatch
 
         if (!AmongUsClient.Instance.AmHost) return true;
 
+<<<<<<< HEAD
         try
         {
             //通報者が死んでいる場合、本処理で会議がキャンセルされるのでここで止める
@@ -966,6 +998,88 @@ class ReportDeadBodyPatch
 
             AfterReportTasks(__instance, target);
 
+=======
+        try
+        {
+            //通報者が死んでいる場合、本処理で会議がキャンセルされるのでここで止める
+            if (__instance.Data.IsDead) return false;
+
+            //=============================================
+            //以下、检查是否允许本次会议
+            //=============================================
+
+            var killer = target?.Object?.GetRealKiller();
+            var killerRole = killer?.GetCustomRole();
+
+            //杀戮机器无法报告或拍灯
+            if (__instance.Is(CustomRoles.Minimalism)) return false;
+            //禁止小黑人报告
+            if (((Utils.IsActive(SystemTypes.Comms) && Options.CommsCamouflage.GetBool()) || Concealer.IsHidding) && Options.DisableReportWhenCC.GetBool()) return false;
+
+            if (target == null) //拍灯事件
+            {
+                if (__instance.Is(CustomRoles.Jester) && !Options.JesterCanUseButton.GetBool()) return false;
+            }
+            else //报告尸体事件
+            {
+
+                // 清洁工来扫大街咯
+                if (__instance.Is(CustomRoles.Cleaner))
+                {
+                    Main.CleanerBodies.Remove(target.PlayerId);
+                    Main.CleanerBodies.Add(target.PlayerId);
+                    __instance.RpcGuardAndKill(__instance);
+                    __instance.Notify(GetString("CleanerCleanBody"));
+                    Logger.Info($"{__instance.GetRealName()} 清理了 {target.PlayerName} 的尸体", "Cleaner");
+                    return false;
+                }
+
+                // 被赌杀的尸体无法被报告
+                if (Main.PlayerStates[target.PlayerId].deathReason == PlayerState.DeathReason.Gambled) return false;
+
+                // 清道夫的尸体无法被报告
+                if (killerRole == CustomRoles.Scavenger) return false;
+
+                // 被清理的尸体无法报告
+                if (Main.CleanerBodies.Contains(target.PlayerId)) return false;
+
+                // 胆小鬼不敢报告
+                if (__instance.Is(CustomRoles.Oblivious) && (target?.Object == null || !target.Object.Is(CustomRoles.Bait))) return false;
+
+                // 报告了诡雷尸体
+                if (Main.BoobyTrapBody.Contains(target.PlayerId) && __instance.IsAlive())
+                {
+                    var killerID = Main.KillerOfBoobyTrapBody[target.PlayerId];
+                    Main.PlayerStates[__instance.PlayerId].deathReason = PlayerState.DeathReason.Bombed;
+                    __instance.SetRealKiller(Utils.GetPlayerById(killerID));
+
+                    __instance.RpcMurderPlayerV3(__instance);
+                    RPC.PlaySoundRPC(killerID, Sounds.KillSound);
+
+                    if (!Main.BoobyTrapBody.Contains(__instance.PlayerId)) Main.BoobyTrapBody.Add(__instance.PlayerId);
+                    if (!Main.KillerOfBoobyTrapBody.ContainsKey(__instance.PlayerId)) Main.KillerOfBoobyTrapBody.Add(__instance.PlayerId, killerID);
+                    return false;
+                }
+            }
+
+            if (Options.SyncButtonMode.GetBool() && target == null)
+            {
+                Logger.Info("最大:" + Options.SyncedButtonCount.GetInt() + ", 現在:" + Options.UsedButtonCount, "ReportDeadBody");
+                if (Options.SyncedButtonCount.GetFloat() <= Options.UsedButtonCount)
+                {
+                    Logger.Info("使用可能ボタン回数が最大数を超えているため、ボタンはキャンセルされました。", "ReportDeadBody");
+                    return false;
+                }
+                else Options.UsedButtonCount++;
+                if (Options.SyncedButtonCount.GetFloat() == Options.UsedButtonCount)
+                {
+                    Logger.Info("使用可能ボタン回数が最大数に達しました。", "ReportDeadBody");
+                }
+            }
+
+            AfterReportTasks(__instance, target);
+
+>>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
         }
         catch (Exception e)
         {
@@ -1488,7 +1602,7 @@ class FixedUpdatePatch
             }
             if (GameStates.IsInGame)
             {
-                var RoleTextData = Utils.GetRoleText(__instance.PlayerId, !__instance.AmOwner && !PlayerControl.LocalPlayer.Data.IsDead);
+                var RoleTextData = Utils.GetRoleText(PlayerControl.LocalPlayer.PlayerId, __instance.PlayerId);
                 //if (Options.CurrentGameMode == CustomGameMode.HideAndSeek)
                 //{
                 //    var hasRole = main.AllPlayerCustomRoles.TryGetValue(__instance.PlayerId, out var role);
@@ -1537,7 +1651,7 @@ class FixedUpdatePatch
 
                 //名前色変更処理
                 //自分自身の名前の色を変更
-                if (target.AmOwner && AmongUsClient.Instance.IsGameStarted)
+                if (target.AmOwner && GameStates.IsInTask)
                 { //targetが自分自身
                     if (target.Is(CustomRoles.Arsonist) && target.IsDouseDone())
                         RealName = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Arsonist), GetString("EnterVentToWin"));

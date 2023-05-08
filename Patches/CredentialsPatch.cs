@@ -50,10 +50,22 @@ internal class VersionShowerStartPatch
     private static void Postfix(VersionShower __instance)
     {
 
+<<<<<<< HEAD
         Main.credentialsText = $"\r\n<color=#de56fd>TOHE SolarLoonieEdit</color> v{Main.PluginVersion}";
         if (Main.IsAprilFools) Main.credentialsText = $"\r\n<color=#00bfff>Town Of Host</color> v11.45.14";
 #if DEBUG
         Main.credentialsText += $"\r\n<color=#a54aff>Modified by </color><color=#ff3b6f>Loonie</color>";
+=======
+        Main.credentialsText = $"\r\n<color={Main.ModColor}>{Main.ModName}</color> v{Main.PluginVersion}";
+        if (Main.IsAprilFools) Main.credentialsText = $"\r\n<color=#00bfff>Town Of Host</color> v11.45.14";
+
+#pragma warning disable CS0162
+        if (Main.Canary) Main.credentialsText += $"\r\n<color=#fffe1e>Canary({ThisAssembly.Git.Commit})</color>";
+#pragma warning restore CS0162
+
+#if DEBUG
+        Main.credentialsText += $"\r\n<color={Main.ModColor}>{ThisAssembly.Git.Branch}({ThisAssembly.Git.Commit})</color>";
+>>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
 #endif
 
 #if RELEASE

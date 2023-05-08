@@ -60,7 +60,7 @@ class GameEndChecker
                     break;
                 case CustomWinner.Succubus:
                     Main.AllPlayerControls
-                        .Where(pc => (pc.Is(CustomRoles.Succubus) || pc.Is(CustomRoles.Charmed)) && !pc.Is(CustomRoles.Lovers))
+                        .Where(pc => pc.Is(CustomRoles.Succubus) || pc.Is(CustomRoles.Charmed))
                         .Do(pc => CustomWinnerHolder.WinnerIds.Add(pc.PlayerId));
                     break;
                 case CustomWinner.Jackal:
@@ -346,8 +346,12 @@ class GameEndChecker
             int Crew = Utils.AlivePlayersCount(CountTypes.Crew);
             int Gam = Utils.AlivePlayersCount(CountTypes.Gamer);
             int BK = Utils.AlivePlayersCount(CountTypes.BloodKnight);
+<<<<<<< HEAD
             int Pois = Utils.AlivePlayersCount(CountTypes.Poisoner);
             int CM = Utils.AlivePlayersCount(CountTypes.Charmed);
+=======
+            int CM = Utils.AlivePlayersCount(CountTypes.Succubus);
+>>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
 
             Imp += Main.AllAlivePlayerControls.Count(x => x.GetCustomRole().IsImpostor() && x.Is(CustomRoles.DualPersonality));
             Crew += Main.AllAlivePlayerControls.Count(x => x.GetCustomRole().IsCrewmate() && x.Is(CustomRoles.DualPersonality));
@@ -396,8 +400,12 @@ class GameEndChecker
             else if (Imp == 0 && Jackal == 0 && Pel == 0 && BK == 0 && Gam == 0 && CM == 0 && Crew <= Pois) //嗜血骑士胜利
             {
                 reason = GameOverReason.ImpostorByKill;
+<<<<<<< HEAD
                 CustomWinnerHolder.ResetAndSetWinner(CustomWinner.Poisoner);
                 CustomWinnerHolder.WinnerRoles.Add(CustomRoles.Poisoner);
+=======
+                CustomWinnerHolder.ResetAndSetWinner(CustomWinner.Succubus);
+>>>>>>> eff7a3b1e3255a43d44da7bd563e19743aebaf21
             }
             else if (Jackal == 0 && Pel == 0 && Imp == 0 && Pois == 0 && BK == 0 && Gam == 0 && CM == 0) //船员胜利
             {
