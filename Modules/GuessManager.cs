@@ -111,7 +111,8 @@ public static class GuessManager
 
             if (
             (pc.Is(CustomRoles.NiceGuesser) && Options.GGTryHideMsg.GetBool()) ||
-            (pc.Is(CustomRoles.EvilGuesser) && Options.EGTryHideMsg.GetBool())
+            (pc.Is(CustomRoles.EvilGuesser) && Options.EGTryHideMsg.GetBool()) ||
+            (pc.Is(CustomRoles.Guesser) && Options.GTryHideMsg.GetBool())
             ) TryHideMsg();
             else if (pc.AmOwner && !isUI) Utils.SendMessage(originMsg, 255, pc.GetRealName());
 
@@ -158,7 +159,8 @@ public static class GuessManager
                 {
                     if (
                         (pc.Is(CustomRoles.NiceGuesser) && !Options.GGCanGuessAdt.GetBool()) ||
-                        (pc.Is(CustomRoles.EvilGuesser) && !Options.EGCanGuessAdt.GetBool())
+                        (pc.Is(CustomRoles.EvilGuesser) && !Options.EGCanGuessAdt.GetBool()) ||
+                        (pc.Is(CustomRoles.Guesser) && !Options.GCanGuessAdt.GetBool())
                         )
                     {
                         Utils.SendMessage(GetString("GuessAdtRole"), pc.PlayerId);
@@ -173,6 +175,8 @@ public static class GuessManager
                 }
                 else if (pc.Is(CustomRoles.NiceGuesser) && role.IsCrewmate() && !Options.GGCanGuessCrew.GetBool() && !pc.Is(CustomRoles.Madmate)) guesserSuicide = true;
                 else if (pc.Is(CustomRoles.EvilGuesser) && role.IsImpostor() && !Options.EGCanGuessImp.GetBool()) guesserSuicide = true;
+                else if (pc.Is(CustomRoles.Guesser) && role.IsImpostor() && !Options.GCanGuessImp.GetBool()) guesserSuicide = true;
+                else if (pc.Is(CustomRoles.Guesser) && role.IsCrewmate() && !pc.Is(CustomRoles.Madmate) && !Options.GCanGuessCrew.GetBool() ) guesserSuicide = true;
                 else if (!target.Is(role)) guesserSuicide = true;
 
                 Logger.Info($"{pc.GetNameWithRole()} 猜测了 {target.GetNameWithRole()}", "Guesser");
@@ -375,7 +379,7 @@ public static class GuessManager
     {
         public static void Postfix(MeetingHud __instance)
         {
-            if (PlayerControl.LocalPlayer.GetCustomRole() is CustomRoles.NiceGuesser or CustomRoles.EvilGuesser && PlayerControl.LocalPlayer.IsAlive())
+            if (PlayerControl.LocalPlayer.GetCustomRole() is CustomRoles.NiceGuesser or CustomRoles.EvilGuesser or CustomRoles.Guesser && PlayerControl.LocalPlayer.IsAlive())
                 CreateGuesserButton(__instance);
         }
     }
@@ -484,10 +488,15 @@ public static class GuessManager
                     if (!Options.EGCanGuessImp.GetBool() && index == 1) continue;
                     if (!Options.EGCanGuessAdt.GetBool() && index == 3) continue;
                 }
-                else
+                else if (PlayerControl.LocalPlayer.Is(CustomRoles.NiceGuesser))
                 {
                     if (!Options.GGCanGuessCrew.GetBool() && index == 0) continue;
                     if (!Options.GGCanGuessAdt.GetBool() && index == 3) continue;
+                }
+                else if (PlayerControl.LocalPlayer.Is(CustomRoles.Guesser))
+                {
+                    if (!Options.GCanGuessCrew.GetBool() && index == 2) continue;
+                    if (!Options.GCanGuessAdt.GetBool() && index == 3) continue;
                 }
                 Transform TeambuttonParent = new GameObject().transform;
                 TeambuttonParent.SetParent(container);

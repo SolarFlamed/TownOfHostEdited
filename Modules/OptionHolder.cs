@@ -175,6 +175,7 @@ public static class Options
     public static OptionItem WorkaholicVentCooldown;
     public static OptionItem WorkaholicCannotWinAtDeath;
     public static OptionItem WorkaholicVisibleToEveryone;
+    public static OptionItem WorkaholicGiveAdviceAlive;
     public static OptionItem ArsonistDouseTime;
     public static OptionItem ArsonistCooldown;
     public static OptionItem JesterCanUseButton;
@@ -225,6 +226,12 @@ public static class Options
     public static OptionItem CrewCanBeTrapper;
     public static OptionItem NeutralCanBeTrapper;
     public static OptionItem BardKillCooldown;
+
+    public static OptionItem GCanGuessImp;
+    public static OptionItem GCanGuessCrew;
+    public static OptionItem GCanGuessAdt;
+    public static OptionItem GCanGuessTaskDoneSnitch;
+    public static OptionItem GTryHideMsg;
 
     // タスク無効化
     public static OptionItem DisableTasks;
@@ -712,11 +719,12 @@ public static class Options
         Gamer.SetupCustomOption();
         DarkHide.SetupCustomOption(); //TOH_Y
         SetupRoleOptions(60100, TabGroup.NeutralRoles, CustomRoles.Workaholic); //TOH_Y
-        WorkaholicCannotWinAtDeath = BooleanOptionItem.Create(60113, "WorkaholicCannotWinAtDeath", true, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Workaholic]);
+        WorkaholicCannotWinAtDeath = BooleanOptionItem.Create(60113, "WorkaholicCannotWinAtDeath", false, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Workaholic]);
         WorkaholicVentCooldown = FloatOptionItem.Create(60112, "VentCooldown", new(0f, 180f, 2.5f), 0f, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Workaholic])
             .SetValueFormat(OptionFormat.Seconds);
         WorkaholicVisibleToEveryone = BooleanOptionItem.Create(60114, "WorkaholicVisibleToEveryone", true, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Workaholic]);
-        WorkaholicTasks = OverrideTasksData.Create(60115, TabGroup.NeutralRoles, CustomRoles.Workaholic);
+        WorkaholicGiveAdviceAlive = BooleanOptionItem.Create(60115, "WorkaholicGiveAdviceAlive", true, TabGroup.NeutralRoles, false).SetParent(WorkaholicVisibleToEveryone);
+        WorkaholicTasks = OverrideTasksData.Create(60116, TabGroup.NeutralRoles, CustomRoles.Workaholic);
         Collector.SetupCustomOption();
         BloodKnight.SetupCustomOption();
         Totocalcio.SetupCustomOption();
@@ -896,6 +904,13 @@ public static class Options
         NeutralCanBeSidekick = BooleanOptionItem.Create(6050515, "NeutralsCanBeSidekick", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
         ImpostorCanBeSidekick = BooleanOptionItem.Create(6050540, "ImpostorsCanBeSidekick", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
         SidekickCanKillJackal = BooleanOptionItem.Create(6050520, "SidekickCanKillJackal", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
+        SetupAdtRoleOptions(6050550, CustomRoles.Guesser, canSetNum: true, tab: TabGroup.ExclusiveRoles);
+        GCanGuessImp = BooleanOptionItem.Create(6050555, "GCanGuessImp", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);
+        GCanGuessCrew = BooleanOptionItem.Create(6050560, "GCanGuessCrew", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);
+        GCanGuessAdt = BooleanOptionItem.Create(6050565, "GCanGuessAdt", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);
+        GCanGuessTaskDoneSnitch = BooleanOptionItem.Create(6050570, "GCanGuessTaskDoneSnitch", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);
+        GTryHideMsg = BooleanOptionItem.Create(6050575, "GuesserTryHideMsg", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser])
+            .SetColor(Color.green);
 
         #endregion
 

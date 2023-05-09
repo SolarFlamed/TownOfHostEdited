@@ -155,7 +155,8 @@ internal static class CustomRolesHelper
             CustomRoles.Reach or
             CustomRoles.Charmed or
             CustomRoles.Bait or
-            CustomRoles.Trapper;
+            CustomRoles.Trapper or
+            CustomRoles.Guesser;
     }
     public static bool IsNK(this CustomRoles role) // �Ƿ��������
     {
