@@ -429,6 +429,11 @@ public static class Utils
                     hasTasks = !ForRecompute;
                 else hasTasks = false;
                 break;
+            case CustomRoles.Lawyer:
+                if (Lawyer.ChangeRolesAfterTargetKilled.GetValue() == 0)
+                    hasTasks = !ForRecompute;
+                else hasTasks = false;
+                break;
             default:
                 if (role.IsImpostor()) hasTasks = false;
                 break;
@@ -1271,6 +1276,8 @@ public static class Utils
 
                 TargetMark.Append(Executioner.TargetMark(seer, target));
 
+                TargetMark.Append(Lawyer.TargetMark(seer, target));
+
                 TargetMark.Append(Gamer.TargetMark(seer, target));
 
                 TargetMark.Append(Medicaler.TargetMark(seer, target));
@@ -1336,6 +1343,13 @@ public static class Utils
                     Executioner.SendRPC(target.PlayerId);
                 }
                 break;
+            case CustomRoles.Lawyer:
+                if (Lawyer.Target.ContainsKey(target.PlayerId))
+                {
+                    Lawyer.Target.Remove(target.PlayerId);
+                    Lawyer.SendRPC(target.PlayerId);
+                }
+                break;
             case CustomRoles.CyberStar:
                 if (GameStates.IsMeeting)
                 {
@@ -1360,6 +1374,9 @@ public static class Utils
 
         if (Executioner.Target.ContainsValue(target.PlayerId))
             Executioner.ChangeRoleByTarget(target);
+
+        if (Lawyer.Target.ContainsValue(target.PlayerId))
+            Lawyer.ChangeRoleByTarget(target);
 
         FixedUpdatePatch.LoversSuicide(target.PlayerId);
 

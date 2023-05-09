@@ -117,6 +117,10 @@ class OnPlayerLeftPatch
                 Executioner.ChangeRole(data.Character);
             if (Executioner.Target.ContainsValue(data.Character.PlayerId))
                 Executioner.ChangeRoleByTarget(data.Character);
+            if (data.Character.Is(CustomRoles.Lawyer) && Lawyer.Target.ContainsKey(data.Character.PlayerId))
+                Lawyer.ChangeRole(data.Character);
+            if (Lawyer.Target.ContainsValue(data.Character.PlayerId))
+                Lawyer.ChangeRoleByTarget(data.Character);
             if (data.Character.Is(CustomRoles.Pelican))
                 Pelican.OnPelicanDied(data.Character.PlayerId);
             if (Main.PlayerStates[data.Character.PlayerId].deathReason == PlayerState.DeathReason.etc) //死因が設定されていなかったら

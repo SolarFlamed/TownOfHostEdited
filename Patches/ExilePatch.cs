@@ -58,7 +58,7 @@ class ExileControllerWrapUpPatch
 
             exiled.IsDead = true;
             Main.PlayerStates[exiled.PlayerId].deathReason = PlayerState.DeathReason.Vote;
-            var role = exiled.GetCustomRole();
+                        var role = exiled.GetCustomRole();
 
             //判断冤罪师胜利
             if (Main.AllPlayerControls.Any(x => x.Is(CustomRoles.Innocent) && !x.IsAlive() && x.GetRealKiller()?.PlayerId == exiled.PlayerId))
@@ -88,6 +88,7 @@ class ExileControllerWrapUpPatch
 
             //判断处刑人胜利
             if (Executioner.CheckExileTarget(exiled, DecidedWinner)) DecidedWinner = true;
+            if (Lawyer.CheckExileTarget(exiled, DecidedWinner)) DecidedWinner = false;
 
             //判断恐怖分子胜利
             if (role == CustomRoles.Terrorist) Utils.CheckTerroristWin(exiled);

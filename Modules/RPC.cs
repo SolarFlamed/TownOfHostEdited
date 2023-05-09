@@ -33,6 +33,8 @@ enum CustomRPC
     SetLoversPlayers,
     SetExecutionerTarget,
     RemoveExecutionerTarget,
+    SetLawyerTarget,
+    RemoveLawyerTarget,
     SendFireWorksState,
     SetCurrentDousingTarget,
     SetEvilTrackerTarget,
@@ -287,6 +289,12 @@ internal class RPCHandlerPatch
                 break;
             case CustomRPC.RemoveExecutionerTarget:
                 Executioner.ReceiveRPC(reader, SetTarget: false);
+                break;
+            case CustomRPC.SetLawyerTarget:
+                Lawyer.ReceiveRPC(reader, SetTarget: true);
+                break;
+            case CustomRPC.RemoveLawyerTarget:
+                Lawyer.ReceiveRPC(reader, SetTarget: false);
                 break;
             case CustomRPC.SendFireWorksState:
                 FireWorks.ReceiveRPC(reader);
@@ -619,6 +627,9 @@ internal static class RPC
                 break;
             case CustomRoles.Executioner:
                 Executioner.Add(targetId);
+                break;
+            case CustomRoles.Lawyer:
+                Lawyer.Add(targetId);
                 break;
             case CustomRoles.Jackal:
         //    case CustomRoles.Sidekick:

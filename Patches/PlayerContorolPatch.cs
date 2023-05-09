@@ -580,6 +580,13 @@ class MurderPlayerPatch
                     Executioner.SendRPC(target.PlayerId);
                 }
                 break;
+            case CustomRoles.Lawyer:
+                if (Lawyer.Target.ContainsKey(target.PlayerId))
+                {
+                    Lawyer.Target.Remove(target.PlayerId);
+                    Lawyer.SendRPC(target.PlayerId);
+                }
+                break;
             case CustomRoles.CyberStar:
                 if (!Main.CyberStarDead.Contains(target.PlayerId))
                     Main.CyberStarDead.Add(target.PlayerId);
@@ -677,6 +684,8 @@ class MurderPlayerPatch
 
         if (Executioner.Target.ContainsValue(target.PlayerId))
             Executioner.ChangeRoleByTarget(target);
+        if (Lawyer.Target.ContainsValue(target.PlayerId))
+            Lawyer.ChangeRoleByTarget(target);
         Hacker.AddDeadBody(target);
         Mortician.OnPlayerDead(target);
 
@@ -1623,6 +1632,8 @@ class FixedUpdatePatch
                 }
 
                 Mark.Append(Executioner.TargetMark(seer, target));
+
+                Mark.Append(Lawyer.TargetMark(seer, target));
 
                 Mark.Append(Gamer.TargetMark(seer, target));
 

@@ -136,6 +136,8 @@ public static class Judge
                     }
                     if (Executioner.Target.ContainsValue(target.PlayerId))
                         Executioner.ChangeRoleByTarget(target);
+                    if (Lawyer.Target.ContainsValue(target.PlayerId))
+                        Lawyer.ChangeRoleByTarget(target);
 
                     Utils.NotifyRoles(isForMeeting: true, NoCache: true);
 

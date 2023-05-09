@@ -165,6 +165,7 @@ internal class ChangeRoleSettings
             Witch.Init();
             SabotageMaster.Init();
             Executioner.Init();
+            Lawyer.Init();
             Jackal.Init();
             Sheriff.Init();
             SwordsMan.Init();
@@ -426,6 +427,9 @@ internal class SelectRolesPatch
                         break;
                     case CustomRoles.Executioner:
                         Executioner.Add(pc.PlayerId);
+                        break;
+                    case CustomRoles.Lawyer:
+                        Lawyer.Add(pc.PlayerId);
                         break;
                     case CustomRoles.Jackal:
                  //   case CustomRoles.Sidekick:

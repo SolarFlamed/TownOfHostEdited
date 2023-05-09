@@ -730,6 +730,9 @@ class MeetingHudStartPatch
                 case CustomRoles.Executioner:
                     sb.Append(Executioner.TargetMark(seer, target));
                     break;
+                case CustomRoles.Lawyer:
+                    sb.Append(Lawyer.TargetMark(seer, target));
+                    break;
              //   case CustomRoles.Jackal:
              //   case CustomRoles.Sidekick:
                 case CustomRoles.Poisoner:

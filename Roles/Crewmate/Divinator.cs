@@ -149,6 +149,7 @@ public static class Divinator
                 CustomRoles.Paranoia or
                 CustomRoles.Psychic or
                 CustomRoles.Executioner or
+                CustomRoles.Lawyer or
                 CustomRoles.BallLightning or
                 CustomRoles.Workaholic or
                 CustomRoles.Provocateur
