@@ -1374,6 +1374,8 @@ public static class Utils
 
         if (Executioner.Target.ContainsValue(target.PlayerId))
             Executioner.ChangeRoleByTarget(target);
+        if (Lawyer.Target.ContainsValue(target.PlayerId))
+            Lawyer.ChangeRoleByTarget(target);
 
         FixedUpdatePatch.LoversSuicide(target.PlayerId, onMeeting);
 
