@@ -704,7 +704,7 @@ public static class Utils
             return;
         }
         var sb = new StringBuilder(GetString("Roles")).Append(":");
-        sb.AppendFormat("\n{0}:{1}", GetRoleName(CustomRoles.GM), Options.EnableGM.GetString().RemoveHtmlTags());
+        sb.AppendFormat("\n{0}: {1}", GetRoleName(CustomRoles.GM), Options.EnableGM.GetString().RemoveHtmlTags());
         int headCount = -1;
         foreach (CustomRoles role in Enum.GetValues(typeof(CustomRoles)))
         {
@@ -716,7 +716,7 @@ public static class Utils
             else headCount--;
 
             string mode = role.GetMode() == 1 ? GetString("RoleRateNoColor") : GetString("RoleOnNoColor");
-            if (role.IsEnable()) sb.AppendFormat("\n{0}:{1} x{2}", GetRoleName(role), $"{mode}", role.GetCount());
+            if (role.IsEnable()) sb.AppendFormat("\n{0}: {1} x{2}", GetRoleName(role), $"{mode}", role.GetCount());
         }
         SendMessage(sb.ToString(), PlayerId);
     }

@@ -584,8 +584,8 @@ internal class ChatCommands
                     if (rl.GetCount() < 1 || rl.GetMode() == 0) devMark = "";
                     if (isUp)
                     {
-                        if (devMark == "▲") Utils.SendMessage(string.Format(GetString("Message.YTPlanSelected"), roleName), playerId);
-                        else Utils.SendMessage(string.Format(GetString("Message.YTPlanSelectFailed"), roleName), playerId);
+                        //if (devMark == "▲") Utils.SendMessage(string.Format(GetString("Message.YTPlanSelected"), roleName), playerId);
+                        //else Utils.SendMessage(string.Format(GetString("Message.YTPlanSelectFailed"), roleName), playerId);
                     }
                     if (devMark == "▲")
                     {
@@ -607,8 +607,8 @@ internal class ChatCommands
                 return;
             }
         }
-        if (isUp) Utils.SendMessage(GetString("Message.YTPlanCanNotFindRoleThePlayerEnter"), playerId);
-        else Utils.SendMessage(GetString("Message.CanNotFindRoleThePlayerEnter"), playerId);
+        //if (isUp) Utils.SendMessage(GetString("Message.YTPlanCanNotFindRoleThePlayerEnter"), playerId);
+        //else Utils.SendMessage(GetString("Message.CanNotFindRoleThePlayerEnter"), playerId);
         return;
     }
     public static void OnReceiveChat(PlayerControl player, string text, out bool canceled)
