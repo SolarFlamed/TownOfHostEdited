@@ -177,6 +177,7 @@ public static class Options
     public static OptionItem WorkaholicCannotWinAtDeath;
     public static OptionItem WorkaholicVisibleToEveryone;
     public static OptionItem WorkaholicGiveAdviceAlive;
+    public static OptionItem BaitNotification;
     public static OptionItem ArsonistDouseTime;
     public static OptionItem ArsonistCooldown;
     public static OptionItem JesterCanUseButton;
@@ -232,7 +233,6 @@ public static class Options
     public static OptionItem ImpCanBeTrapper;
     public static OptionItem CrewCanBeTrapper;
     public static OptionItem NeutralCanBeTrapper;
-    public static OptionItem BardKillCooldown;
 
     public static OptionItem GCanGuessImp;
     public static OptionItem GCanGuessCrew;
@@ -707,7 +707,7 @@ public static class Options
         Mediumshiper.SetupCustomOption();
         SetupRoleOptions(8021618, TabGroup.CrewmateRoles, CustomRoles.Observer);
         // Neutral
-        DeadCrewCantSabotage = BooleanOptionItem.Create(900055, "DeadNeutralCantSabotage", false, TabGroup.NeutralRoles, false)
+        DeadNeutralCantSabotage = BooleanOptionItem.Create(900055, "DeadNeutralCantSabotage", false, TabGroup.NeutralRoles, false)
             .SetGameMode(CustomGameMode.Standard);
         SetupRoleOptions(50500, TabGroup.NeutralRoles, CustomRoles.Arsonist);
         ArsonistDouseTime = FloatOptionItem.Create(50510, "ArsonistDouseTime", new(0f, 10f, 1f), 3f, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Arsonist])
@@ -773,6 +773,7 @@ public static class Options
         BaitDelayMax = FloatOptionItem.Create(20007, "BaitDelayMax", new(0f, 10f, 1f), 0f, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Bait])
             .SetValueFormat(OptionFormat.Seconds);
         BaitDelayNotify = BooleanOptionItem.Create(20008, "BaitDelayNotify", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Bait]);
+        BaitNotification = BooleanOptionItem.Create(20009, "BaitNotification", false, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Bait]);
 
         SetupAdtRoleOptions(20800, CustomRoles.Trapper, canSetNum: true);
         ImpCanBeTrapper = BooleanOptionItem.Create(20803, "ImpCanBeTrapper", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Trapper]);
@@ -888,15 +889,11 @@ public static class Options
             .SetColor(new Color32(247, 70, 49, byte.MaxValue));
         SetupRoleOptions(120000, TabGroup.ExclusiveRoles, CustomRoles.ShapeshifterTOHE);
         Wildling.SetupCustomOption();
-        SetupRoleOptions(120110, TabGroup.ExclusiveRoles, CustomRoles.Bard);
-        BardKillCooldown = FloatOptionItem.Create(120215, "KillCooldown", new(5f, 999f, 2.5f), 40f, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Bard])
-            .SetValueFormat(OptionFormat.Seconds);
         TextOptionItem.Create(120020, "OtherRoles.CrewmateRoles", TabGroup.ExclusiveRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(140, 255, 255, byte.MaxValue));
         SetupRoleOptions(120005, TabGroup.ExclusiveRoles, CustomRoles.EngineerTOHE);
         SetupRoleOptions(120010, TabGroup.ExclusiveRoles, CustomRoles.ScientistTOHE);
-        SetupRoleOptions(120115, TabGroup.ExclusiveRoles, CustomRoles.Sunnyboy);
    //     SetupSingleRoleOptions(6050525, TabGroup.ExclusiveRoles, CustomRoles.GuardianAngelTOHE, 1, zeroOne: false);
         Marshall.SetupCustomOption();
         TextOptionItem.Create(120030, "OtherRoles.NeutralRoles", TabGroup.ExclusiveRoles)

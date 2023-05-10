@@ -55,6 +55,7 @@ internal class ChangeRoleSettings
             Main.DetectiveNotify = new();
             Main.CyberStarDead = new();
             Main.WorkaholicAlive = new();
+            Main.BaitAlive = new();
             Main.BoobyTrapBody = new();
             Main.KillerOfBoobyTrapBody = new();
             Main.CleanerBodies = new();

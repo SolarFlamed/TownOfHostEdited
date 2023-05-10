@@ -607,8 +607,8 @@ internal class ChatCommands
                 return;
             }
         }
-        //if (isUp) Utils.SendMessage(GetString("Message.YTPlanCanNotFindRoleThePlayerEnter"), playerId);
-        //else Utils.SendMessage(GetString("Message.CanNotFindRoleThePlayerEnter"), playerId);
+        if (isUp) Utils.SendMessage(GetString("Message.YTPlanCanNotFindRoleThePlayerEnter"), playerId);
+        else Utils.SendMessage(GetString("Message.CanNotFindRoleThePlayerEnter"), playerId);
         return;
     }
     public static void OnReceiveChat(PlayerControl player, string text, out bool canceled)

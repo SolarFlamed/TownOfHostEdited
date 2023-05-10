@@ -608,11 +608,6 @@ static class ExtendedPlayerControl
             case CustomRoles.KB_Normal:
                 Main.AllPlayerKillCooldown[player.PlayerId] = SoloKombatManager.KB_ATKCooldown.GetFloat();
                 break;
-            case CustomRoles.Bard:
-                Main.AllPlayerKillCooldown[player.PlayerId] = Options.BardKillCooldown.GetFloat();
-                for (int i = 0; i < Main.BardCreations; i++)
-                    Main.AllPlayerKillCooldown[player.PlayerId] /= 2;
-                break;
             case CustomRoles.BloodKnight:
                 BloodKnight.SetKillCooldown(player.PlayerId);
                 break;

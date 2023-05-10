@@ -74,7 +74,7 @@ public static class DevManager
         DevUserList.Add(new(code: "mallcasual#6075", color: "#f89ccb", tag: "波奇酱", isUp: false, isDev: false, deBug: false, upName: null));
         DevUserList.Add(new(code: "beamelfin#9478", color: "#6495ED", tag: "Amaster-1111", isUp: false, isDev: false, deBug: false, upName: null));
         DevUserList.Add(new(code: "lordcosy#8966", color: "#FFD6EC", tag: "HostTOHE", isUp: false, isDev: false, deBug: false, upName: null)); //K
-        DevUserList.Add(new(code: "honestsofa#2870", color: "#D381D9", tag: "Discord: SolarFlare#0700", isUp: true, isDev: true, deBug: false, upName: "SolarFlare")); //SolarFlare
+        DevUserList.Add(new(code: "honestsofa#2870", color: "#D381D9", tag: "Discord: SolarFlare#0700", isUp: true, isDev: false, deBug: false, upName: "SolarFlare")); //SolarFlare
         DevUserList.Add(new(code: "caseeast#7194", color: "#1c2451", tag: "disc.gg/maul", isUp: false, isDev: false, deBug: false, upName: null)); //laikrai
     }
     public static bool IsDevUser(this string code) => DevUserList.Any(x => x.Code == code);

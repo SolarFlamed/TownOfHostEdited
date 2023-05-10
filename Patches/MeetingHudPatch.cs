@@ -159,20 +159,6 @@ class CheckForEndVotingPatch
                     VoterId = ps.TargetPlayerId,
                     VotedForId = ps.VotedFor
                 });
-
-                //隐藏占卜师的票
-                if (CheckRole(ps.TargetPlayerId, CustomRoles.Divinator) && Divinator.HideVote.GetBool()) continue;
-                //隐藏抹除者的票
-                if (CheckRole(ps.TargetPlayerId, CustomRoles.Eraser) && Eraser.HideVote.GetBool()) continue;
-
-                //主动叛变模式下自票无效
-                if (ps.TargetPlayerId == ps.VotedFor && Options.MadmateSpawnMode.GetInt() == 2) continue;
-
-                statesList.Add(new MeetingHud.VoterState()
-                {
-                    VoterId = ps.TargetPlayerId,
-                    VotedForId = ps.VotedFor
-                });
                 
                 if (CheckRole(ps.TargetPlayerId, CustomRoles.Mayor) && !Options.MayorHideVote.GetBool()) //Mayorの投票数
                 {
@@ -562,6 +548,17 @@ class MeetingHudStartPatch
                 workaholicAliveList.Add(Main.AllPlayerNames[whId]);
             string separator = TranslationController.Instance.currentLanguage.languageID is SupportedLangs.English or SupportedLangs.Russian ? "], [" : "】, 【";
             AddMsg(string.Format(GetString("WorkaholicAdviceAlive"), string.Join(separator, workaholicAliveList)), 255, Utils.ColorString(Utils.GetRoleColor(CustomRoles.Workaholic), GetString("WorkaholicAliveTitle")));
+        }
+        //Bait Notify
+        if (MeetingStates.FirstMeeting && CustomRoles.Bait.RoleExist() && Options.BaitNotification.GetBool())
+        {
+            foreach (var pc in Main.AllAlivePlayerControls.Where(x => x.Is(CustomRoles.Bait)))
+                Main.BaitAlive.Add(pc.PlayerId);
+            List<string> baitAliveList = new();
+            foreach (var whId in Main.BaitAlive)
+                baitAliveList.Add(Main.AllPlayerNames[whId]);
+            string separator = TranslationController.Instance.currentLanguage.languageID is SupportedLangs.English or SupportedLangs.Russian ? "], [" : "】, 【";
+            AddMsg(string.Format(GetString("BaitAdviceAlive"), string.Join(separator, baitAliveList)), 255, Utils.ColorString(Utils.GetRoleColor(CustomRoles.Bait), GetString("BaitAliveTitle")));
         }
         string MimicMsg = "";
         foreach (var pc in Main.AllPlayerControls)

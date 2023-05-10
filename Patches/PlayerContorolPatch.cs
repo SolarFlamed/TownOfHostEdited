@@ -1302,7 +1302,7 @@ class FixedUpdatePatch
                         float dis;
                         foreach (var target in Main.AllAlivePlayerControls)
                         {
-                            if (target.PlayerId != player.PlayerId && !target.Is(CountTypes.Impostor))
+                            if (target.PlayerId != player.PlayerId && !target.Is(CustomRoles.NWitch))
                             {
                                 dis = Vector2.Distance(puppeteerPos, target.transform.position);
                                 targetDistance.Add(target.PlayerId, dis);

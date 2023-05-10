@@ -34,7 +34,7 @@ public class Main : BasePlugin
     public static readonly string MainMenuText = "哟这不TOHE吗，几天不见Bug又多了？";
     public const string PluginGuid = "com.karped1em.townofhostedited";
     public const string PluginVersion = "2.3.4";
-    public const int PluginCreate = 4;
+    public const int PluginCreate = 5;
     public const bool Canary = false;
 
     public static readonly bool ShowQQButton = true;
@@ -100,6 +100,7 @@ public class Main : BasePlugin
     public static Dictionary<byte, Vector2> LastEnteredVentLocation = new();
     public static List<byte> CyberStarDead = new();
     public static List<byte> WorkaholicAlive = new();
+    public static List<byte> BaitAlive = new();
     public static List<byte> BoobyTrapBody = new();
     public static Dictionary<byte, byte> KillerOfBoobyTrapBody = new();
     public static Dictionary<byte, string> DetectiveNotify = new();
