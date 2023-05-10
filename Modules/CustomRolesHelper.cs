@@ -190,6 +190,7 @@ internal static class CustomRolesHelper
             CustomRoles.Workaholic or
             CustomRoles.Collector or
             CustomRoles.Poisoner or
+            CustomRoles.NWitch or
             CustomRoles.BloodKnight or
             CustomRoles.Succubus;
     }
@@ -199,7 +200,7 @@ internal static class CustomRolesHelper
             CustomRoles.SwordsMan or
             CustomRoles.Sheriff;
     }
-    public static bool IsImpostor(this CustomRoles role) // �Ƿ��ڹ�
+    public static bool IsImpostor(this CustomRoles role) // IsImp
     {
         return role is
             CustomRoles.Impostor or
@@ -288,7 +289,7 @@ internal static class CustomRolesHelper
         if (role is CustomRoles.Lighter && (!pc.GetCustomRole().IsCrewmate() || pc.Is(CustomRoles.Bewilder) || pc.Is(CustomRoles.GuardianAngelTOHE))) return false;
         if (role is CustomRoles.Bewilder && (pc.GetCustomRole().IsImpostor() || pc.Is(CustomRoles.Lighter) || pc.Is(CustomRoles.GuardianAngelTOHE))) return false;
         if (role is CustomRoles.Ntr && (pc.Is(CustomRoles.Lovers) || pc.Is(CustomRoles.FFF) || pc.Is(CustomRoles.GuardianAngelTOHE))) return false;
-        if (role is CustomRoles.Guesser && (pc.Is(CustomRoles.EvilGuesser) || pc.Is(CustomRoles.NiceGuesser) || pc.Is(CustomRoles.GuardianAngelTOHE) || pc.Is(CustomRoles.God))) return false;
+        if (role is CustomRoles.Guesser && ((pc.GetCustomRole().IsCrewmate() && (!Options.CrewCanBeGuesser.GetBool() || pc.Is(CustomRoles.NiceGuesser) || pc.Is(CustomRoles.Judge))) || (pc.GetCustomRole().IsNeutral() && !Options.NeutralCanBeGuesser.GetBool()) || (pc.GetCustomRole().IsImpostor() && !Options.ImpCanBeGuesser.GetBool() || pc.Is(CustomRoles.EvilGuesser)) || pc.Is(CustomRoles.GuardianAngelTOHE))) return false;
         if (role is CustomRoles.Madmate && !Utils.CanBeMadmate(pc)) return false;
         if (role is CustomRoles.Oblivious && (pc.Is(CustomRoles.Detective) || pc.Is(CustomRoles.Cleaner) || pc.Is(CustomRoles.Mortician) || pc.Is(CustomRoles.Mediumshiper) || pc.Is(CustomRoles.GuardianAngelTOHE))) return false;
         if (role is CustomRoles.Fool && (pc.GetCustomRole().IsImpostor() || pc.Is(CustomRoles.SabotageMaster) || pc.Is(CustomRoles.GuardianAngelTOHE))) return false;
@@ -317,9 +318,9 @@ internal static class CustomRolesHelper
         if (role is CustomRoles.Egoist && pc.Is(CustomRoles.Sidekick) || pc.Is(CustomRoles.Madmate)) return false;
         if (role is CustomRoles.Sidekick && pc.Is(CustomRoles.Jackal)) return false;
         if (role is CustomRoles.Bait && pc.Is(CustomRoles.GuardianAngelTOHE)) return false;
-        if (role is CustomRoles.Trapper && pc.Is(CustomRoles.GuardianAngelTOHE)) return false;
-
+        if (role is CustomRoles.Trapper && pc.Is(CustomRoles.GuardianAngelTOHE)) return false;      
         if (role is CustomRoles.Reach && !pc.CanUseKillButton()) return false;
+        if (role is CustomRoles.Watcher && ((pc.GetCustomRole().IsCrewmate() && (!Options.CrewCanBeWatcher.GetBool())) || (pc.GetCustomRole().IsNeutral() && !Options.NeutralCanBeWatcher.GetBool()) || (pc.GetCustomRole().IsImpostor() && !Options.ImpCanBeWatcher.GetBool()) || pc.Is(CustomRoles.GuardianAngelTOHE))) return false;
         return true;
     }
     public static RoleTypes GetRoleTypes(this CustomRoles role)

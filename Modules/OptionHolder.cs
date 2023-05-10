@@ -213,6 +213,12 @@ public static class Options
     public static OptionItem ImpCanBeSeer;
     public static OptionItem CrewCanBeSeer;
     public static OptionItem NeutralCanBeSeer;
+    public static OptionItem ImpCanBeGuesser;
+    public static OptionItem CrewCanBeGuesser;
+    public static OptionItem NeutralCanBeGuesser;
+    public static OptionItem ImpCanBeWatcher;
+    public static OptionItem CrewCanBeWatcher;
+    public static OptionItem NeutralCanBeWatcher;
     public static OptionItem CrewmateCanBeSidekick;
     public static OptionItem NeutralCanBeSidekick;
     public static OptionItem ImpostorCanBeSidekick;
@@ -737,6 +743,9 @@ public static class Options
         // Add-Ons
         SetupLoversRoleOptionsToggle(50300);
         SetupAdtRoleOptions(6050320, CustomRoles.Watcher, canSetNum: true);
+        ImpCanBeWatcher = BooleanOptionItem.Create(6060020, "ImpCanBeWatcher", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Watcher]);
+        CrewCanBeWatcher = BooleanOptionItem.Create(6060025, "CrewCanBeWatcher", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Watcher]);
+        NeutralCanBeWatcher = BooleanOptionItem.Create(6060030, "NeutralCanBeWatcher", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Watcher]);
         SetupAdtRoleOptions(6050340, CustomRoles.Lighter, canSetNum: true);
         SetupAdtRoleOptions(6050350, CustomRoles.Seer, canSetNum: true);
         ImpCanBeSeer = BooleanOptionItem.Create(6050353, "ImpCanBeSeer", true, TabGroup.Addons, false).SetParent(CustomRoleSpawnChances[CustomRoles.Seer]);
@@ -911,6 +920,9 @@ public static class Options
         ImpostorCanBeSidekick = BooleanOptionItem.Create(6050540, "ImpostorsCanBeSidekick", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
         SidekickCanKillJackal = BooleanOptionItem.Create(6050520, "SidekickCanKillJackal", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
         SetupAdtRoleOptions(6050550, CustomRoles.Guesser, canSetNum: true, tab: TabGroup.ExclusiveRoles);
+        ImpCanBeGuesser = BooleanOptionItem.Create(6060000, "ImpCanBeGuesser", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);
+        CrewCanBeGuesser = BooleanOptionItem.Create(6060005, "CrewCanBeGuesser", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);
+        NeutralCanBeGuesser = BooleanOptionItem.Create(6060010, "NeutralCanBeGuesser", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);
         GCanGuessImp = BooleanOptionItem.Create(6050555, "GCanGuessImp", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);
         GCanGuessCrew = BooleanOptionItem.Create(6050560, "GCanGuessCrew", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);
         GCanGuessAdt = BooleanOptionItem.Create(6050565, "GCanGuessAdt", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);

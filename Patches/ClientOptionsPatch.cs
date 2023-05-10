@@ -12,8 +12,8 @@ public static class OptionsMenuBehaviourStartPatch
     private static ClientOptionItem SwitchVanilla;
     private static ClientOptionItem ForceOwnLanguage;
     private static ClientOptionItem ForceOwnLanguageRoleName;
-    private static ClientOptionItem VersionCheat;
-    private static ClientOptionItem GodMode;
+    //private static ClientOptionItem VersionCheat;
+    //private static ClientOptionItem GodMode;
 
     public static void Postfix(OptionsMenuBehaviour __instance)
     {

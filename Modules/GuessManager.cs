@@ -495,7 +495,8 @@ public static class GuessManager
                 }
                 else if (PlayerControl.LocalPlayer.Is(CustomRoles.Guesser))
                 {
-                    if (!Options.GCanGuessCrew.GetBool() && index == 2) continue;
+                    if (!Options.GCanGuessCrew.GetBool() && index == 0) continue;
+                    if (!Options.GCanGuessImp.GetBool() && index == 1) continue;
                     if (!Options.GCanGuessAdt.GetBool() && index == 3) continue;
                 }
                 Transform TeambuttonParent = new GameObject().transform;
