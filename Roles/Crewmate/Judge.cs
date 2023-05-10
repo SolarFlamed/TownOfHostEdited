@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using TOHE.Roles.Neutral;
 using UnityEngine;
 using static TOHE.Translator;
 
@@ -128,16 +127,7 @@ public static class Judge
                     GuessManager.RpcGuesserMurderPlayer(dp);
 
                     //死者检查
-                    FixedUpdatePatch.LoversSuicide(target.PlayerId);
-                    if (target.Is(CustomRoles.Terrorist))
-                    {
-                        Logger.Info(target?.Data?.PlayerName + "はTerroristだった", "MurderPlayer");
-                        Utils.CheckTerroristWin(target.Data);
-                    }
-                    if (Executioner.Target.ContainsValue(target.PlayerId))
-                        Executioner.ChangeRoleByTarget(target);
-                    if (Lawyer.Target.ContainsValue(target.PlayerId))
-                        Lawyer.ChangeRoleByTarget(target);
+                    Utils.AfterPlayerDeathTasks(dp, true);
 
                     Utils.NotifyRoles(isForMeeting: true, NoCache: true);
 

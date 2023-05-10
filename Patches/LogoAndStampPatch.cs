@@ -56,12 +56,14 @@ public static class CredentialsPatch
             TransData += $"\nSolarFlare - <size=75%>{GetString("TranEN")}</size>";
             TransData += $"\nchill_ultimated - <size=75%>{GetString("TranRU")}</size>";
 
-            BoosterData += $"Namra";
+            BoosterData += $"bunny";
+            BoosterData += $"\nNamra";
             BoosterData += $"\nKNIGHT";
             BoosterData += $"\nSolarFlare";
             BoosterData += $"\nLoonie";
 
             SponsersData += $"罗寄";
+            SponsersData += $"\n鬼";
             SponsersData += $"\n喜";
             SponsersData += $"\n小叨院长";
             SponsersData += $"\n波奇酱";
@@ -72,7 +74,6 @@ public static class CredentialsPatch
             SponsersData += $"\n撒币";
             SponsersData += $"\n斯卡蒂Skadi";
             SponsersData += $"\nltemten";
-            SponsersData += $"\nNight_瓜";
             SponsersData += $"\n\n<size=60%>({GetString("OnlyShowPart")})</size>";
 
         }

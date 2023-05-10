@@ -159,6 +159,20 @@ class CheckForEndVotingPatch
                     VoterId = ps.TargetPlayerId,
                     VotedForId = ps.VotedFor
                 });
+
+                //隐藏占卜师的票
+                if (CheckRole(ps.TargetPlayerId, CustomRoles.Divinator) && Divinator.HideVote.GetBool()) continue;
+                //隐藏抹除者的票
+                if (CheckRole(ps.TargetPlayerId, CustomRoles.Eraser) && Eraser.HideVote.GetBool()) continue;
+
+                //主动叛变模式下自票无效
+                if (ps.TargetPlayerId == ps.VotedFor && Options.MadmateSpawnMode.GetInt() == 2) continue;
+
+                statesList.Add(new MeetingHud.VoterState()
+                {
+                    VoterId = ps.TargetPlayerId,
+                    VotedForId = ps.VotedFor
+                });
                 
                 if (CheckRole(ps.TargetPlayerId, CustomRoles.Mayor) && !Options.MayorHideVote.GetBool()) //Mayorの投票数
                 {
@@ -293,8 +307,6 @@ class CheckForEndVotingPatch
             coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Sidekick), GetRoleString("Temp.Blank") + coloredRole.RemoveHtmlTags());
         if (Options.ConfirmCharmedOnEject.GetBool() && player.Is(CustomRoles.Charmed))
             coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Charmed), GetRoleString("Charmed-") + coloredRole.RemoveHtmlTags());
-        if (Options.ConfirmMadmateOnEject.GetBool() && player.Is(CustomRoles.Madmate))
-            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Madmate), GetRoleString("Mad-") + coloredRole.RemoveHtmlTags());
         var name = "";
         int impnum = 0;
         int neutralnum = 0;
@@ -604,9 +616,6 @@ class MeetingHudStartPatch
         GameStates.AlreadyDied |= !Utils.IsAllAlive;
         Main.AllPlayerControls.Do(x => ReportDeadBodyPatch.WaitReport[x.PlayerId].Clear());
         MeetingStates.MeetingCalled = true;
-
-        if (AmongUsClient.Instance.AmHost)
-            NotifyRoleSkillOnMeetingStart();
     }
     public static void Postfix(MeetingHud __instance)
     {
@@ -661,10 +670,16 @@ class MeetingHudStartPatch
         }
         if (AntiBlackout.OverrideExiledPlayer)
         {
-            Utils.SendMessage(Translator.GetString("Warning.OverrideExiledPlayer"));
+            new LateTask(() =>
+            {
+                Utils.SendMessage(GetString("Warning.OverrideExiledPlayer"), 255, Utils.ColorString(Color.red, GetString("DefaultSystemMessageTitle")));
+            }, 5f, "Warning OverrideExiledPlayer");
         }
         if (MeetingStates.FirstMeeting) TemplateManager.SendTemplate("OnFirstMeeting", noErr: true);
         TemplateManager.SendTemplate("OnMeeting", noErr: true);
+
+        if (AmongUsClient.Instance.AmHost)
+            NotifyRoleSkillOnMeetingStart();
 
         if (AmongUsClient.Instance.AmHost)
         {
@@ -862,7 +877,7 @@ class MeetingHudUpdatePatch
         }
 
         //投票结束时销毁全部技能按钮
-        if (!GameStates.IsVoting && __instance.lastSecond < 0)
+        if (!GameStates.IsVoting && __instance.lastSecond < 1)
         {
             if (GameObject.Find("ShootButton") != null) ClearShootButton(__instance, true);
             return;

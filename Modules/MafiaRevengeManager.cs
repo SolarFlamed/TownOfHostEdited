@@ -56,7 +56,7 @@ public static class MafiaRevengeManager
         PlayerControl target;
         try
         {
-            targetId = int.Parse(msg.Replace("/rv", String.Empty));
+            targetId = int.Parse(msg.Replace("/rv", string.Empty));
             target = Utils.GetPlayerById(targetId);
         }
         catch
@@ -75,22 +75,34 @@ public static class MafiaRevengeManager
 
         Logger.Info($"{pc.GetNameWithRole()} 复仇了 {target.GetNameWithRole()}", "Mafia");
 
-        CustomSoundsManager.RPCPlayCustomSoundAll("AWP");
-
         string Name = target.GetRealName();
-        Utils.SendMessage(string.Format(GetString("MafiaKillSucceed"), Name), 255, Utils.ColorString(Utils.GetRoleColor(CustomRoles.Mafia), GetString("MafiaRevengeTitle")));
+
+        Main.MafiaRevenged[pc.PlayerId]++;
+
+        CustomSoundsManager.RPCPlayCustomSoundAll("AWP");
 
         new LateTask(() =>
         {
-            target.SetRealKiller(pc);
             Main.PlayerStates[target.PlayerId].deathReason = PlayerState.DeathReason.Revenge;
-            target.RpcMurderPlayerV3(target);
-            Main.PlayerStates[target.PlayerId].SetDead();
-            Main.MafiaRevenged[pc.PlayerId]++;
-            foreach (var pc in Main.AllPlayerControls)
-                RPC.PlaySoundRPC(pc.PlayerId, Sounds.KillSound);
-            ChatUpdatePatch.DoBlockChat = false;
-            Utils.NotifyRoles(isForMeeting: true, NoCache: true);
+            target.SetRealKiller(pc);
+
+            if (GameStates.IsMeeting)
+            {
+                GuessManager.RpcGuesserMurderPlayer(target);
+
+                //死者检查
+                Utils.AfterPlayerDeathTasks(target, true);
+
+                Utils.NotifyRoles(isForMeeting: true, NoCache: true);
+            }
+            else
+            {
+                target.RpcMurderPlayerV3(target);
+                Main.PlayerStates[target.PlayerId].SetDead();
+            }
+
+            new LateTask(() => { Utils.SendMessage(string.Format(GetString("MafiaKillSucceed"), Name), 255, Utils.ColorString(Utils.GetRoleColor(CustomRoles.Mafia), GetString("MafiaRevengeTitle"))); }, 0.6f, "Mafia Kill");
+
         }, 0.2f, "Mafia Kill");
         return true;
     }

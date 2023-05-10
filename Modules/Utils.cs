@@ -1105,13 +1105,13 @@ public static class Utils
             string SelfName = $"{ColorString(seer.GetRoleColor(), SeerRealName)}{SelfDeathReason}{SelfMark}";
 
             if (seer.Is(CustomRoles.Arsonist) && seer.IsDouseDone())
-                SelfName = $"</size>\r\n{ColorString(seer.GetRoleColor(), GetString("EnterVentToWin"))}";
+                SelfName = $"{ColorString(seer.GetRoleColor(), GetString("EnterVentToWin"))}";
             if (seer.Is(CustomRoles.Revolutionist) && seer.IsDrawDone())
-                SelfName = $"</size>\r\n{ColorString(seer.GetRoleColor(), string.Format(GetString("EnterVentWinCountDown"), Main.RevolutionistCountdown.TryGetValue(seer.PlayerId, out var x) ? x : 10))}";
+                SelfName = $">{ColorString(seer.GetRoleColor(), string.Format(GetString("EnterVentWinCountDown"), Main.RevolutionistCountdown.TryGetValue(seer.PlayerId, out var x) ? x : 10))}";
             if (Pelican.IsEaten(seer.PlayerId))
-                SelfName = $"</size>\r\n{ColorString(GetRoleColor(CustomRoles.Pelican), GetString("EatenByPelican"))}";
-            if (NameNotifyManager.GetNameNotify(seer, ref SelfName))
-                SelfName = $"<size={fontSize}>{SelfTaskText}</size>\r\n{SelfName}";
+                SelfName = $"{ColorString(GetRoleColor(CustomRoles.Pelican), GetString("EatenByPelican"))}";
+            if (NameNotifyManager.GetNameNotify(seer, out var name))
+                SelfName = name;
 
             if (Options.CurrentGameMode == CustomGameMode.SoloKombat)
             {
@@ -1328,7 +1328,7 @@ public static class Utils
         if (Options.AirShipVariableElectrical.GetBool())
             AirShipElectricalDoors.Initialize();
     }
-    public static void AfterPlayerDeathTasks(PlayerControl target)
+    public static void AfterPlayerDeathTasks(PlayerControl target, bool onMeeting = false)
     {
         switch (target.GetCustomRole())
         {
@@ -1375,10 +1375,9 @@ public static class Utils
         if (Executioner.Target.ContainsValue(target.PlayerId))
             Executioner.ChangeRoleByTarget(target);
 
-        if (Lawyer.Target.ContainsValue(target.PlayerId))
-            Lawyer.ChangeRoleByTarget(target);
+        FixedUpdatePatch.LoversSuicide(target.PlayerId, onMeeting);
 
-        FixedUpdatePatch.LoversSuicide(target.PlayerId);
+        Jackal.AfterPlayerDiedTask();
 
     }
     public static void ChangeInt(ref int ChangeTo, int input, int max)
