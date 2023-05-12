@@ -301,6 +301,7 @@ public class Main : BasePlugin
                 {CustomRoles.Mortician, "#333c49"},
                 {CustomRoles.Mediumshiper, "#a200ff"},
                 {CustomRoles.Observer, "#a8e0fa"},
+                {CustomRoles.Undercover, "#ff1919"},
                 //第三陣営役職
                 {CustomRoles.Arsonist, "#ff6633"},
                 {CustomRoles.Jester, "#ec62a5"},
@@ -351,6 +352,7 @@ public class Main : BasePlugin
                 {CustomRoles.TicketsStealer, "#ff1919"},
                 {CustomRoles.DualPersonality, "#3a648f"},
                 {CustomRoles.Mimic, "#ff1919"},
+                {CustomRoles.Circumventor, "#ff1919"},
                 {CustomRoles.Guesser, "#FFFF00"},
                 {CustomRoles.Necroview, "#663399"},
                 {CustomRoles.Reach, "#74ba43"},
@@ -489,6 +491,7 @@ public enum CustomRoles
     Mortician,
     Mediumshiper,
     Observer,
+    Undercover,
     //Neutral
     Arsonist,
     Jester,
@@ -544,6 +547,7 @@ public enum CustomRoles
     TicketsStealer,
     DualPersonality,
     Mimic,
+    Circumventor,
     Guesser,
     Necroview,
     Reach,

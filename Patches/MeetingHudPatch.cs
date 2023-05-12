@@ -648,6 +648,7 @@ class MeetingHudStartPatch
                 (pc.Is(CustomRoles.Jackal) && PlayerControl.LocalPlayer.Is(CustomRoles.Sidekick)) ||
                 (pc.Is(CustomRoles.Sidekick) && PlayerControl.LocalPlayer.Is(CustomRoles.Jackal)) ||
                 (pc.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool()) ||
+                (pc.Is(CustomRoles.Charmed) && PlayerControl.LocalPlayer.Is(CustomRoles.Charmed) && Succubus.TargetKnowOtherTarget.GetBool()) ||
                 (Totocalcio.KnowRole(PlayerControl.LocalPlayer, pc)) ||
                 (Succubus.KnowRole(PlayerControl.LocalPlayer, pc)) ||
                 PlayerControl.LocalPlayer.Is(CustomRoles.God) ||
@@ -756,6 +757,8 @@ class MeetingHudStartPatch
                 case CustomRoles.Jackal:
                     if (target.Is(CustomRoles.Sidekick))
                     sb.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥")); //変更対象にSnitchマークをつける
+                    if (target.Is(CustomRoles.Undercover) && Options.UndercoverDisguiseSidekick.GetBool())
+                    sb.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥"));
                     sb.Append(Snitch.GetWarningMark(seer, target));
                     break;
 

@@ -450,6 +450,13 @@ static class ExtendedPlayerControl
     public static bool CanUseImpostorVentButton(this PlayerControl pc)
     {
         if (!pc.IsAlive() || pc.Data.Role.Role == RoleTypes.GuardianAngel) return false;
+        foreach (var subRole in pc.GetCustomSubRoles())
+
+        return (subRole) switch
+        {
+            CustomRoles.Circumventor
+            => false,
+        };
 
         return pc.GetCustomRole() switch
         {

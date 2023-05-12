@@ -373,7 +373,12 @@ class CheckMurderPatch
         //禁止内鬼刀叛徒
         if (killer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Madmate) && !Options.ImpCanKillMadmate.GetBool())
             return false;
-
+        //Imp can kill Undercover
+        if (killer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Undercover) && !Options.ImpCanKillUndercover.GetBool())
+            return false;
+        //Jackal can kill Undercover
+        if (killer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Undercover) && !Options.JackalCanKillUndercover.GetBool())
+            return false;
         //禁止叛徒刀内鬼
         if (killer.Is(CustomRoles.Madmate) && target.Is(CustomRoleTypes.Impostor) && !Options.MadmateCanKillImp.GetBool())
             return false;
@@ -1400,6 +1405,7 @@ class FixedUpdatePatch
                 else if (__instance.Is(CustomRoles.Jackal) && PlayerControl.LocalPlayer.Is(CustomRoles.Sidekick)) RoleText.enabled = true;
                 else if (__instance.Is(CustomRoles.Sidekick) && PlayerControl.LocalPlayer.Is(CustomRoles.Jackal)) RoleText.enabled = true;
                 else if (__instance.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool()) RoleText.enabled = true;
+                else if (__instance.Is(CustomRoles.Charmed) && PlayerControl.LocalPlayer.Is(CustomRoles.Charmed) && Succubus.TargetKnowOtherTarget.GetBool()) RoleText.enabled = true;
                 else if (Totocalcio.KnowRole(PlayerControl.LocalPlayer, __instance)) RoleText.enabled = true;
                 else if (Succubus.KnowRole(PlayerControl.LocalPlayer, __instance)) RoleText.enabled = true;
                 else if (PlayerControl.LocalPlayer.Is(CustomRoles.God)) RoleText.enabled = true;
@@ -1460,7 +1466,9 @@ class FixedUpdatePatch
                 {  
                     if (target.Is(CustomRoles.Sidekick)) //targetがタスクを終わらせたマッドスニッチ
                         Mark.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥")); //targetにマーク付与
-                }
+                    if (target.Is(CustomRoles.Undercover) && Options.UndercoverDisguiseSidekick.GetBool())
+                        Mark.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥"));
+                }  
                 if (seer.GetCustomRole().IsCrewmate() && seer.Is(CustomRoles.Madmate) && Marshall.OptionMadmateCanFindMarshall.GetBool()) //seerがインポスター
                 {  
                     if (target.Is(CustomRoles.Marshall) && target.GetPlayerTaskState().IsTaskFinished) //targetがタスクを終わらせたマッドスニッチ

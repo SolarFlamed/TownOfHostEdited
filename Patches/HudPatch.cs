@@ -398,6 +398,9 @@ class SetHudActivePatch
                 case CustomRoles.Oblivious:
                     __instance.ReportButton.ToggleVisible(false);
                     break;
+                case CustomRoles.Circumventor:
+                    __instance.ImpostorVentButton.ToggleVisible(false);
+                    break;
             }
         }
         __instance.KillButton.ToggleVisible(player.CanUseKillButton());

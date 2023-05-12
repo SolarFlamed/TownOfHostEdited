@@ -177,6 +177,7 @@ public static class GuessManager
                 else if (pc.Is(CustomRoles.EvilGuesser) && role.IsImpostor() && !Options.EGCanGuessImp.GetBool()) guesserSuicide = true;
                 else if (pc.Is(CustomRoles.Guesser) && role.IsImpostor() && !Options.GCanGuessImp.GetBool()) guesserSuicide = true;
                 else if (pc.Is(CustomRoles.Guesser) && role.IsCrewmate() && !pc.Is(CustomRoles.Madmate) && !Options.GCanGuessCrew.GetBool() ) guesserSuicide = true;
+                //else if (pc.Is(CustomRoles.Guesser) && (role.IsNeutral() || role.IsNeutralKilling())) guesserSuicide = false;              
                 else if (!target.Is(role)) guesserSuicide = true;
 
                 Logger.Info($"{pc.GetNameWithRole()} 猜测了 {target.GetNameWithRole()}", "Guesser");
