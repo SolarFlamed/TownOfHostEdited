@@ -54,6 +54,8 @@ class HudManagerPatch
 
         Utils.CountAlivePlayers();
 
+        bool shapeshifting = Main.CheckShapeshift.TryGetValue(player.PlayerId, out bool ss) && ss;
+
         if (SetHudActivePatch.IsActive)
         {
             if (player.IsAlive())
@@ -66,21 +68,24 @@ class HudManagerPatch
                         break;
                     case CustomRoles.FireWorks:
                         if (FireWorks.nowFireWorksCount[player.PlayerId] == 0)
-                            __instance.AbilityButton.OverrideText($"{GetString("FireWorksExplosionButtonText")}");
+                            __instance.AbilityButton.OverrideText(GetString("FireWorksExplosionButtonText"));
                         else
-                            __instance.AbilityButton.OverrideText($"{GetString("FireWorksInstallAtionButtonText")}");
+                            __instance.AbilityButton.OverrideText(GetString("FireWorksInstallAtionButtonText"));
                         break;
                     case CustomRoles.SerialKiller:
                         SerialKiller.GetAbilityButtonText(__instance, player);
                         break;
                     case CustomRoles.Warlock:
-                        if (!(Main.CheckShapeshift.TryGetValue(player.PlayerId, out bool shapeshiftingw) && shapeshiftingw) && !(Main.isCurseAndKill.TryGetValue(player.PlayerId, out bool curse) && curse))
-                            __instance.KillButton.OverrideText($"{GetString("WarlockCurseButtonText")}");
+                        bool curse = Main.isCurseAndKill.TryGetValue(player.PlayerId, out bool wcs) && wcs;
+                        if (!shapeshifting && !curse)
+                            __instance.KillButton.OverrideText(GetString("WarlockCurseButtonText"));
                         else
-                            __instance.KillButton.OverrideText($"{GetString("KillButtonText")}");
+                            __instance.KillButton.OverrideText(GetString("KillButtonText"));
+                        if (!shapeshifting && curse)
+                            __instance.AbilityButton.OverrideText(GetString("WarlockShapeshiftButtonText"));
                         break;
                     case CustomRoles.Miner:
-                        __instance.AbilityButton.OverrideText($"{GetString("MinerTeleButtonText")}");
+                        __instance.AbilityButton.OverrideText(GetString("MinerTeleButtonText"));
                         break;
                     case CustomRoles.Witch:
                         Witch.GetAbilityButtonText(__instance);
@@ -95,11 +100,11 @@ class HudManagerPatch
                         Poisoner.SetKillButtonText();
                         break;
                     case CustomRoles.Arsonist:
-                        __instance.KillButton.OverrideText($"{GetString("ArsonistDouseButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("ArsonistDouseButtonText"));
                         __instance.AbilityButton.buttonLabelText.text = GetString("ArsonistVetnButtonText");
                         break;
                     case CustomRoles.Revolutionist:
-                        __instance.KillButton.OverrideText($"{GetString("RevolutionistDrawButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("RevolutionistDrawButtonText"));
                         __instance.AbilityButton.buttonLabelText.text = GetString("RevolutionistVetnButtonText");
                         break;
                     case CustomRoles.Puppeteer:
@@ -113,50 +118,50 @@ class HudManagerPatch
                         EvilTracker.GetAbilityButtonText(__instance, player.PlayerId);
                         break;
                     case CustomRoles.Innocent:
-                        __instance.KillButton.OverrideText($"{GetString("InnocentButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("InnocentButtonText"));
                         break;
                     case CustomRoles.Capitalism:
-                        __instance.KillButton.OverrideText($"{GetString("CapitalismButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("CapitalismButtonText"));
                         break;
                     case CustomRoles.Pelican:
-                        __instance.KillButton.OverrideText($"{GetString("PelicanButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("PelicanButtonText"));
                         break;
                     case CustomRoles.Counterfeiter:
-                        __instance.KillButton.OverrideText($"{GetString("CounterfeiterButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("CounterfeiterButtonText"));
                         break;
                     case CustomRoles.Gangster:
                         Gangster.SetKillButtonText(player.PlayerId);
                         break;
                     case CustomRoles.FFF:
-                        __instance.KillButton.OverrideText($"{GetString("FFFButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("FFFButtonText"));
                         break;
                     case CustomRoles.Medicaler:
-                        __instance.KillButton.OverrideText($"{GetString("MedicalerButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("MedicalerButtonText"));
                         break;
                     case CustomRoles.Gamer:
-                        __instance.KillButton.OverrideText($"{GetString("GamerButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("GamerButtonText"));
                         break;
                     case CustomRoles.BallLightning:
-                        __instance.KillButton.OverrideText($"{GetString("BallLightningButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("BallLightningButtonText"));
                         break;
                     case CustomRoles.Bomber:
-                        __instance.AbilityButton.OverrideText($"{GetString("BomberShapeshiftText")}");
+                        __instance.AbilityButton.OverrideText(GetString("BomberShapeshiftText"));
                         break;
                     case CustomRoles.ImperiusCurse:
-                        __instance.AbilityButton.OverrideText($"{GetString("ImperiusCurseButtonText")}");
+                        __instance.AbilityButton.OverrideText(GetString("ImperiusCurseButtonText"));
                         break;
                     case CustomRoles.QuickShooter:
-                        __instance.AbilityButton.OverrideText($"{GetString("QuickShooterShapeshiftText")}");
+                        __instance.AbilityButton.OverrideText(GetString("QuickShooterShapeshiftText"));
                         __instance.AbilityButton.SetUsesRemaining(QuickShooter.ShotLimit.TryGetValue(PlayerControl.LocalPlayer.PlayerId, out var qx) ? qx : 0);
                         break;
                     case CustomRoles.Provocateur:
-                        __instance.KillButton.OverrideText($"{GetString("ProvocateurButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("ProvocateurButtonText"));
                         break;
                     case CustomRoles.Concealer:
-                        __instance.AbilityButton.OverrideText($"{GetString("ConcealerShapeshiftText")}");
+                        __instance.AbilityButton.OverrideText(GetString("ConcealerShapeshiftText"));
                         break;
                     case CustomRoles.OverKiller:
-                        __instance.KillButton.OverrideText($"{GetString("OverKillerButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("OverKillerButtonText"));
                         break;
                     case CustomRoles.Assassin:
                         Assassin.SetKillButtonText(player.PlayerId);
@@ -166,13 +171,13 @@ class HudManagerPatch
                         Hacker.GetAbilityButtonText(__instance, player.PlayerId);
                         break;
                     case CustomRoles.KB_Normal:
-                        __instance.KillButton.OverrideText($"{GetString("GamerButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("GamerButtonText"));
                         break;
                     case CustomRoles.Cleaner:
-                        __instance.ReportButton.OverrideText($"{GetString("CleanerReportButtonText")}");
+                        __instance.ReportButton.OverrideText(GetString("CleanerReportButtonText"));
                         break;
                     case CustomRoles.Swooper:
-                        __instance.ImpostorVentButton.OverrideText($"{GetString(Swooper.IsInvis(PlayerControl.LocalPlayer.PlayerId) ? "SwooperRevertVentButtonText" : "SwooperVentButtonText")}");
+                        __instance.ImpostorVentButton.OverrideText(GetString(Swooper.IsInvis(PlayerControl.LocalPlayer.PlayerId) ? "SwooperRevertVentButtonText" : "SwooperVentButtonText"));
                         break;
                     case CustomRoles.Mario:
                         __instance.AbilityButton.buttonLabelText.text = GetString("MarioVentButtonText");
@@ -191,13 +196,16 @@ class HudManagerPatch
                         __instance.AbilityButton.buttonLabelText.text = GetString("ParanoiaVetnButtonText");
                         break;
                     case CustomRoles.Sheriff:
-                        __instance.KillButton.OverrideText($"{GetString("SheriffKillButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("SheriffKillButtonText"));
                         break;
                     case CustomRoles.Totocalcio:
-                        __instance.KillButton.OverrideText($"{GetString("TotocalcioKillButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("TotocalcioKillButtonText"));
                         break;
                     case CustomRoles.Succubus:
-                        __instance.KillButton.OverrideText($"{GetString("SuccubusKillButtonText")}");
+                        __instance.KillButton.OverrideText(GetString("SuccubusKillButtonText"));
+                        break;
+                    case CustomRoles.DovesOfNeace:
+                        __instance.AbilityButton.buttonLabelText.text = GetString("DovesOfNeaceVentButtonText");
                         break;
                 }
 
@@ -254,7 +262,7 @@ class HudManagerPatch
                 }
                 LowerInfoText.enabled = LowerInfoText.text != "";
 
-                if (!AmongUsClient.Instance.IsGameStarted && AmongUsClient.Instance.NetworkMode != NetworkModes.FreePlay)
+                if ((!AmongUsClient.Instance.IsGameStarted && AmongUsClient.Instance.NetworkMode != NetworkModes.FreePlay) || GameStates.IsMeeting)
                 {
                     LowerInfoText.enabled = false;
                 }
@@ -420,9 +428,13 @@ class VentButtonDoClickPatch
     public static bool Prefix(VentButton __instance)
     {
         var pc = PlayerControl.LocalPlayer;
-        if (!pc.Is(CustomRoles.Swooper) || pc.inVent || __instance.currentTarget == null || !pc.CanMove || !__instance.isActiveAndEnabled) return true;
-        pc?.MyPhysics?.RpcEnterVent(__instance.currentTarget.Id);
-        return false;
+        if (pc == null || pc.inVent || __instance.currentTarget == null || !pc.CanMove || !__instance.isActiveAndEnabled) return true;
+        if (pc.GetCustomRole() is CustomRoles.Swooper or CustomRoles.Arsonist or CustomRoles.Revolutionist or CustomRoles.Veteran or CustomRoles.Paranoia or CustomRoles.Mayor or CustomRoles.Grenadier or CustomRoles.DovesOfNeace)
+        {
+            pc?.MyPhysics?.RpcEnterVent(__instance.currentTarget.Id);
+            return false;
+        }
+        return true;
     }
 }
 [HarmonyPatch(typeof(MapBehaviour), nameof(MapBehaviour.Show))]
@@ -471,13 +483,13 @@ class TaskPanelBehaviourPatch
                     foreach (var eachLine in lines)
                     {
                         var line = eachLine.Trim();
-                        if (line.StartsWith("<color=#FF1919FF>") || line.StartsWith("<color=#FF0000FF>") && sb.Length < 1) continue;
+                        if ((line.StartsWith("<color=#FF1919FF>") || line.StartsWith("<color=#FF0000FF>")) && sb.Length < 1 && !line.Contains('(')) continue;
                         sb.Append(line + "\r\n");
                     }
-                    if (sb.Length > 1 && !player.Data.IsDead)
+                    if (sb.Length > 1)
                     {
                         var text = sb.ToString().TrimEnd('\n').TrimEnd('\r');
-                        if (!Utils.HasTasks(player.Data, false))
+                        if (!Utils.HasTasks(player.Data, false) && sb.ToString().Count(s => (s == '\n')) >= 2)
                             text = $"{Utils.ColorString(new Color32(255, 20, 147, byte.MaxValue), GetString("FakeTask"))}\r\n{text}";
                         AllText += $"\r\n\r\n<size=85%>{text}</size>";
                     }

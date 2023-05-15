@@ -394,7 +394,7 @@ class CheckForEndVotingPatch
         }, 3.0f, "Change Exiled Player Name");
         new LateTask(() =>
         {
-            if (GameStates.IsInGame)
+            if (GameStates.IsInGame && !player.Data.Disconnected)
             {
                 player.RpcSetName(realName);
                 Main.DoBlockNameChange = false;
@@ -489,7 +489,7 @@ static class ExtendedMeetingHud
                     ) VoteNum += Options.MayorAdditionalVote.GetInt();
                 //窃票者附加票数
                 if (CheckForEndVotingPatch.CheckRole(ps.TargetPlayerId, CustomRoles.TicketsStealer))
-                    VoteNum += (int)(Main.AllPlayerControls.Where(x => x.GetRealKiller()?.PlayerId == ps.TargetPlayerId).Count() * Options.TicketsPerKill.GetFloat());
+                    VoteNum += (int)(Main.AllPlayerControls.Count(x => x.GetRealKiller()?.PlayerId == ps.TargetPlayerId) * Options.TicketsPerKill.GetFloat());
 
                 // 主动叛变模式下自票无效
                 if (ps.TargetPlayerId == ps.VotedFor && Options.MadmateSpawnMode.GetInt() == 2) VoteNum = 0;
@@ -589,9 +589,9 @@ class MeetingHudStartPatch
                 AddMsg(Mortician.msgToSend[pc.PlayerId], pc.PlayerId, Utils.ColorString(Utils.GetRoleColor(CustomRoles.Mortician), GetString("MorticianCheckTitle")));
             //通灵师的提示（自己）
             if (Mediumshiper.ContactPlayer.ContainsValue(pc.PlayerId))
-                AddMsg(string.Format(GetString("MediumshipNotifySelf"), Main.AllPlayerNames[Mediumshiper.ContactPlayer.Where(x => x.Value == pc.PlayerId).FirstOrDefault().Key]), pc.PlayerId, Utils.ColorString(Utils.GetRoleColor(CustomRoles.Mediumshiper), GetString("MediumshipTitle")));
+                AddMsg(string.Format(GetString("MediumshipNotifySelf"), Main.AllPlayerNames[Mediumshiper.ContactPlayer.Where(x => x.Value == pc.PlayerId).FirstOrDefault().Key], Mediumshiper.ContactLimit[pc.PlayerId]), pc.PlayerId, Utils.ColorString(Utils.GetRoleColor(CustomRoles.Mediumshiper), GetString("MediumshipTitle")));
             //通灵师的提示（目标）
-            if (Mediumshiper.ContactPlayer.ContainsKey(pc.PlayerId))
+            if (Mediumshiper.ContactPlayer.ContainsKey(pc.PlayerId) && (!Mediumshiper.OnlyReceiveMsgFromCrew.GetBool() || pc.GetCustomRole().IsCrewmate()))
                 AddMsg(string.Format(GetString("MediumshipNotifyTarget"), Main.AllPlayerNames[Mediumshiper.ContactPlayer[pc.PlayerId]]), pc.PlayerId, Utils.ColorString(Utils.GetRoleColor(CustomRoles.Mediumshiper), GetString("MediumshipTitle")));
         }
         //宝箱怪的消息（合并）
@@ -783,6 +783,9 @@ class MeetingHudStartPatch
         }
         if (MeetingStates.FirstMeeting) TemplateManager.SendTemplate("OnFirstMeeting", noErr: true);
         TemplateManager.SendTemplate("OnMeeting", noErr: true);
+
+        if (AmongUsClient.Instance.AmHost)
+            NotifyRoleSkillOnMeetingStart();
 
         if (AmongUsClient.Instance.AmHost)
             NotifyRoleSkillOnMeetingStart();
@@ -1011,16 +1014,16 @@ class MeetingHudUpdatePatch
             bufferTime = 10;
             var myRole = PlayerControl.LocalPlayer.GetCustomRole();
 
+            //若某玩家死亡则修复会议该玩家状态
+            __instance.playerStates.Where(x => (!Main.PlayerStates.TryGetValue(x.TargetPlayerId, out var ps) || ps.IsDead) && !x.AmDead).Do(x => x.SetDead(x.DidReport, true));
+
             //若玩家死亡则销毁技能按钮
-            if (myRole is CustomRoles.NiceGuesser or CustomRoles.EvilGuesser or CustomRoles.Judge or CustomRoles.Guesser && !PlayerControl.LocalPlayer.IsAlive())
+            if (myRole is CustomRoles.NiceGuesser or CustomRoles.EvilGuesser or CustomRoles.Judge && !PlayerControl.LocalPlayer.IsAlive())
                 ClearShootButton(__instance, true);
 
             //若黑手党死亡则创建技能按钮
             if (myRole is CustomRoles.Mafia && !PlayerControl.LocalPlayer.IsAlive() && GameObject.Find("ShootButton") == null)
                 MafiaRevengeManager.CreateJudgeButton(__instance);
-
-            //若某玩家死亡则修复会议该玩家状态
-            __instance.playerStates.Where(x => (!Main.PlayerStates.TryGetValue(x.TargetPlayerId, out var ps) || ps.IsDead) && !x.AmDead).Do(x => x.SetDead(x.DidReport, true));
 
             //销毁死亡玩家身上的技能按钮
             ClearShootButton(__instance);

@@ -2,6 +2,7 @@
 using Hazel;
 using System.Collections.Generic;
 using System.Linq;
+using TOHE.Modules;
 using UnityEngine;
 
 namespace TOHE.Roles.Crewmate;
@@ -81,7 +82,7 @@ public static class Medicaler
         && (ProtectLimit.TryGetValue(playerId, out var x) ? x : 1) >= 1;
     public static void SetKillCooldown(byte id) => Main.AllPlayerKillCooldown[id] = CanUseKillButton(id) ? SkillCooldown.GetFloat() : 300f;
     public static string GetSkillLimit(byte playerId) => Utils.ColorString(CanUseKillButton(playerId) ? Utils.GetRoleColor(CustomRoles.Medicaler) : Color.gray, ProtectLimit.TryGetValue(playerId, out var protectLimit) ? $"({protectLimit})" : "Invalid");
-    public static bool InProtect(byte id) => ProtectList.Contains(id);
+    public static bool InProtect(byte id) => ProtectList.Contains(id) && Main.PlayerStates.TryGetValue(id, out var ps) && !ps.IsDead;
     public static void OnCheckMurderFormedicaler(PlayerControl killer, PlayerControl target)
     {
         if (killer == null || target == null) return;
@@ -92,8 +93,9 @@ public static class Medicaler
         SendRPC(killer.PlayerId);
         ProtectList.Add(target.PlayerId);
         SendRPCForProtectList();
-        killer.RpcGuardAndKill(target);
-        killer.SetKillCooldown();
+        killer.SetKillCooldownV2(target: target);
+        killer.RPCPlayCustomSound("Shield");
+        target.RPCPlayCustomSound("Shield");
 
         Utils.NotifyRoles(killer);
         Utils.NotifyRoles(target);
@@ -107,10 +109,10 @@ public static class Medicaler
 
         ProtectList.Remove(target.PlayerId);
         SendRPCForProtectList();
+        killer.SetKillCooldownV2(target: target, forceAnime: true);
         killer.RpcGuardAndKill(target);
         if (TargetCanSeeProtect.GetBool())
             target.RpcGuardAndKill(target);
-        killer.SetKillCooldown();
         Utils.NotifyRoles(target);
         if (KnowTargetShieldBroken.GetBool())
             Main.AllPlayerControls.Where(x => playerIdList.Contains(x.PlayerId)).Do(x => x.Notify(Translator.GetString("MedicalerTargetShieldBroken")));

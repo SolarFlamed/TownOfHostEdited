@@ -1,5 +1,6 @@
 ﻿using Hazel;
 using System.Collections.Generic;
+using TOHE.Modules;
 using TOHE.Roles.Neutral;
 using static TOHE.Options;
 using static TOHE.Translator;
@@ -15,7 +16,7 @@ internal static class Assassin
     private static OptionItem AssassinateCooldown;
     private static OptionItem CanKillAfterAssassinate;
 
-    private static Dictionary<byte, byte> MarkedPlayer = new();
+    public static Dictionary<byte, byte> MarkedPlayer = new();
     public static void SetupCustomOption()
     {
         SetupRoleOptions(Id, TabGroup.ImpostorRoles, CustomRoles.Assassin);
@@ -73,8 +74,8 @@ internal static class Assassin
             MarkedPlayer.Add(killer.PlayerId, target.PlayerId);
             SendRPC(killer.PlayerId);
             killer.ResetKillCooldown();
-            killer.SetKillCooldown();
-            killer.SyncSettings();
+            killer.SetKillCooldownV2();
+            killer.RPCPlayCustomSound("Clothe");
             return false;
         }
     }
@@ -83,7 +84,7 @@ internal static class Assassin
         if (!pc.IsAlive() || Pelican.IsEaten(pc.PlayerId)) return;
         if (!shapeshifting)
         {
-            pc.SetKillCooldown();
+            pc.SetKillCooldownV2();
             return;
         }
         if (MarkedPlayer.ContainsKey(pc.PlayerId))
@@ -105,13 +106,13 @@ internal static class Assassin
     public static void SetKillButtonText(byte playerId)
     {
         if (!playerId.Shapeshifting())
-            HudManager.Instance.KillButton.OverrideText($"{GetString("AssassinMarkButtonText")}");
+            HudManager.Instance.KillButton.OverrideText(GetString("AssassinMarkButtonText"));
         else
-            HudManager.Instance.KillButton.OverrideText($"{GetString("KillButtonText")}");
+            HudManager.Instance.KillButton.OverrideText(GetString("KillButtonText"));
     }
     public static void GetAbilityButtonText(HudManager __instance, byte playerId)
     {
         if (MarkedPlayer.ContainsKey(playerId) && !playerId.Shapeshifting())
-            __instance.AbilityButton.OverrideText($"{GetString("AssassinShapeshiftText")}");
+            __instance.AbilityButton.OverrideText(GetString("AssassinShapeshiftText"));
     }
 }

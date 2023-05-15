@@ -123,22 +123,29 @@ public class PlayerGameOptionsSender : GameOptionsSender
             case CustomRoles.Zombie:
                 opt.SetFloat(FloatOptionNames.ImpostorLightMod, 0.2f);
                 break;
-           /* case CustomRoles.Doctor:
-                AURoleOptions.ScientistCooldown = 0f;
-                AURoleOptions.ScientistBatteryCharge = Options.DoctorTaskCompletedBatteryCharge.GetFloat();
-                break; */
             case CustomRoles.Mayor:
                 AURoleOptions.EngineerCooldown =
-                    Main.MayorUsedButtonCount.TryGetValue(player.PlayerId, out var count) && count < Options.MayorNumOfUseButton.GetInt()
+                    !Main.MayorUsedButtonCount.TryGetValue(player.PlayerId, out var count) || count < Options.MayorNumOfUseButton.GetInt()
                     ? opt.GetInt(Int32OptionNames.EmergencyCooldown)
                     : 300f;
                 AURoleOptions.EngineerInVentMaxTime = 1;
                 break;
             case CustomRoles.Paranoia:
                 AURoleOptions.EngineerCooldown =
-                    Main.ParaUsedButtonCount.TryGetValue(player.PlayerId, out var count2) && count2 < Options.ParanoiaNumOfUseButton.GetInt()
+                    !Main.ParaUsedButtonCount.TryGetValue(player.PlayerId, out var count2) || count2 < Options.ParanoiaNumOfUseButton.GetInt()
                     ? Options.ParanoiaVentCooldown.GetFloat()
                     : 300f;
+                AURoleOptions.EngineerInVentMaxTime = 1;
+                break;
+            case CustomRoles.Veteran:
+                AURoleOptions.EngineerCooldown =
+                    !Main.VeteranNumOfUsed.TryGetValue(player.PlayerId, out var count3) || count3 > 0
+                    ? Options.VeteranSkillCooldown.GetFloat()
+                    : 300f;
+                AURoleOptions.EngineerInVentMaxTime = 1;
+                break;
+            case CustomRoles.Grenadier:
+                AURoleOptions.EngineerCooldown = Options.GrenadierSkillCooldown.GetFloat();
                 AURoleOptions.EngineerInVentMaxTime = 1;
                 break;
             case CustomRoles.Mare:
@@ -148,19 +155,10 @@ public class PlayerGameOptionsSender : GameOptionsSender
                 EvilTracker.ApplyGameOptions(player.PlayerId);
                 break;
             case CustomRoles.Jackal:
-       //     case CustomRoles.Sidekick:
                 Jackal.ApplyGameOptions(opt);
                 break;
             case CustomRoles.Poisoner:
                 Poisoner.ApplyGameOptions(opt);
-                break;
-            case CustomRoles.Veteran:
-                AURoleOptions.EngineerCooldown = Options.VeteranSkillCooldown.GetFloat();
-                AURoleOptions.EngineerInVentMaxTime = 1;
-                break;
-            case CustomRoles.Grenadier:
-                AURoleOptions.EngineerCooldown = Options.GrenadierSkillCooldown.GetFloat();
-                AURoleOptions.EngineerInVentMaxTime = 1;
                 break;
             case CustomRoles.FFF:
                 opt.SetVision(true);
@@ -207,6 +205,13 @@ public class PlayerGameOptionsSender : GameOptionsSender
             case CustomRoles.BloodKnight:
                 BloodKnight.ApplyGameOptions(opt);
                 break;
+            case CustomRoles.DovesOfNeace:
+                AURoleOptions.EngineerCooldown =
+                    !Main.DovesOfNeaceNumOfUsed.TryGetValue(player.PlayerId, out var count4) || count4 > 0
+                    ? Options.DovesOfNeaceCooldown.GetFloat()
+                    : 300f;
+                AURoleOptions.EngineerInVentMaxTime = 1;
+                break;
         }
 
         // Ϊ�Ի��ߵ�����
@@ -244,8 +249,8 @@ public class PlayerGameOptionsSender : GameOptionsSender
                     Main.AllPlayerSpeed[player.PlayerId] = Options.FlashmanSpeed.GetFloat();
                     break;
                 case CustomRoles.Lighter:
-                    opt.SetFloat(FloatOptionNames.CrewLightMod, 12f);
-                    opt.SetFloat(FloatOptionNames.ImpostorLightMod, 12f);
+                    opt.SetFloat(FloatOptionNames.CrewLightMod, Options.LighterVision.GetFloat());
+                    opt.SetFloat(FloatOptionNames.ImpostorLightMod, Options.LighterVision.GetFloat());
                     break;
                 case CustomRoles.Bewilder:
                     opt.SetVision(false);

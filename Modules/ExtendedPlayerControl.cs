@@ -30,7 +30,7 @@ static class ExtendedPlayerControl
         }
         if (AmongUsClient.Instance.AmHost)
         {
-            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetCustomRole, Hazel.SendOption.Reliable, -1);
+            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetCustomRole, SendOption.Reliable, -1);
             writer.Write(player.PlayerId);
             writer.WritePacked((int)role);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
@@ -40,7 +40,7 @@ static class ExtendedPlayerControl
     {
         if (AmongUsClient.Instance.AmHost)
         {
-            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetCustomRole, Hazel.SendOption.Reliable, -1);
+            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetCustomRole, SendOption.Reliable, -1);
             writer.Write(PlayerId);
             writer.WritePacked((int)role);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
@@ -143,7 +143,7 @@ static class ExtendedPlayerControl
         Logger.Info($"Set:{player?.Data?.PlayerName}:{name} for {seer.GetNameWithRole()}", "RpcSetNamePrivate");
 
         var clientId = seer.GetClientId();
-        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)RpcCalls.SetName, Hazel.SendOption.Reliable, clientId);
+        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)RpcCalls.SetName, SendOption.Reliable, clientId);
         writer.Write(name);
         writer.Write(DontShowOnModdedClient);
         AmongUsClient.Instance.FinishRpcImmediately(writer);
@@ -158,7 +158,7 @@ static class ExtendedPlayerControl
             player.SetRole(role);
             return;
         }
-        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)RpcCalls.SetRole, Hazel.SendOption.Reliable, clientId);
+        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)RpcCalls.SetRole, SendOption.Reliable, clientId);
         writer.Write((ushort)role);
         AmongUsClient.Instance.FinishRpcImmediately(writer);
     }
@@ -192,32 +192,19 @@ static class ExtendedPlayerControl
     public static void SetKillCooldown(this PlayerControl player, float time = -1f)
     {
         if (player == null) return;
-        CustomRoles role = player.GetCustomRole();
         if (!player.CanUseKillButton()) return;
-        if (time >= 0f)
-        {
-            Main.AllPlayerKillCooldown[player.PlayerId] = time * 2;
-        }
-        else
-        {
-            Main.AllPlayerKillCooldown[player.PlayerId] *= 2;
-        }
+        if (time >= 0f) Main.AllPlayerKillCooldown[player.PlayerId] = time;
         player.SyncSettings();
         player.RpcGuardAndKill();
         player.ResetKillCooldown();
     }
-    public static void SetKillCooldownV2(this PlayerControl player, float time = -1f, PlayerControl target = null)
+    public static void SetKillCooldownV2(this PlayerControl player, float time = -1f, PlayerControl target = null, bool forceAnime = false)
     {
         if (player == null) return;
         if (!player.CanUseKillButton()) return;
-        if (time >= 0f)
-        {
-            Main.AllPlayerKillCooldown[player.PlayerId] = time * 2;
-        }
-        else
-        {
-            Main.AllPlayerKillCooldown[player.PlayerId] *= 2;
-        }
+        if (target == null) target = player;
+        if (time >= 0f) Main.AllPlayerKillCooldown[player.PlayerId] = time;
+        time = Main.AllPlayerKillCooldown[player.PlayerId];
         player.SyncSettings();
         if (player.AmOwner)
             PlayerControl.LocalPlayer.SetKillTimer(time);
@@ -228,6 +215,8 @@ static class ExtendedPlayerControl
             AmongUsClient.Instance.FinishRpcImmediately(writer);
         }
         else player.RpcGuardAndKill(target, 11);
+        if ((player.AmOwner || player.IsModClient()) && forceAnime) player.RpcGuardAndKill(target, 11);
+        if (player.AmOwner || player.IsModClient()) Main.AllPlayerControls.Where(x => x.Is(CustomRoles.Observer) && target.PlayerId != x.PlayerId).Do(x => x.RpcGuardAndKill(target, 11, true));
         player.ResetKillCooldown();
     }
     public static void RpcSpecificMurderPlayer(this PlayerControl killer, PlayerControl target = null)
@@ -297,7 +286,7 @@ static class ExtendedPlayerControl
         else
             KilledById = KilledBy.PlayerId;
 
-        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)CustomRPC.BeKilled, Hazel.SendOption.Reliable, -1);
+        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)CustomRPC.BeKilled, SendOption.Reliable, -1);
         writer.Write(player.PlayerId);
         writer.Write(KilledById);
         AmongUsClient.Instance.FinishRpcImmediately(writer);
@@ -445,6 +434,7 @@ static class ExtendedPlayerControl
             CustomRoles.Crewpostor => false,
             CustomRoles.Totocalcio => Totocalcio.CanUseKillButton(pc),
             CustomRoles.Succubus => Succubus.CanUseKillButton(pc),
+            CustomRoles.Warlock => !Main.isCurseAndKill.TryGetValue(pc.PlayerId, out bool wcs) || !wcs,
             _ => pc.Is(CustomRoleTypes.Impostor),
         };
     }
@@ -468,11 +458,11 @@ static class ExtendedPlayerControl
             CustomRoles.Provocateur or
             CustomRoles.Totocalcio or
             CustomRoles.Succubus or
-            CustomRoles.Wildling
+            CustomRoles.Wildling or
+            CustomRoles.Crewpostor
             => false,
 
             CustomRoles.Jackal => Jackal.CanVent.GetBool(),
-       //     CustomRoles.Sidekick => Jackal.CanVent.GetBool(),
             CustomRoles.Poisoner => Poisoner.CanVent.GetBool(),
             CustomRoles.Pelican => Pelican.CanVent.GetBool(),
             CustomRoles.Gamer => Gamer.CanVent.GetBool(),

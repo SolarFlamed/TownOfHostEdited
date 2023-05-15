@@ -128,6 +128,13 @@ public abstract class OptionItem
 
     public OptionItem SetParent(OptionItem parent) => Do(i =>
     {
+        foreach (var role in Options.CustomRoleSpawnChances.Where(x => x.Value.Name == parent.Name))
+        {
+            var roleName = Translator.GetString(Enum.GetName(typeof(CustomRoles), role.Key));
+            ReplacementDictionary ??= new();
+            ReplacementDictionary.TryAdd(roleName, Utils.ColorString(Utils.GetRoleColor(role.Key), roleName));
+            break;
+        }
         i.Parent = parent;
         parent.SetChild(i);
     });

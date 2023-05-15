@@ -58,9 +58,10 @@ public static class Jackal
     {
         __instance.SabotageButton.ToggleVisible(isActive && CanUseSabotage.GetBool());
     }
-    public static void AfterPlayerDiedTask()
+    public static void AfterPlayerDiedTask(PlayerControl target)
     {
-        if (!ResetKillCooldownWhenSbGetKilled.GetBool()) return;
-        Main.AllAlivePlayerControls.Where(x => playerIdList.Contains(x.PlayerId)).Do(x => x.SetKillCooldown(0));
+        var killer = target.GetRealKiller();
+        if (!ResetKillCooldownWhenSbGetKilled.GetBool() || killer == null) return;
+        Main.AllAlivePlayerControls.Where(x => x.PlayerId != killer.PlayerId && playerIdList.Contains(x.PlayerId)).Do(x => x.SetKillCooldown(0));
     }
 }

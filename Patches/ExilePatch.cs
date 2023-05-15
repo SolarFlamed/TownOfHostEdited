@@ -110,13 +110,16 @@ class ExileControllerWrapUpPatch
             {
                 Main.CursedPlayers[pc.PlayerId] = null;
                 Main.isCurseAndKill[pc.PlayerId] = false;
+                RPC.RpcSyncCurseAndKill();
             }
-            if (pc.Is(CustomRoles.Paranoia))
-                pc.RpcResetAbilityCooldown();
-            if (pc.Is(CustomRoles.Veteran))
-                pc.RpcResetAbilityCooldown();
-            if (pc.Is(CustomRoles.Grenadier))
-                pc.RpcResetAbilityCooldown();
+            if (pc.GetCustomRole() is
+                CustomRoles.Paranoia or
+                CustomRoles.Veteran or
+                CustomRoles.Greedier or
+                CustomRoles.DovesOfNeace or
+                CustomRoles.QuickShooter or
+                CustomRoles.Bomber
+                ) pc.RpcResetAbilityCooldown();
         }
         if (Options.RandomSpawn.GetBool() || Options.CurrentGameMode == CustomGameMode.SoloKombat)
         {

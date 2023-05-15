@@ -139,7 +139,7 @@ public static class GuessManager
                     else pc.ShowPopUp(GetString("EGGuessMax"));
                     return true;
                 }
-                if (role == CustomRoles.SuperStar && target.Is(CustomRoles.SuperStar))
+                if (role == CustomRoles.SuperStar || target.Is(CustomRoles.SuperStar))
                 {
                     Utils.SendMessage(GetString("GuessSuperStar"), pc.PlayerId);
                     return true;
@@ -149,7 +149,7 @@ public static class GuessManager
                     Utils.SendMessage(GetString("GuessGM"), pc.PlayerId);
                     return true;
                 }
-                if (target.Is(CustomRoles.Snitch) && target.AllTasksCompleted())
+                if (target.Is(CustomRoles.Snitch) && target.AllTasksCompleted() && !Options.EGCanGuessTaskDoneSnitch.GetBool())
                 {
                     if (!isUI) Utils.SendMessage(GetString("EGGuessSnitchTaskDone"), pc.PlayerId);
                     else pc.ShowPopUp(GetString("EGGuessSnitchTaskDone"));
@@ -164,6 +164,17 @@ public static class GuessManager
                         )
                     {
                         Utils.SendMessage(GetString("GuessAdtRole"), pc.PlayerId);
+                        return true;
+                    }
+                }
+                if (role.IsVanilla())
+                {
+                    if (
+                        (pc.Is(CustomRoles.NiceGuesser) && !Options.GGCanGuessVanilla.GetBool()) ||
+                        (pc.Is(CustomRoles.EvilGuesser) && !Options.EGCanGuessVanilla.GetBool())
+                        )
+                    {
+                        Utils.SendMessage(GetString("GuessVanillaRole"), pc.PlayerId);
                         return true;
                     }
                 }
@@ -328,7 +339,7 @@ public static class GuessManager
             return false;
         }
 
-        if (!ChatCommands.GetRoleByName(msg, out role))
+        if (!ChatCommands.GetRoleByInputName(msg, out role, true))
         {
             error = GetString("GuessHelp");
             return false;
@@ -396,7 +407,7 @@ public static class GuessManager
             targetBox.name = "ShootButton";
             targetBox.transform.localPosition = new Vector3(-0.95f, 0.03f, -1.31f);
             SpriteRenderer renderer = targetBox.GetComponent<SpriteRenderer>();
-            renderer.sprite = Utils.LoadSprite("TOHE.Resources.Images.Skills.TargetIcon.png", 115f);
+            renderer.sprite = CustomButton.Get("Target");
             PassiveButton button = targetBox.GetComponent<PassiveButton>();
             button.OnClick.RemoveAllListeners();
             button.OnClick.AddListener((Action)(() => GuesserOnClick(pva.TargetPlayerId, __instance)));
@@ -491,7 +502,7 @@ public static class GuessManager
                 }
                 else if (PlayerControl.LocalPlayer.Is(CustomRoles.NiceGuesser))
                 {
-                    if (!Options.GGCanGuessCrew.GetBool() && index == 0) continue;
+                    if (!Options.GGCanGuessCrew.GetBool() && !PlayerControl.LocalPlayer.Is(CustomRoles.Madmate) && index == 0) continue;
                     if (!Options.GGCanGuessAdt.GetBool() && index == 3) continue;
                 }
                 else if (PlayerControl.LocalPlayer.Is(CustomRoles.Guesser))
@@ -594,9 +605,9 @@ public static class GuessManager
             int ind = 0;
             foreach (CustomRoles role in Enum.GetValues(typeof(CustomRoles)))
             {
-                if (role.IsVanilla() ||
-                    role is CustomRoles.GM or CustomRoles.NotAssigned or CustomRoles.KB_Normal or CustomRoles.SuperStar
-                    ) continue;
+                if (!Options.GGCanGuessVanilla.GetBool() && PlayerControl.LocalPlayer.Is(CustomRoles.NiceGuesser) && role.IsVanilla()) continue;
+                if (!Options.EGCanGuessVanilla.GetBool() && PlayerControl.LocalPlayer.Is(CustomRoles.EvilGuesser) && role.IsVanilla()) continue;
+                if (role is CustomRoles.GM or CustomRoles.NotAssigned or CustomRoles.KB_Normal or CustomRoles.SuperStar or CustomRoles.GuardianAngel) continue;
                 CreateRole(role);
             }
             void CreateRole(CustomRoles role)

@@ -33,9 +33,8 @@ public class Main : BasePlugin
     public static ConfigEntry<string> DebugKeyInput { get; private set; }
     public static readonly string MainMenuText = "With help from SolarFlare";
     public const string PluginGuid = "com.karped1em.townofhostedited";
-    public const string PluginVersion = "2.3.4";
+    public const string PluginVersion = "2.3.5";
     public const int PluginCreate = 5;
-    public const bool Canary = false;
 
     public static readonly bool ShowQQButton = true;
     public static readonly string QQInviteUrl = "https://jq.qq.com/?_wv=1027&k=2RpigaN6";
@@ -54,14 +53,16 @@ public class Main : BasePlugin
     //Client Options
     public static ConfigEntry<string> HideName { get; private set; }
     public static ConfigEntry<string> HideColor { get; private set; }
+    public static ConfigEntry<int> MessageWait { get; private set; }
     public static ConfigEntry<bool> UnlockFPS { get; private set; }
     public static ConfigEntry<bool> AutoStart { get; private set; }
     public static ConfigEntry<bool> ForceOwnLanguage { get; private set; }
     public static ConfigEntry<bool> ForceOwnLanguageRoleName { get; private set; }
+    public static ConfigEntry<bool> EnableCustomButton { get; private set; }
+    public static ConfigEntry<bool> EnableCustomSoundEffect { get; private set; }
     public static ConfigEntry<bool> SwitchVanilla { get; private set; }
     public static ConfigEntry<bool> VersionCheat { get; private set; }
     public static ConfigEntry<bool> GodMode { get; private set; }
-    public static ConfigEntry<int> MessageWait { get; private set; }
 
     public static Dictionary<byte, PlayerVersion> playerVersion = new();
     //Preset Name Options
@@ -164,6 +165,7 @@ public class Main : BasePlugin
     public static int MadmateNum = 0;
     public static int BardCreations = 0;
     public static Dictionary<byte, byte> Provoked = new();
+    public static Dictionary<byte, int> DovesOfNeaceNumOfUsed = new();
 
     public static Dictionary<byte, CustomRoles> DevRole = new();
 
@@ -190,6 +192,8 @@ public class Main : BasePlugin
         //Client Options
         HideName = Config.Bind("Client Options", "Hide Game Code Name", "TOHE");
         HideColor = Config.Bind("Client Options", "Hide Game Code Color", $"{ModColor}");
+        DebugKeyInput = Config.Bind("Authentication", "Debug Key", "");
+        UnlockFPS = Config.Bind("Client Options", "UnlockFPS", false);
         AutoStart = Config.Bind("Client Options", "AutoStart", false);
         UnlockFPS = Config.Bind("Client Options", "UnlockFPS", false);
         SwitchVanilla = Config.Bind("Client Options", "SwitchVanilla", false);
@@ -244,17 +248,6 @@ public class Main : BasePlugin
         LastKillCooldown = Config.Bind("Other", "LastKillCooldown", (float)30);
         LastShapeshifterCooldown = Config.Bind("Other", "LastShapeshifterCooldown", (float)30);
 
-        CustomWinnerHolder.Reset();
-        ServerAddManager.Init();
-        Translator.Init();
-        BanManager.Init();
-        TemplateManager.Init();
-        SpamManager.Init();
-        DevManager.Init();
-        Cloud.Init();
-
-        IRandom.SetInstance(new NetRandomWrapper());
-
         hasArgumentException = false;
         ExceptionMessage = "";
         try
@@ -301,6 +294,7 @@ public class Main : BasePlugin
                 {CustomRoles.Mediumshiper, "#a200ff"},
                 {CustomRoles.Observer, "#a8e0fa"},
                 {CustomRoles.Undercover, "#227518"},
+                {CustomRoles.DovesOfNeace, "#FFFFFF" },
                 //第三陣営役職
                 {CustomRoles.Arsonist, "#ff6633"},
                 {CustomRoles.Jester, "#ec62a5"},
@@ -356,7 +350,7 @@ public class Main : BasePlugin
                 {CustomRoles.Guesser, "#FFFF00"},
                 {CustomRoles.Necroview, "#663399"},
                 {CustomRoles.Reach, "#74ba43"},
-                {CustomRoles.Charmed, "#cf6acd"},
+                {CustomRoles.Charmed, "#ff00ff"},
                 {CustomRoles.Bait, "#00f7ff"},
                 {CustomRoles.Trapper, "#5a8fd0"},
                 {CustomRoles.Doctor, "#80ffdd"},
@@ -383,6 +377,18 @@ public class Main : BasePlugin
             ExceptionMessage = ex.Message;
             ExceptionMessageIsShown = false;
         }
+
+        CustomWinnerHolder.Reset();
+        ServerAddManager.Init();
+        Translator.Init();
+        BanManager.Init();
+        TemplateManager.Init();
+        SpamManager.Init();
+        DevManager.Init();
+        Cloud.Init();
+
+        IRandom.SetInstance(new NetRandomWrapper());
+
         TOHE.Logger.Info($"{Application.version}", "AmongUs Version");
 
         var handler = TOHE.Logger.Handler("GitVersion");
@@ -494,6 +500,7 @@ public enum CustomRoles
     Observer,
     Undercover,
     HexMaster,
+    DovesOfNeace,
     //Neutral
     Arsonist,
     Jester,

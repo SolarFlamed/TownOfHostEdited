@@ -101,7 +101,7 @@ internal class ChatCommands
                     subArgs = args.Length < 2 ? "" : args[1];
                     Utils.SendMessage(string.Format(GetString("Message.SetLevel"), subArgs), PlayerControl.LocalPlayer.PlayerId);
                     int.TryParse(subArgs, out int input);
-                    if (input is < 1 or > 100)
+                    if (input is < 1 or > 999)
                     {
                         Utils.SendMessage(GetString("Message.AllowLevelRange"), PlayerControl.LocalPlayer.PlayerId);
                         break;
@@ -514,42 +514,32 @@ internal class ChatCommands
             "嗜血騎士" or "血骑" or "骑士" or "bk" => GetString("BloodKnight"),
             "賭徒" => GetString("Totocalcio"),
             "持槍" or "持械" or "手长" => GetString("Reach"),
+            "和平之鸽" or "和平之鴿" or "和平的鸽子" or "和平" or "鸽子" => GetString("DovesOfNeace"),
             _ => text,
         };
     }
 
-    public static bool GetRoleByName(string name, out CustomRoles role)
+    public static bool GetRoleByInputName(string input, out CustomRoles output, bool includeVanilla = false)
     {
-        role = new();
-        if (name == "" || name == string.Empty) return false;
-
-        if ((TranslationController.InstanceExists ? TranslationController.Instance.currentLanguage.languageID : SupportedLangs.SChinese) == SupportedLangs.SChinese)
+        output = new();
+        input = Regex.Replace(input, @"[0-9]+", string.Empty);
+        input = Regex.Replace(input, @"\s", string.Empty);
+        input = Regex.Replace(input, @"[\x01-\x1F,\x7F]", string.Empty);
+        input = input.ToLower().Trim().Replace("是", string.Empty);
+        if (input == "" || input == string.Empty) return false;
+        input = FixRoleNameInput(input).ToLower();
+        foreach (CustomRoles role in Enum.GetValues(typeof(CustomRoles)))
         {
-            Regex r = new("[\u4e00-\u9fa5]+$");
-            MatchCollection mc = r.Matches(name);
-            string result = string.Empty;
-            for (int i = 0; i < mc.Count; i++)
+            if (!includeVanilla && role.IsVanilla() && role != CustomRoles.GuardianAngel) continue;
+            if (input == GetString(Enum.GetName(typeof(CustomRoles), role)).TrimStart('*').ToLower().Trim().Replace(" ", string.Empty).RemoveHtmlTags())
             {
-                if (mc[i].ToString() == "是") continue;
-                result += mc[i]; //匹配结果是完整的数字，此处可以不做拼接的
-            }
-            name = FixRoleNameInput(result.Replace("是", string.Empty).Trim());
-        }
-        else name = name.Trim().ToLower();
-
-        foreach (CustomRoles rl in Enum.GetValues(typeof(CustomRoles)))
-        {
-            if (rl.IsVanilla()) continue;
-            var roleName = GetString(rl.ToString()).ToLower().Trim();
-            if (name.Contains(roleName))
-            {
-                role = rl;
+                output = role;
                 return true;
             }
         }
         return false;
     }
-    public static void SendRolesInfo(string role, byte playerId, bool isDev = false, bool isUp = false)
+    public static void SendRolesInfo(string input, byte playerId, bool isDev = false, bool isUp = false)
     {
         if (Options.CurrentGameMode == CustomGameMode.SoloKombat)
         {
@@ -557,58 +547,50 @@ internal class ChatCommands
             return;
         }
 
-        role = role.Trim().ToLower();
-        if (role.StartsWith("/r")) role.Replace("/r", string.Empty);
-        if (role.StartsWith("/up")) role.Replace("/up", string.Empty);
-        if (role.EndsWith("\r\n")) role.Replace("\r\n", string.Empty);
-        if (role.EndsWith("\n")) role.Replace("\n", string.Empty);
-
-        if (role == "" || role == string.Empty)
+        if (input.Trim() == "" || input.Trim() == string.Empty)
         {
             Utils.ShowActiveRoles(playerId);
             return;
         }
-        role = FixRoleNameInput(role).ToLower().Trim().Replace(" ", string.Empty);
 
-        foreach (CustomRoles rl in Enum.GetValues(typeof(CustomRoles)))
+        if (!GetRoleByInputName(input, out var role))
         {
-            if (rl.IsVanilla()) continue;
-            var roleName = GetString(rl.ToString());
-            if (role == roleName.ToLower().Trim().TrimStart('*').Replace(" ", string.Empty))
+            if (isUp) Utils.SendMessage(GetString("Message.YTPlanCanNotFindRoleThePlayerEnter"), playerId);
+            else Utils.SendMessage(GetString("Message.CanNotFindRoleThePlayerEnter"), playerId);
+            return;
+        }
+
+        var sb = new StringBuilder();
+        string roleName = GetString(Enum.GetName(typeof(CustomRoles), role));
+        sb.Append(roleName + Utils.GetRoleMode(role) + GetString($"{role}InfoLong"));
+        if (Options.CustomRoleSpawnChances.ContainsKey(role))
+        {
+            Utils.ShowChildrenSettings(Options.CustomRoleSpawnChances[role], ref sb, command: true);
+            var txt = sb.ToString();
+            sb.Clear().Append(txt.RemoveHtmlTags());
+        }
+
+        bool canSpecify = false;
+        if ((isDev || isUp) && GameStates.IsLobby)
+        {
+            canSpecify = true;
+            if (role.IsAdditionRole() || role.IsVanilla() || role is CustomRoles.GM or CustomRoles.NotAssigned or CustomRoles.KB_Normal || !Options.CustomRoleSpawnChances.ContainsKey(role)) canSpecify = false;
+            if (role.GetCount() < 1 || role.GetMode() == 0) canSpecify = false;
+            if (canSpecify)
             {
-                string devMark = "";
-                if ((isDev || isUp) && GameStates.IsLobby)
-                {
-                    devMark = "▲";
-                    if (CustomRolesHelper.IsAdditionRole(rl) || rl is CustomRoles.GM) devMark = "";
-                    if (rl.GetCount() < 1 || rl.GetMode() == 0) devMark = "";
-                    if (isUp)
-                    {
-                        //if (devMark == "▲") Utils.SendMessage(string.Format(GetString("Message.YTPlanSelected"), roleName), playerId);
-                        //else Utils.SendMessage(string.Format(GetString("Message.YTPlanSelectFailed"), roleName), playerId);
-                    }
-                    if (devMark == "▲")
-                    {
-                        byte pid = playerId == 255 ? (byte)0 : playerId;
-                        Main.DevRole.Remove(pid);
-                        Main.DevRole.Add(pid, rl);
-                    }
-                    if (isUp) return;
-                }
-                var sb = new StringBuilder();
-                sb.Append(devMark + roleName + Utils.GetRoleMode(rl) + GetString($"{rl}InfoLong"));
-                if (Options.CustomRoleSpawnChances.ContainsKey(rl))
-                {
-                    Utils.ShowChildrenSettings(Options.CustomRoleSpawnChances[rl], ref sb, command: true);
-                    var txt = sb.ToString();
-                    sb.Clear().Append(txt.RemoveHtmlTags());
-                }
-                Utils.SendMessage(sb.ToString(), playerId);
+                byte pid = playerId == byte.MaxValue ? byte.MinValue : playerId;
+                Main.DevRole.Remove(pid);
+                Main.DevRole.Add(pid, role);
+            }
+            if (isUp)
+            {
+                if (canSpecify) Utils.SendMessage(string.Format(GetString("Message.YTPlanSelected"), roleName), playerId);
+                else Utils.SendMessage(string.Format(GetString("Message.YTPlanSelectFailed"), roleName), playerId);
                 return;
             }
         }
-        if (isUp) Utils.SendMessage(GetString("Message.YTPlanCanNotFindRoleThePlayerEnter"), playerId);
-        else Utils.SendMessage(GetString("Message.CanNotFindRoleThePlayerEnter"), playerId);
+
+        Utils.SendMessage((canSpecify ? "▲" : "") + sb.ToString(), playerId);
         return;
     }
     public static void OnReceiveChat(PlayerControl player, string text, out bool canceled)
