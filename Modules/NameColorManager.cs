@@ -35,8 +35,8 @@ public static class NameColorManager
         if (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Madmate) && Options.ImpKnowWhosMadmate.GetBool()) color = Main.roleColors[CustomRoles.Madmate];
         if (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosMadmate.GetBool()) color = Main.roleColors[CustomRoles.Madmate];
         if (seer.Is(CustomRoles.Gangster) && target.Is(CustomRoles.Madmate) && Options.ImpTeamKnowRoles.GetBool()) color = Main.roleColors[CustomRoles.Madmate];
-        if (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Undercover)) color = Main.roleColors[CustomRoles.Impostor];
-        if (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoles.Undercover)) color = Main.roleColors[CustomRoles.Impostor];
+        //if (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Undercover)) color = Main.roleColors[CustomRoles.Impostor];
+        //if (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoles.Undercover)) color = Main.roleColors[CustomRoles.Impostor];
 
         //��ħС�ܻ���
         if (seer.Is(CustomRoles.Charmed) && target.Is(CustomRoles.Succubus)) color = Main.roleColors[CustomRoles.Succubus];
@@ -44,10 +44,11 @@ public static class NameColorManager
         if (seer.Is(CustomRoles.Charmed) && target.Is(CustomRoles.Charmed) && Succubus.TargetKnowOtherTarget.GetBool()) color = Main.roleColors[CustomRoles.Charmed];
 
         //Jackal - Sidekick - Undercover
-        if (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Sidekick)) color = Main.roleColors[CustomRoles.Jackal];
-        if (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Undercover) && Options.UndercoverDisguiseSidekick.GetBool()) color = Main.roleColors[CustomRoles.Jackal];
-        if (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Undercover) && Options.UndercoverDisguiseSidekick.GetBool() && Options.JackalTeamKnowRoles.GetBool()) color = Main.roleColors[CustomRoles.Jackal];
-        if (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Sidekick) && Options.JackalTeamKnowRoles.GetBool()) color = Main.roleColors[CustomRoles.Jackal];
+
+        //if (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Sidekick)) color = Main.roleColors[CustomRoles.Jackal];
+        //if (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Undercover) && Options.UndercoverDisguiseSidekick.GetBool()) color = Main.roleColors[CustomRoles.Jackal];
+        //if (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Undercover) && Options.UndercoverDisguiseSidekick.GetBool() && Options.JackalTeamKnowRoles.GetBool()) color = Main.roleColors[CustomRoles.Jackal];
+        //if (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Sidekick) && Options.JackalTeamKnowRoles.GetBool()) color = Main.roleColors[CustomRoles.Jackal];
 
         if (color != "") return true;
         else return seer == target
@@ -62,8 +63,10 @@ public static class NameColorManager
             || (target.Is(CustomRoles.SuperStar) && Options.EveryOneKnowSuperStar.GetBool())
             || (target.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool())
             || Mare.KnowTargetRoleColor(target, isMeeting)
-            || (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Undercover))
-            || (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoles.Undercover))
+            //|| (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Undercover))
+            //|| (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoles.Undercover))
+            //|| (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Undercover) && Options.JackalTeamKnowRoles.GetBool())
+            //|| (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Undercover) && Options.JackalTeamKnowRoles.GetBool())
             || (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoleTypes.Impostor) && Options.MadmateKnowWhosImp.GetBool())
             || (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Madmate) && Options.ImpKnowWhosMadmate.GetBool())
             || (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosMadmate.GetBool())

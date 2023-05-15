@@ -157,12 +157,6 @@ public static class Witch
     }
     public static bool OnCheckMurder(PlayerControl killer, PlayerControl target)
     {
-        //禁止内鬼刀叛徒
-        if (target.Is(CustomRoles.Madmate) && !ImpCanKillMadmate.GetBool())
-            return false;
-        //Hangman - Undercover check
-        if (target.Is(CustomRoles.Undercover) && !ImpCanKillUndercover.GetBool())
-            return false;
             
         if (NowSwitchTrigger == SwitchTrigger.DoubleTrigger)
         {

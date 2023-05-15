@@ -1248,7 +1248,7 @@ public static class Utils
                 if (Options.CurrentGameMode == CustomGameMode.SoloKombat)
                     TargetRoleText = $"<size={fontSize}>{GetProgressText(target)}</size>\r\n";
 
-                if (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Undercover) && Options.ImpKnowAlliesRole.GetBool() && Options.UndercoverDisguiseRandom.GetBool())
+                /*if (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Undercover) && Options.ImpKnowAlliesRole.GetBool() && Options.UndercoverDisguiseRandom.GetBool())
                 {
                     List<string> fakeRole = new List<string>();
                     //Fake imp
@@ -1348,7 +1348,7 @@ public static class Utils
                     int aRandomPos = randNum.Next(fakeRole.Count);
                     string fakeRoleName = fakeRole[aRandomPos];
                     TargetRoleText = Options.AddBracketsToAddons.GetBool() ? $"<size={fontSize}>{GetString("PrefixB.Sidekick")} {fakeRoleName}</size>\r\n" : $"<size={fontSize}>{GetString("Prefix.Sidekick")} {fakeRoleName}</size>\r\n";
-                }
+                }*/
 
                     if (seer.Is(CustomRoles.EvilTracker))
                     {

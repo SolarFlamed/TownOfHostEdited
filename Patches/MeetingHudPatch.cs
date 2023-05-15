@@ -665,7 +665,7 @@ class MeetingHudStartPatch
                 roleTextMeeting.enabled = true;
             }
             else if (Lawyer.IsWatchTargetRole(PlayerControl.LocalPlayer, pc)) roleTextMeeting.enabled = true;
-            else if (pc.Is(CustomRoles.Undercover) && PlayerControl.LocalPlayer.Is(CustomRoleTypes.Impostor) && Options.ImpKnowAlliesRole.GetBool() && Options.UndercoverDisguiseRandom.GetBool())
+            /*else if (pc.Is(CustomRoles.Undercover) && PlayerControl.LocalPlayer.Is(CustomRoleTypes.Impostor) && Options.ImpKnowAlliesRole.GetBool() && Options.UndercoverDisguiseRandom.GetBool())
                 {
                     List<string> fakeRole = new List<string>();
                     //Fake imp
@@ -766,7 +766,7 @@ class MeetingHudStartPatch
                     string fakeRoleName = fakeRole[aRandomPos];
                     roleTextMeeting.text = Options.AddBracketsToAddons.GetBool() ? $"{GetString("PrefixB.Sidekick")} {fakeRoleName}\r\n" : $"{GetString("Prefix.Sidekick")} {fakeRoleName}\r\n" ;
                     roleTextMeeting.enabled = true;
-                }
+                }*/
         }
 
         if (Options.SyncButtonMode.GetBool())

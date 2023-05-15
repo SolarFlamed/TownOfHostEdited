@@ -1508,8 +1508,8 @@ class FixedUpdatePatch
                 {  
                     if (target.Is(CustomRoles.Sidekick)) //targetがタスクを終わらせたマッドスニッチ
                         Mark.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥")); //targetにマーク付与
-                    if (target.Is(CustomRoles.Undercover) && Options.UndercoverDisguiseSidekick.GetBool())
-                        Mark.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥"));
+                    //if (target.Is(CustomRoles.Undercover) && Options.UndercoverDisguiseSidekick.GetBool())
+                    //    Mark.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥"));
                     if (target.Is(CustomRoles.Sidekick) && Options.SidekickKnowOtherSidekick.GetBool()) //targetがタスクを終わらせたマッドスニッチ
                         Mark.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥")); //targetにマーク付与
                 }  
