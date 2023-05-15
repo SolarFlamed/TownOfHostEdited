@@ -88,6 +88,7 @@ public static class Divinator
                 CustomRoles.Jackal or
             //    CustomRoles.Sidekick or
                 CustomRoles.Mario or
+                CustomRoles.Trickster or
                 CustomRoles.Cleaner or
                 CustomRoles.Crewpostor
                 => "Honest",
@@ -130,7 +131,6 @@ public static class Divinator
                 CustomRoles.Warlock or
                 CustomRoles.Hacker or
                 CustomRoles.Mafia or
-                CustomRoles.Doctor or
                 CustomRoles.ScientistTOHE or
                 CustomRoles.Transporter or
                 CustomRoles.Veteran or
@@ -145,6 +145,7 @@ public static class Divinator
                 CustomRoles.Witch or
                 CustomRoles.Puppeteer or
                 CustomRoles.NWitch or
+                CustomRoles.HexMaster or
                 CustomRoles.ShapeMaster or
                 CustomRoles.ShapeshifterTOHE or
                 CustomRoles.Paranoia or

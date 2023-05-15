@@ -139,16 +139,22 @@ class BeginCrewmatePatch
                 __instance.TeamTitle.text = GetString("TeamImpostor");
                 __instance.TeamTitle.color = __instance.BackgroundBar.material.color = new Color32(255, 25, 25, byte.MaxValue);
                 PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Impostor);
+                __instance.ImpostorText.gameObject.SetActive(true);
+                __instance.ImpostorText.text = GetString("SubText.Impostor");
                 break;
             case CustomRoleTypes.Crewmate:
                 __instance.TeamTitle.text = GetString("TeamCrewmate");
                 __instance.TeamTitle.color = __instance.BackgroundBar.material.color = new Color32(140, 255, 255, byte.MaxValue);
                 PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Crewmate);
+                __instance.ImpostorText.gameObject.SetActive(true);
+                __instance.ImpostorText.text = GetString("SubText.Crewmate");
                 break;
             case CustomRoleTypes.Neutral:
                 __instance.TeamTitle.text = GetString("TeamNeutral");
                 __instance.TeamTitle.color = __instance.BackgroundBar.material.color = new Color32(255, 171, 27, byte.MaxValue);
                 PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Shapeshifter);
+                __instance.ImpostorText.gameObject.SetActive(true);
+                __instance.ImpostorText.text = GetString("SubText.Neutral");
                 break;
         }
         switch (role)
@@ -174,7 +180,7 @@ class BeginCrewmatePatch
                 PlayerControl.LocalPlayer.Data.Role.IntroSound = ShipStatus.Instance.SabotageSound;
                 break;
 
-            case CustomRoles.Doctor:
+            //case CustomRoles.Doctor:
             case CustomRoles.Medicaler:
                 PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Scientist);
                 break;

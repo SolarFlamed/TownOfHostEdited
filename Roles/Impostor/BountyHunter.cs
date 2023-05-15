@@ -150,7 +150,7 @@ public static class BountyHunter
         Logger.Info($"{player.GetNameWithRole()}:ターゲットリセット", "BountyHunter");
         player.RpcResetAbilityCooldown(); ;//タイマー（変身クールダウン）のリセットと
 
-        var cTargets = new List<PlayerControl>(Main.AllAlivePlayerControls.Where(pc => !pc.Is(CustomRoleTypes.Impostor)));
+        var cTargets = new List<PlayerControl>(Main.AllAlivePlayerControls.Where(pc => (!pc.Is(CustomRoleTypes.Impostor) && !pc.Is(CustomRoles.Undercover))));
 
         if (cTargets.Count() >= 2 && Targets.TryGetValue(player.PlayerId, out var nowTarget))
             cTargets.RemoveAll(x => x.PlayerId == nowTarget); //前回のターゲットは除外

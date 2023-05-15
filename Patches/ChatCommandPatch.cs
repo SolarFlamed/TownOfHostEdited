@@ -228,7 +228,7 @@ internal class ChatCommands
                 case "/s":
                     canceled = true;
                     if (args.Length > 1)
-                        Utils.SendMessage(args.Skip(1).Join(delimiter: " "), title: $"<color=#ff0000>{GetString("MessageFromTheHost")}</color>");
+                        Utils.SendMessage(args.Skip(1).Join(delimiter: " "), title: $"<color=#ff4ddd>{GetString("MessageFromTheHost")}</color>");
                     break;
 
                 case "/exe":

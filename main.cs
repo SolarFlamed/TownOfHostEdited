@@ -31,7 +31,7 @@ public class Main : BasePlugin
     public const string DebugKeyHash = "c0fd562955ba56af3ae20d7ec9e64c664f0facecef4b3e366e109306adeae29d";
     public const string DebugKeySalt = "59687b";
     public static ConfigEntry<string> DebugKeyInput { get; private set; }
-    public static readonly string MainMenuText = "哟这不TOHE吗，几天不见Bug又多了？";
+    public static readonly string MainMenuText = "With help from SolarFlare";
     public const string PluginGuid = "com.karped1em.townofhostedited";
     public const string PluginVersion = "2.3.4";
     public const int PluginCreate = 5;
@@ -283,7 +283,6 @@ public class Main : BasePlugin
                 {CustomRoles.SuperStar, "#f6f657"},
                 {CustomRoles.CyberStar, "#ee4a55" },
                 {CustomRoles.SpeedBooster, "#00ffff"},
-                {CustomRoles.Doctor, "#80ffdd"},
                 {CustomRoles.Dictator, "#df9b00"},
                 {CustomRoles.Detective, "#7160e8" },
                 {CustomRoles.SwordsMan, "#f0e68c"},
@@ -301,7 +300,7 @@ public class Main : BasePlugin
                 {CustomRoles.Mortician, "#333c49"},
                 {CustomRoles.Mediumshiper, "#a200ff"},
                 {CustomRoles.Observer, "#a8e0fa"},
-                {CustomRoles.Undercover, "#ff1919"},
+                {CustomRoles.Undercover, "#227518"},
                 //第三陣営役職
                 {CustomRoles.Arsonist, "#ff6633"},
                 {CustomRoles.Jester, "#ec62a5"},
@@ -329,6 +328,7 @@ public class Main : BasePlugin
                 {CustomRoles.NWitch, "#BF5FFF"},
                 {CustomRoles.Totocalcio, "#ff9409"},
                 {CustomRoles.Succubus, "#cf6acd"},
+                {CustomRoles.HexMaster, "#ff00ff"},
                 // GM
                 {CustomRoles.GM, "#ff5b70"},
                 //サブ役職
@@ -359,6 +359,7 @@ public class Main : BasePlugin
                 {CustomRoles.Charmed, "#cf6acd"},
                 {CustomRoles.Bait, "#00f7ff"},
                 {CustomRoles.Trapper, "#5a8fd0"},
+                {CustomRoles.Doctor, "#80ffdd"},
                 //SoloKombat
                 {CustomRoles.KB_Normal, "#f55252"}
             };
@@ -453,6 +454,7 @@ public enum CustomRoles
     Eraser,
     OverKiller,
     Hangman,
+    Trickster,
     Bard,
     Swooper,
     Crewpostor,
@@ -474,7 +476,6 @@ public enum CustomRoles
     Marshall,
     SpeedBooster,
     Dictator,
-    Doctor,
     Detective,
     SwordsMan,
     NiceGuesser,
@@ -492,6 +493,7 @@ public enum CustomRoles
     Mediumshiper,
     Observer,
     Undercover,
+    HexMaster,
     //Neutral
     Arsonist,
     Jester,
@@ -554,6 +556,7 @@ public enum CustomRoles
     Charmed,
     Bait,
     Trapper,
+    Doctor,
 }
 //WinData
 public enum CustomWinner
@@ -571,6 +574,7 @@ public enum CustomWinner
     Arsonist = CustomRoles.Arsonist,
     Revolutionist = CustomRoles.Revolutionist,
     Jackal = CustomRoles.Jackal,
+    Sidekick = CustomRoles.Sidekick,
     God = CustomRoles.God,
     Mario = CustomRoles.Mario,
     Innocent = CustomRoles.Innocent,
@@ -583,6 +587,7 @@ public enum CustomWinner
     Collector = CustomRoles.Collector,
     BloodKnight = CustomRoles.BloodKnight,
     Poisoner = CustomRoles.Poisoner,
+    HexMaster = CustomRoles.HexMaster,
     Succubus = CustomRoles.Succubus,
 }
 public enum AdditionalWinners
@@ -597,6 +602,8 @@ public enum AdditionalWinners
     Sunnyboy = CustomRoles.Sunnyboy,
     Witch = CustomRoles.NWitch,
     Totocalcio = CustomRoles.Totocalcio,
+    Jackal = CustomRoles.Jackal,
+    Sidekick = CustomRoles.Sidekick,
 }
 public enum SuffixModes
 {

@@ -38,6 +38,9 @@ public static class Hangman
         //禁止内鬼刀叛徒
         if (target.Is(CustomRoles.Madmate) && !ImpCanKillMadmate.GetBool())
             return false;
+        //Hangman - Undercover check
+        if (target.Is(CustomRoles.Undercover) && !ImpCanKillUndercover.GetBool())
+            return false;
 
         if (Main.CheckShapeshift.TryGetValue(killer.PlayerId, out var s) && s)
         {

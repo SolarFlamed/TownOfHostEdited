@@ -290,9 +290,7 @@ class CheckForEndVotingPatch
         if (Options.ConfirmEgoistOnEject.GetBool() && player.Is(CustomRoles.Egoist))
             coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Egoist), GetRoleString("Temp.Blank") + coloredRole.RemoveHtmlTags());
         if (Options.ConfirmSidekickOnEject.GetBool() && player.Is(CustomRoles.Sidekick))
-            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Sidekick), GetRoleString("Temp.Blank") + coloredRole.RemoveHtmlTags());
-        if (Options.ConfirmCharmedOnEject.GetBool() && player.Is(CustomRoles.Charmed))
-            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Charmed), GetRoleString("Charmed-") + coloredRole.RemoveHtmlTags());
+            coloredRole = Utils.ColorString(Utils.GetRoleColor(CustomRoles.Sidekick), "Sidekick-" + coloredRole.RemoveHtmlTags());
         var name = "";
         int impnum = 0;
         int neutralnum = 0;
@@ -344,7 +342,7 @@ class CheckForEndVotingPatch
         }
         var DecidedWinner = false;
         //小丑胜利
-   /*     if (crole == CustomRoles.Jester)
+        if (crole == CustomRoles.Jester)
         {
             name = string.Format(GetString("ExiledJester"), realName, coloredRole);
             DecidedWinner = true;
@@ -355,6 +353,12 @@ class CheckForEndVotingPatch
             name = string.Format(GetString("ExiledExeTarget"), realName, coloredRole);
             DecidedWinner = true;
         }
+        //Lawyer
+        if (Lawyer.CheckExileTarget(exiledPlayer, DecidedWinner, false))
+        {
+            name = string.Format(GetString("ExiledLawyerTarget"), realName, coloredRole);
+            DecidedWinner = false;
+        }
         //冤罪师胜利
         if (Main.AllPlayerControls.Any(x => x.Is(CustomRoles.Innocent) && !x.IsAlive() && x.GetRealKiller()?.PlayerId == exileId))
         {
@@ -364,7 +368,7 @@ class CheckForEndVotingPatch
                 else name = string.Format(GetString("ExiledInnocentTargetInOneLine"), realName, coloredRole);
                 DecidedWinner = true;
             }
-        } */
+        } 
 
         if (DecidedWinner) name += "<size=0>";
         if (Options.ShowImpRemainOnEject.GetBool() && !DecidedWinner)
@@ -413,6 +417,7 @@ class CheckForEndVotingPatch
     public static void CheckForDeathOnExile(PlayerState.DeathReason deathReason, params byte[] playerIds)
     {
         Witch.OnCheckForEndVoting(deathReason, playerIds);
+        HexMaster.OnCheckForEndVoting(deathReason, playerIds);
         foreach (var playerId in playerIds)
         {
             //Loversの後追い
@@ -642,11 +647,11 @@ class MeetingHudStartPatch
                 (Main.VisibleTasksCount && PlayerControl.LocalPlayer.Data.IsDead && Options.GhostCanSeeOtherRoles.GetBool()) || //LocalPlayerが死亡していて幽霊が他人の役職を見れるとき
                 (pc.Is(CustomRoles.Lovers) && PlayerControl.LocalPlayer.Is(CustomRoles.Lovers) && Options.LoverKnowRoles.GetBool()) ||
                 (pc.Is(CustomRoleTypes.Impostor) && PlayerControl.LocalPlayer.Is(CustomRoleTypes.Impostor) && Options.ImpKnowAlliesRole.GetBool()) ||
-                (pc.Is(CustomRoleTypes.Impostor) && PlayerControl.LocalPlayer.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosImp.GetBool()) ||
-                (pc.Is(CustomRoles.Madmate) && PlayerControl.LocalPlayer.Is(CustomRoleTypes.Impostor) && Options.ImpKnowWhosMadmate.GetBool()) ||
-                (pc.Is(CustomRoles.Madmate) && PlayerControl.LocalPlayer.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosMadmate.GetBool()) ||
+                (pc.Is(CustomRoleTypes.Impostor) && PlayerControl.LocalPlayer.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosImp.GetBool() && Options.ImpTeamKnowRoles.GetBool()) ||
+                (pc.Is(CustomRoles.Madmate) && PlayerControl.LocalPlayer.Is(CustomRoleTypes.Impostor) && Options.ImpKnowWhosMadmate.GetBool() && Options.ImpTeamKnowRoles.GetBool()) ||
+                (pc.Is(CustomRoles.Madmate) && PlayerControl.LocalPlayer.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosMadmate.GetBool() && Options.ImpTeamKnowRoles.GetBool()) ||
                 (pc.Is(CustomRoles.Jackal) && PlayerControl.LocalPlayer.Is(CustomRoles.Sidekick)) ||
-                (pc.Is(CustomRoles.Sidekick) && PlayerControl.LocalPlayer.Is(CustomRoles.Jackal)) ||
+                (pc.Is(CustomRoles.Sidekick) && PlayerControl.LocalPlayer.Is(CustomRoles.Jackal) && Options.JackalTeamKnowRoles.GetBool()) ||
                 (pc.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool()) ||
                 (pc.Is(CustomRoles.Charmed) && PlayerControl.LocalPlayer.Is(CustomRoles.Charmed) && Succubus.TargetKnowOtherTarget.GetBool()) ||
                 (Totocalcio.KnowRole(PlayerControl.LocalPlayer, pc)) ||
@@ -659,6 +664,109 @@ class MeetingHudStartPatch
                 roleTextMeeting.text = EvilTracker.GetArrowAndLastRoom(PlayerControl.LocalPlayer, pc);
                 roleTextMeeting.enabled = true;
             }
+            else if (Lawyer.IsWatchTargetRole(PlayerControl.LocalPlayer, pc)) roleTextMeeting.enabled = true;
+            else if (pc.Is(CustomRoles.Undercover) && PlayerControl.LocalPlayer.Is(CustomRoleTypes.Impostor) && Options.ImpKnowAlliesRole.GetBool() && Options.UndercoverDisguiseRandom.GetBool())
+                {
+                    List<string> fakeRole = new List<string>();
+                    //Fake imp
+                    fakeRole.Add($"<color=#ff1919>{GetString("BountyHunter")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Mare")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("FireWorks")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("SerialKiller")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("ShapeMaster")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Vampire")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Warlock")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Assassin")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Hacker")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Miner")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Escapee")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Witch")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Puppeteer")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("TimeThief")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Sniper")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("AntiAdminer")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Sans")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Scavenger")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Cleaner")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Greedier")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Wildling")}</color>");
+
+                    System.Random randNum = new System.Random();
+                    int aRandomPos = randNum.Next(fakeRole.Count);
+                    string fakeRoleName = fakeRole[aRandomPos];
+                    roleTextMeeting.text = $"{fakeRoleName}\r\n";
+                    roleTextMeeting.enabled = true;
+                }
+                else if (pc.Is(CustomRoles.Undercover) && (PlayerControl.LocalPlayer.Is(CustomRoles.Madmate) || PlayerControl.LocalPlayer.Is(CustomRoleTypes.Impostor)) && Options.ImpTeamKnowRoles.GetBool() && Options.UndercoverDisguiseRandom.GetBool())
+                {
+                    List<string> fakeRole = new List<string>();
+                    //Fake imp
+                    fakeRole.Add($"<color=#ff1919>{GetString("BountyHunter")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Mare")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("FireWorks")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("SerialKiller")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("ShapeMaster")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Vampire")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Warlock")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Assassin")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Hacker")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Miner")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Escapee")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Witch")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Puppeteer")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("TimeThief")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Sniper")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("AntiAdminer")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Sans")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Scavenger")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Cleaner")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Greedier")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Wildling")}</color>");
+                    //Fake madmate
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Luckey")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("SwordsMan")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Paranoia")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Psychic")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("SabotageMaster")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Marshall")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Dictator")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Detective")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Transporter")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Veteran")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Bodyguard")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Grenadier")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Mortician")}</color> {Utils.GetProgressText(pc)}");
+
+                    System.Random randNum = new System.Random();
+                    int aRandomPos = randNum.Next(fakeRole.Count);
+                    string fakeRoleName = fakeRole[aRandomPos];
+                    roleTextMeeting.text = $"{fakeRoleName}\r\n";
+                    roleTextMeeting.enabled = true;
+                }
+                else if (pc.Is(CustomRoles.Undercover) && (PlayerControl.LocalPlayer.Is(CustomRoles.Sidekick) || PlayerControl.LocalPlayer.Is(CustomRoles.Jackal)) && Options.JackalTeamKnowRoles.GetBool() && Options.UndercoverDisguiseRandom.GetBool())
+                {
+                    List<string> fakeRole = new List<string>();
+                    //Fake sidekick - crewmate
+                    fakeRole.Add($"<color=#b8d7a3>{GetString("Luckey")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#f0e68c>{GetString("SwordsMan")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#c993f5>{GetString("Paranoia")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#6F698C>{GetString("Psychic")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#3333ff>{GetString("SabotageMaster")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#1E90FF>{GetString("Marshall")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#df9b00>{GetString("Dictator")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#7160e8>{GetString("Detective")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#42D1FF>{GetString("Transporter")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#a77738>{GetString("Veteran")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#185abd>{GetString("Bodyguard")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#3c4a16>{GetString("Grenadier")}</color> {Utils.GetProgressText(pc)}");
+                    fakeRole.Add($"<color=#333c49>{GetString("Mortician")}</color> {Utils.GetProgressText(pc)}");
+
+                    System.Random randNum = new System.Random();
+                    int aRandomPos = randNum.Next(fakeRole.Count);
+                    string fakeRoleName = fakeRole[aRandomPos];
+                    roleTextMeeting.text = Options.AddBracketsToAddons.GetBool() ? $"{GetString("PrefixB.Sidekick")} {fakeRoleName}\r\n" : $"{GetString("Prefix.Sidekick")} {fakeRoleName}\r\n" ;
+                    roleTextMeeting.enabled = true;
+                }
         }
 
         if (Options.SyncButtonMode.GetBool())
@@ -757,7 +865,7 @@ class MeetingHudStartPatch
                 case CustomRoles.Jackal:
                     if (target.Is(CustomRoles.Sidekick))
                     sb.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥")); //変更対象にSnitchマークをつける
-                    if (target.Is(CustomRoles.Undercover) && Options.UndercoverDisguiseSidekick.GetBool())
+                    else if (target.Is(CustomRoles.Undercover) && Options.UndercoverDisguiseSidekick.GetBool())
                     sb.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥"));
                     sb.Append(Snitch.GetWarningMark(seer, target));
                     break;
@@ -812,6 +920,18 @@ class MeetingHudStartPatch
                             isLover = true;
                         }
                         break;
+                    case CustomRoles.Sidekick:
+                        if (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Sidekick) && Options.SidekickKnowOtherSidekick.GetBool())
+                        {
+                            sb.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥")); //変更対象にSnitchマークをつける
+                            sb.Append(Snitch.GetWarningMark(seer, target));
+                        }
+                        else if (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Undercover) && Options.SidekickKnowOtherSidekick.GetBool())
+                        {
+                            sb.Append(Utils.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " ♥")); //変更対象にSnitchマークをつける
+                            sb.Append(Snitch.GetWarningMark(seer, target));
+                        }
+                    break;
                 }
             }
 
@@ -823,6 +943,7 @@ class MeetingHudStartPatch
 
             //呪われている場合
             sb.Append(Witch.GetSpelledMark(target.PlayerId, true));
+            sb.Append(HexMaster.GetHexedMark(target.PlayerId, true));
 
             //如果是大明星
             if (target.Is(CustomRoles.SuperStar) && Options.EveryOneKnowSuperStar.GetBool())

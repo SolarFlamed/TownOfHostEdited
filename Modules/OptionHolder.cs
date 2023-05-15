@@ -121,7 +121,6 @@ public static class Options
     public static OptionItem ShowTeamNextToRoleNameOnEject;
     public static OptionItem ConfirmEgoistOnEject;
     public static OptionItem ConfirmSidekickOnEject;
-    public static OptionItem ConfirmCharmedOnEject;
     public static OptionItem CheatResponses;
     public static OptionItem LowLoadMode;
 
@@ -138,14 +137,19 @@ public static class Options
     public static OptionItem ImpKnowWhosMadmate;
     public static OptionItem MadmateKnowWhosImp;
     public static OptionItem MadmateKnowWhosMadmate;
+    public static OptionItem ImpTeamKnowRoles;
     public static OptionItem ImpCanKillMadmate;
     public static OptionItem MadmateCanKillImp;
     public static OptionItem JackalCanKillSidekick;
     public static OptionItem SidekickCanKillJackal;
+    public static OptionItem SidekickKnowOtherSidekick;
+    public static OptionItem JackalWinWithSidekick;
+    public static OptionItem JackalTeamKnowRoles;
     public static OptionItem ImpCanKillUndercover;
     public static OptionItem JackalCanKillUndercover;
     public static OptionItem UndercoverHasImpostorVision;
     public static OptionItem UndercoverDisguiseSidekick;
+    public static OptionItem UndercoverDisguiseRandom;
     public static OptionItem ShapeMasterShapeshiftDuration;
     public static OptionItem EGCanGuessImp;
     public static OptionItem EGCanGuessAdt;
@@ -167,7 +171,6 @@ public static class Options
     public static OptionItem MayorHasPortableButton;
     public static OptionItem MayorNumOfUseButton;
     public static OptionItem MayorHideVote;
-    public static OptionItem DoctorTaskCompletedBatteryCharge;
     public static OptionItem SpeedBoosterUpSpeed;
     public static OptionItem SpeedBoosterTimes;
     public static OptionItem GlitchCanVote;
@@ -556,6 +559,10 @@ public static class Options
             .SetGameMode(CustomGameMode.Standard);
         MadmateCanKillImp = BooleanOptionItem.Create(900050, "MadmateCanKillImp", true, TabGroup.ImpostorRoles, false)
             .SetGameMode(CustomGameMode.Standard);
+            
+        ImpTeamKnowRoles = BooleanOptionItem.Create(900056, "ImpTeamKnowRoles", false, TabGroup.ImpostorRoles, false)
+            .SetHeader(true)
+            .SetGameMode(CustomGameMode.Standard);
 
         DefaultShapeshiftCooldown = FloatOptionItem.Create(5011, "DefaultShapeshiftCooldown", new(5f, 999f, 5f), 15f, TabGroup.ImpostorRoles, false)
             .SetGameMode(CustomGameMode.Standard)
@@ -681,9 +688,6 @@ public static class Options
             .SetValueFormat(OptionFormat.Seconds);
         Psychic.SetupCustomOption();
         Snitch.SetupCustomOption();
-        SetupRoleOptions(20700, TabGroup.CrewmateRoles, CustomRoles.Doctor);
-        DoctorTaskCompletedBatteryCharge = FloatOptionItem.Create(20710, "DoctorTaskCompletedBatteryCharge", new(0f, 10f, 1f), 5f, TabGroup.CrewmateRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Doctor])
-            .SetValueFormat(OptionFormat.Seconds);
         SetupRoleOptions(20900, TabGroup.CrewmateRoles, CustomRoles.Dictator);
         SetupRoleOptions(8021015, TabGroup.CrewmateRoles, CustomRoles.Detective);
         DetectiveCanknowKiller = BooleanOptionItem.Create(8021017, "DetectiveCanknowKiller", true, TabGroup.CrewmateRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Detective]);
@@ -900,15 +904,13 @@ public static class Options
                     ConfirmSidekickOnEject = BooleanOptionItem.Create(6090124, "ConfirmSidekickOnEject", true, TabGroup.ExclusiveRoles, false)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(255, 238, 232, byte.MaxValue));
-                    ConfirmCharmedOnEject = BooleanOptionItem.Create(6090126, "ConfirmCharmedOnEject", true, TabGroup.ExclusiveRoles, false)
-            .SetGameMode(CustomGameMode.Standard)
-            .SetColor(new Color32(255, 238, 232, byte.MaxValue));
         //Impostors
         TextOptionItem.Create(120015, "OtherRoles.ImpostorRoles", TabGroup.ExclusiveRoles)
             .SetGameMode(CustomGameMode.Standard)
             .SetColor(new Color32(247, 70, 49, byte.MaxValue));
         SetupRoleOptions(120000, TabGroup.ExclusiveRoles, CustomRoles.ShapeshifterTOHE);
         Wildling.SetupCustomOption();
+        SetupRoleOptions(150000, TabGroup.ExclusiveRoles, CustomRoles.Trickster);
         //Crewmate
         TextOptionItem.Create(120020, "OtherRoles.CrewmateRoles", TabGroup.ExclusiveRoles)
             .SetGameMode(CustomGameMode.Standard)
@@ -922,6 +924,7 @@ public static class Options
         ImpCanKillUndercover = BooleanOptionItem.Create(8021630, "ImpCanKillUndercover", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Undercover]);
         JackalCanKillUndercover = BooleanOptionItem.Create(8021660, "JackalCanKillUndercover", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Undercover]);
         UndercoverDisguiseSidekick = BooleanOptionItem.Create(8021650, "UndercoverDisguiseSidekick", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Undercover]);
+        UndercoverDisguiseRandom = BooleanOptionItem.Create(8021670, "UndercoverDisguiseRandom", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Undercover]);
         //Neutral
         TextOptionItem.Create(120030, "OtherRoles.NeutralRoles", TabGroup.ExclusiveRoles)
             .SetGameMode(CustomGameMode.Standard)
@@ -931,6 +934,7 @@ public static class Options
         ControlCooldown = FloatOptionItem.Create(6050532, "ControlCooldown", new(0f, 999f, 2.5f), 30f, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.NWitch])
             .SetValueFormat(OptionFormat.Seconds);
         Lawyer.SetupCustomOption();
+        HexMaster.SetupCustomOption();
         //Addons
         TextOptionItem.Create(120025, "OtherRoles.Addons", TabGroup.ExclusiveRoles)
             .SetGameMode(CustomGameMode.Standard)
@@ -947,6 +951,8 @@ public static class Options
         NeutralCanBeSidekick = BooleanOptionItem.Create(6050515, "NeutralsCanBeSidekick", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
         ImpostorCanBeSidekick = BooleanOptionItem.Create(6050540, "ImpostorsCanBeSidekick", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
         SidekickCanKillJackal = BooleanOptionItem.Create(6050520, "SidekickCanKillJackal", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
+        JackalWinWithSidekick = BooleanOptionItem.Create(6050580, "JackalWinWithSidekick", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
+        SidekickKnowOtherSidekick = BooleanOptionItem.Create(6050585, "SidekickKnowOtherSidekick", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Sidekick]);
         SetupAdtRoleOptions(6050550, CustomRoles.Guesser, canSetNum: true, tab: TabGroup.ExclusiveRoles);
         ImpCanBeGuesser = BooleanOptionItem.Create(6060000, "ImpCanBeGuesser", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);
         CrewCanBeGuesser = BooleanOptionItem.Create(6060005, "CrewCanBeGuesser", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);
@@ -957,7 +963,8 @@ public static class Options
         GCanGuessTaskDoneSnitch = BooleanOptionItem.Create(6050570, "GCanGuessTaskDoneSnitch", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser]);
         GTryHideMsg = BooleanOptionItem.Create(6050575, "GuesserTryHideMsg", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Guesser])
             .SetColor(Color.green);
-        SetupAdtRoleOptions(6050580, CustomRoles.Circumventor, canSetNum: true, tab: TabGroup.ExclusiveRoles);
+        //SetupAdtRoleOptions(6050580, CustomRoles.Circumventor, canSetNum: true, tab: TabGroup.ExclusiveRoles);
+        SetupAdtRoleOptions(20700, CustomRoles.Doctor, canSetNum: true, tab: TabGroup.ExclusiveRoles);
 
         #endregion
 

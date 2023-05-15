@@ -164,6 +164,7 @@ internal class ChangeRoleSettings
             TimeThief.Init();
             Mare.Init();
             Witch.Init();
+            HexMaster.Init();
             SabotageMaster.Init();
             Executioner.Init();
             Lawyer.Init();
@@ -395,6 +396,9 @@ internal class SelectRolesPatch
                         break;
                     case CustomRoles.Witch:
                         Witch.Add(pc.PlayerId);
+                        break;
+                    case CustomRoles.HexMaster:
+                        HexMaster.Add(pc.PlayerId);
                         break;
                     case CustomRoles.Warlock:
                         Main.CursedPlayers.Add(pc.PlayerId, null);

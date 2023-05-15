@@ -136,7 +136,7 @@ class OnPlayerLeftPatch
         {
             var clientId = -1;
             var player = PlayerControl.LocalPlayer;
-            var title = "<color=#aaaaff>" + GetString("DefaultSystemMessageTitle") + "</color>";
+            var title = "<color=#ff2761>" + GetString("DefaultSystemMessageTitle") + "</color>";
             var name = player?.Data?.PlayerName;
             var msg = "";
             if (GameStates.IsInGame)

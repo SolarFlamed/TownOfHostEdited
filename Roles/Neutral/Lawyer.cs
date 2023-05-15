@@ -15,6 +15,8 @@ public static class Lawyer
     private static OptionItem CanTargetImpostor;
     private static OptionItem CanTargetNeutralKiller;
     private static OptionItem CanTargetCrewmate;
+    public static OptionItem KnowTargetRole;
+    public static OptionItem TargetKnows;
     public static OptionItem ChangeRolesAfterTargetKilled;
 
 
@@ -37,6 +39,8 @@ public static class Lawyer
         CanTargetImpostor = BooleanOptionItem.Create(Id + 10, "LawyerCanTargetImpostor", true, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Lawyer]);
         CanTargetNeutralKiller = BooleanOptionItem.Create(Id + 12, "LawyerCanTargetNeutralKiller", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Lawyer]);
         CanTargetCrewmate = BooleanOptionItem.Create(Id + 13, "LawyerCanTargetCrewmate", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Lawyer]);
+        KnowTargetRole = BooleanOptionItem.Create(Id + 14, "LawyerKnowTargetRole", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Lawyer]);
+        TargetKnows = BooleanOptionItem.Create(Id + 15, "LawyerTargetKnows", false, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Lawyer]);
         ChangeRolesAfterTargetKilled = StringOptionItem.Create(Id + 11, "LawyerChangeRolesAfterTargetKilled", ChangeRoles, 1, TabGroup.ExclusiveRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Lawyer]);
     }
     public static void Init()
@@ -127,10 +131,30 @@ public static class Lawyer
     }
     public static string TargetMark(PlayerControl seer, PlayerControl target)
     {
-        if (!seer.Is(CustomRoles.Lawyer)) return ""; //エクスキューショナー以外処理しない
+        var mark = "";
+        Target.Do(x =>
+        {
+            if (TargetKnows.GetBool() && seer.PlayerId == x.Value && target.PlayerId == x.Value && Utils.GetPlayerById(x.Key).IsAlive())
+                mark += Utils.ColorString(Utils.GetRoleColor(CustomRoles.Lawyer), " §");
+            if (seer.Is(CustomRoles.Lawyer) && seer.PlayerId == x.Key && target.PlayerId == x.Value)
+                mark += Utils.ColorString(Utils.GetRoleColor(CustomRoles.Lawyer), "♦");
+        });
+        return mark;
 
-        var GetValue = Target.TryGetValue(seer.PlayerId, out var targetId);
-        return GetValue && targetId == target.PlayerId ? Utils.ColorString(Utils.GetRoleColor(CustomRoles.Lawyer), "♦") : "";
+        //if (!seer.Is(CustomRoles.Lawyer)) return ""; //エクスキューショナー以外処理しない
+
+        //var GetValue = Target.TryGetValue(seer.PlayerId, out var targetId);
+        //return GetValue && targetId == target.PlayerId ? Utils.ColorString(Utils.GetRoleColor(CustomRoles.Lawyer), "♦") : "";
+    }
+    public static bool IsWatchTargetRole(PlayerControl seer, PlayerControl target)
+    {
+        var IsWatch = false;
+        Target.Do(x =>
+        {
+            if (KnowTargetRole.GetBool() && seer.PlayerId == x.Key && target.PlayerId == x.Value && Utils.GetPlayerById(x.Key).IsAlive())
+                IsWatch = true;
+        });
+        return IsWatch;
     }
     public static bool CheckExileTarget(GameData.PlayerInfo exiled, bool DecidedWinner, bool Check = false)
     {

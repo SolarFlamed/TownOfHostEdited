@@ -119,6 +119,7 @@ public class PlayerState
         Vote,
         Suicide,
         Spell,
+        Hex,
         FollowingSuicide,
         Bite,
         Poison,

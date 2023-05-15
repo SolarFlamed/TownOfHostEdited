@@ -25,10 +25,12 @@ enum CustomRPC
     SetCustomRole,
     SetBountyTarget,
     SetKillOrSpell,
+    SetKillOrHex,
     SetSheriffShotLimit,
     SetDousedPlayer,
     SetNameColorData,
     DoSpell,
+    DoHex,
     SniperSync,
     SetLoversPlayers,
     SetExecutionerTarget,
@@ -254,6 +256,9 @@ internal class RPCHandlerPatch
             case CustomRPC.SetKillOrSpell:
                 Witch.ReceiveRPC(reader, false);
                 break;
+            case CustomRPC.SetKillOrHex:
+                HexMaster.ReceiveRPC(reader, false);
+                break;
             case CustomRPC.SetSheriffShotLimit:
                 Sheriff.ReceiveRPC(reader);
                 break;
@@ -274,6 +279,9 @@ internal class RPCHandlerPatch
                 break;
             case CustomRPC.DoSpell:
                 Witch.ReceiveRPC(reader, true);
+                break;
+            case CustomRPC.DoHex:
+                HexMaster.ReceiveRPC(reader, true);
                 break;
             case CustomRPC.SniperSync:
                 Sniper.ReceiveRPC(reader);
@@ -630,6 +638,9 @@ internal static class RPC
                 break;
             case CustomRoles.Lawyer:
                 Lawyer.Add(targetId);
+                break;
+            case CustomRoles.HexMaster:
+                HexMaster.Add(targetId);
                 break;
             case CustomRoles.Jackal:
         //    case CustomRoles.Sidekick:

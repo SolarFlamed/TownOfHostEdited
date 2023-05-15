@@ -112,6 +112,7 @@ public static class Gangster
             (pc.Is(CustomRoles.Judge) && !JudgeCanBeMadmate.GetBool()) ||
             pc.Is(CustomRoles.Undercover) ||
             pc.Is(CustomRoles.Snitch) ||
+            pc.Is(CustomRoles.Undercover) ||
             pc.Is(CustomRoles.Needy) ||
             pc.Is(CustomRoles.CyberStar) ||
             pc.Is(CustomRoles.Egoist)

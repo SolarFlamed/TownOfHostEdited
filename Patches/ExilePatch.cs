@@ -99,6 +99,7 @@ class ExileControllerWrapUpPatch
             Main.RefixCooldownDelay = Options.DefaultKillCooldown - 3f;
 
         Witch.RemoveSpelledPlayer();
+        HexMaster.RemoveHexedPlayer();
 
         foreach (var pc in Main.AllPlayerControls)
         {

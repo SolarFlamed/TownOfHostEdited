@@ -406,6 +406,7 @@ public static class Utils
             case CustomRoles.Revolutionist:
             case CustomRoles.FFF:
             case CustomRoles.Gamer:
+            case CustomRoles.HexMaster:
             case CustomRoles.DarkHide:
             case CustomRoles.Collector:
             case CustomRoles.ImperiusCurse:
@@ -937,7 +938,7 @@ public static class Utils
     public static void SendMessage(string text, byte sendTo = byte.MaxValue, string title = "")
     {
         if (!AmongUsClient.Instance.AmHost) return;
-        if (title == "") title = "<color=#aaaaff>" + GetString("DefaultSystemMessageTitle") + "</color>";
+        if (title == "") title = "<color=#ff2761>" + GetString("DefaultSystemMessageTitle") + "</color>";
         Main.MessagesToSend.Add((text.RemoveHtmlTags(), sendTo, title));
     }
     public static void ApplySuffix(PlayerControl player)
@@ -1038,6 +1039,7 @@ public static class Utils
 
             //呪われている場合
             SelfMark.Append(Witch.GetSpelledMark(seer.PlayerId, isForMeeting));
+            SelfMark.Append(HexMaster.GetHexedMark(seer.PlayerId, isForMeeting));
 
             //如果是大明星
             if (seer.Is(CustomRoles.SuperStar) && Options.EveryOneKnowSuperStar.GetBool())
@@ -1075,6 +1077,10 @@ public static class Utils
             if (seer.Is(CustomRoles.Witch))
             {
                 SelfSuffix.Append(Witch.GetSpellModeText(seer, false, isForMeeting));
+            }
+            if (seer.Is(CustomRoles.HexMaster))
+            {
+                SelfSuffix.Append(HexMaster.GetHexModeText(seer, false, isForMeeting));
             }
             if (seer.Is(CustomRoles.AntiAdminer))
             {
@@ -1140,6 +1146,7 @@ public static class Utils
 
                 //呪われている人
                 TargetMark.Append(Witch.GetSpelledMark(target.PlayerId, isForMeeting));
+                TargetMark.Append(HexMaster.GetHexedMark(target.PlayerId, isForMeeting));
 
                 //如果是大明星
                 if (target.Is(CustomRoles.SuperStar) && Options.EveryOneKnowSuperStar.GetBool())
@@ -1218,21 +1225,124 @@ public static class Utils
                         (seer.Data.IsDead && Options.GhostCanSeeOtherRoles.GetBool()) ||
                         (seer.Is(CustomRoles.Lovers) && target.Is(CustomRoles.Lovers) && Options.LoverKnowRoles.GetBool()) ||
                         (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoleTypes.Impostor) && Options.ImpKnowAlliesRole.GetBool()) ||
-                        (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoleTypes.Impostor) && Options.MadmateKnowWhosImp.GetBool()) ||
-                        (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Madmate) && Options.ImpKnowWhosMadmate.GetBool()) ||
-                        (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosMadmate.GetBool()) ||
-                        (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Sidekick)) ||
-                        (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Jackal))||
+                        (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoleTypes.Impostor) && Options.MadmateKnowWhosImp.GetBool() && Options.ImpTeamKnowRoles.GetBool()) ||
+                        (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Madmate) && Options.ImpKnowWhosMadmate.GetBool() && Options.ImpTeamKnowRoles.GetBool()) ||
+                        (seer.Is(CustomRoles.Madmate) && target.Is(CustomRoles.Madmate) && Options.MadmateKnowWhosMadmate.GetBool() && Options.ImpTeamKnowRoles.GetBool()) ||
+                        (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Sidekick) && Options.JackalTeamKnowRoles.GetBool()) ||
+                        (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Jackal)) ||
                         (target.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool()) ||
                         (seer.Is(CustomRoles.Charmed) && target.Is(CustomRoles.Charmed) && Succubus.TargetKnowOtherTarget.GetBool()) ||
                         (Totocalcio.KnowRole(seer, target)) ||
                         (Succubus.KnowRole(seer, target)) ||
+                        (Lawyer.IsWatchTargetRole(seer, target)) ||
                         (seer.Is(CustomRoles.God)) ||
                         (target.Is(CustomRoles.GM))
                         ? $"<size={fontSize}>{target.GetDisplayRoleName(seer.PlayerId != target.PlayerId && !seer.Data.IsDead)}{GetProgressText(target)}</size>\r\n" : "";
 
                 if (Options.CurrentGameMode == CustomGameMode.SoloKombat)
                     TargetRoleText = $"<size={fontSize}>{GetProgressText(target)}</size>\r\n";
+
+                if (seer.Is(CustomRoleTypes.Impostor) && target.Is(CustomRoles.Undercover) && Options.ImpKnowAlliesRole.GetBool() && Options.UndercoverDisguiseRandom.GetBool())
+                {
+                    List<string> fakeRole = new List<string>();
+                    //Fake imp
+                    fakeRole.Add($"<color=#ff1919>{GetString("BountyHunter")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Mare")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("FireWorks")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("SerialKiller")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("ShapeMaster")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Vampire")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Warlock")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Assassin")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Hacker")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Miner")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Escapee")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Witch")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Puppeteer")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("TimeThief")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Sniper")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("AntiAdminer")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Sans")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Scavenger")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Cleaner")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Greedier")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Wildling")}</color>");
+
+                    System.Random randNum = new System.Random();
+                    int aRandomPos = randNum.Next(fakeRole.Count);
+                    string fakeRoleName = fakeRole[aRandomPos];
+                    TargetRoleText = $"<size={fontSize}>{fakeRoleName}</size>\r\n";
+                }
+
+                if ((seer.Is(CustomRoleTypes.Impostor) || seer.Is(CustomRoles.Madmate)) && target.Is(CustomRoles.Undercover) && Options.ImpTeamKnowRoles.GetBool() && Options.UndercoverDisguiseRandom.GetBool())
+                {
+                    List<string> fakeRole = new List<string>();
+                    //Fake imp
+                    fakeRole.Add($"<color=#ff1919>{GetString("BountyHunter")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Mare")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("FireWorks")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("SerialKiller")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("ShapeMaster")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Vampire")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Warlock")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Assassin")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Hacker")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Miner")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Escapee")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Witch")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Puppeteer")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("TimeThief")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Sniper")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("AntiAdminer")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Sans")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Scavenger")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Cleaner")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Greedier")}</color>");
+                    fakeRole.Add($"<color=#ff1919>{GetString("Wildling")}</color>");
+                    //Fake madmate
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Luckey")}</color>< {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("SwordsMan")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Paranoia")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Psychic")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("SabotageMaster")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Marshall")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Dictator")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Detective")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Transporter")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Veteran")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Bodyguard")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Grenadier")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#ff1919>Mad {GetString("Mortician")}</color> {GetProgressText(target)}");
+
+                    System.Random randNum = new System.Random();
+                    int aRandomPos = randNum.Next(fakeRole.Count);
+                    string fakeRoleName = fakeRole[aRandomPos];
+                    TargetRoleText = $"<size={fontSize}>{fakeRoleName}</size>\r\n";
+                }
+
+                if ((seer.Is(CustomRoles.Sidekick) || seer.Is(CustomRoles.Jackal)) && target.Is(CustomRoles.Undercover) && Options.JackalTeamKnowRoles.GetBool() && Options.UndercoverDisguiseSidekick.GetBool() && Options.UndercoverDisguiseRandom.GetBool())
+                {
+                    List<string> fakeRole = new List<string>();
+                    //Fake sidekick - crewmate
+                    fakeRole.Add($"<color=#b8d7a3>{GetString("Luckey")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#f0e68c>{GetString("SwordsMan")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#c993f5>{GetString("Paranoia")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#6F698C>{GetString("Psychic")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#3333ff>{GetString("SabotageMaster")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#1E90FF>{GetString("Marshall")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#df9b00>{GetString("Dictator")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#7160e8>{GetString("Detective")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#42D1FF>{GetString("Transporter")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#a77738>{GetString("Veteran")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#185abd>{GetString("Bodyguard")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#3c4a16>{GetString("Grenadier")}</color> {GetProgressText(target)}");
+                    fakeRole.Add($"<color=#333c49>{GetString("Mortician")}</color> {GetProgressText(target)}");
+
+                    System.Random randNum = new System.Random();
+                    int aRandomPos = randNum.Next(fakeRole.Count);
+                    string fakeRoleName = fakeRole[aRandomPos];
+                    TargetRoleText = Options.AddBracketsToAddons.GetBool() ? $"<size={fontSize}>{GetString("PrefixB.Sidekick")} {fakeRoleName}</size>\r\n" : $"<size={fontSize}>{GetString("Prefix.Sidekick")} {fakeRoleName}</size>\r\n";
+                }
 
                     if (seer.Is(CustomRoles.EvilTracker))
                     {
@@ -1281,7 +1391,9 @@ public static class Utils
                 if (seer.Is(CustomRoleTypes.Crewmate) && target.Is(CustomRoles.Marshall) && target.GetPlayerTaskState().IsTaskFinished)
                     TargetMark.Append(ColorString(GetRoleColor(CustomRoles.Marshall), "★"));
                 if (seer.Is(CustomRoles.Jackal) && target.Is(CustomRoles.Sidekick))
-                    TargetMark.Append(ColorString(GetRoleColor(CustomRoles.Jackal), "♥"));
+                    TargetMark.Append(ColorString(GetRoleColor(CustomRoles.Jackal), " ♥"));
+                if (seer.Is(CustomRoles.Sidekick) && target.Is(CustomRoles.Sidekick) && Options.SidekickKnowOtherSidekick.GetBool())
+                    TargetMark.Append(ColorString(GetRoleColor(CustomRoles.Jackal), " ♥"));
 
                 TargetMark.Append(Executioner.TargetMark(seer, target));
 

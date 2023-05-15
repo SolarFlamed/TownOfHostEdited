@@ -428,6 +428,7 @@ static class ExtendedPlayerControl
             CustomRoles.Revolutionist => !pc.IsDrawDone(),
             CustomRoles.SwordsMan => pc.IsAlive(),
             CustomRoles.Jackal => pc.IsAlive(),
+            CustomRoles.HexMaster => pc.IsAlive(),
       //      CustomRoles.Sidekick => pc.IsAlive(),
             CustomRoles.Poisoner => pc.IsAlive(),
             CustomRoles.NWitch => pc.IsAlive(),
@@ -449,16 +450,12 @@ static class ExtendedPlayerControl
     }
     public static bool CanUseImpostorVentButton(this PlayerControl pc)
     {
+        var cRole = pc.GetCustomRole();
+        var subRole = pc.GetCustomSubRoles();
+
         if (!pc.IsAlive() || pc.Data.Role.Role == RoleTypes.GuardianAngel) return false;
-        foreach (var subRole in pc.GetCustomSubRoles())
 
-        return (subRole) switch
-        {
-            CustomRoles.Circumventor
-            => false,
-        };
-
-        return pc.GetCustomRole() switch
+        return cRole switch
         {
             CustomRoles.Minimalism or
             CustomRoles.Sheriff or
@@ -480,6 +477,7 @@ static class ExtendedPlayerControl
             CustomRoles.Pelican => Pelican.CanVent.GetBool(),
             CustomRoles.Gamer => Gamer.CanVent.GetBool(),
             CustomRoles.BloodKnight => BloodKnight.CanVent.GetBool(),
+            CustomRoles.HexMaster => true,
 
             CustomRoles.Arsonist => pc.IsDouseDone(),
             CustomRoles.Revolutionist => pc.IsDrawDone(),
@@ -545,6 +543,9 @@ static class ExtendedPlayerControl
        //     case CustomRoles.Sidekick:
                 Jackal.SetKillCooldown(player.PlayerId);
                 break;
+            case CustomRoles.HexMaster:
+                Main.AllPlayerKillCooldown[player.PlayerId] = Options.DefaultKillCooldown;
+            break;
             case CustomRoles.Poisoner:
                 Poisoner.SetKillCooldown(player.PlayerId);
                 break;

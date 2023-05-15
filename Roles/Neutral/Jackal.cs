@@ -17,6 +17,7 @@ public static class Jackal
     public static OptionItem CanWinBySabotageWhenNoImpAlive;
     private static OptionItem HasImpostorVision;
     private static OptionItem ResetKillCooldownWhenSbGetKilled;
+    public static OptionItem JackalTeamKnowRoles;
 
     public static void SetupCustomOption()
     {
@@ -30,6 +31,7 @@ public static class Jackal
         HasImpostorVision = BooleanOptionItem.Create(Id + 13, "ImpostorVision", true, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Jackal]);
         JackalCanKillSidekick = BooleanOptionItem.Create(Id + 15, "JackalCanKillSidekick", false, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Jackal]);
         ResetKillCooldownWhenSbGetKilled = BooleanOptionItem.Create(Id + 16, "ResetKillCooldownWhenPlayerGetKilled", false, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Jackal]);
+        JackalTeamKnowRoles = BooleanOptionItem.Create(Id + 17, "JackalTeamKnowRoles", false, TabGroup.NeutralRoles, false).SetParent(CustomRoleSpawnChances[CustomRoles.Jackal]);
     }
     public static void Init()
     {

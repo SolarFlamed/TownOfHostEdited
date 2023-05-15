@@ -90,6 +90,7 @@ public class PlayerGameOptionsSender : GameOptionsSender
             case CustomRoles.Terrorist:
             case CustomRoles.SabotageMaster:
             case CustomRoles.Mario:
+            case CustomRoles.Undercover:
             case CustomRoles.EngineerTOHE:
                 AURoleOptions.EngineerCooldown = 0f;
                 AURoleOptions.EngineerInVentMaxTime = 0f;
@@ -122,10 +123,10 @@ public class PlayerGameOptionsSender : GameOptionsSender
             case CustomRoles.Zombie:
                 opt.SetFloat(FloatOptionNames.ImpostorLightMod, 0.2f);
                 break;
-            case CustomRoles.Doctor:
+           /* case CustomRoles.Doctor:
                 AURoleOptions.ScientistCooldown = 0f;
                 AURoleOptions.ScientistBatteryCharge = Options.DoctorTaskCompletedBatteryCharge.GetFloat();
-                break;
+                break; */
             case CustomRoles.Mayor:
                 AURoleOptions.EngineerCooldown =
                     Main.MayorUsedButtonCount.TryGetValue(player.PlayerId, out var count) && count < Options.MayorNumOfUseButton.GetInt()
@@ -164,7 +165,7 @@ public class PlayerGameOptionsSender : GameOptionsSender
             case CustomRoles.FFF:
                 opt.SetVision(true);
                 break;
-             case CustomRoles.NWitch:
+            case CustomRoles.NWitch:
                 opt.SetVision(true);
                 Main.NormalOptions.KillCooldown = Options.ControlCooldown.GetFloat();
                 break;

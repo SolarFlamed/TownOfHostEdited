@@ -136,10 +136,19 @@ class SetEverythingUpPatch
             //通常勝利
             case CustomWinner.Crewmate:
                 CustomWinnerColor = Utils.GetRoleColorCode(CustomRoles.Engineer);
+                __instance.BackgroundBar.material.color = Utils.GetRoleColor(CustomRoles.Engineer);
+                break;
+            case CustomWinner.Impostor:
+                CustomWinnerColor = Utils.GetRoleColorCode(CustomRoles.Impostor);
+                __instance.BackgroundBar.material.color = Utils.GetRoleColor(CustomRoles.Impostor);
+                break;
+            case CustomWinner.Egoist:
+                CustomWinnerColor = Utils.GetRoleColorCode(CustomRoles.Egoist);
+                __instance.BackgroundBar.material.color = Utils.GetRoleColor(CustomRoles.Egoist);
                 break;
             //特殊勝利
             case CustomWinner.Terrorist:
-                __instance.Foreground.material.color = Color.red;
+                __instance.BackgroundBar.material.color = Utils.GetRoleColor(CustomRoles.Terrorist);
                 break;
             case CustomWinner.Lovers:
                 __instance.BackgroundBar.material.color = Utils.GetRoleColor(CustomRoles.Lovers);
